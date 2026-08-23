@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "steps",
+  "title": "Steps",
+  "description": "A numbered instruction list: a real <ol> with CSS-counter numerals, so steps renumber themselves. `tone=\"inverse\"` for a panel over a dark or photographic ground.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/steps.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* A numbered instruction list: do this, then this, then this. An ordered list with the\n * numbers drawn as counters, so a step can be added or removed without renumbering\n * anything by hand — and so screen readers get a real `<ol>` rather than a stack of divs\n * with digits in them.\n *\n * `tone=\"inverse\"` is the same list over a dark or photographic ground (a tutorial panel\n * floating on an image, a dark band): the numerals and the rules take the inverse ramp.\n * The number itself is `num`, because it is a numeral. */\n\nconst stepsVariants = cva(\"flex list-none flex-col [counter-reset:step]\", {\n  variants: {\n    tone: {\n      default: \"text-foreground\",\n      inverse: \"text-inverse-foreground\",\n    },\n    size: {\n      md: \"gap-2.5 text-13\",\n      sm: \"gap-2 text-xs\",\n    },\n  },\n  defaultVariants: { tone: \"default\", size: \"md\" },\n})\n\nconst stepVariants = cva(\n  \"flex gap-2.5 leading-snug [counter-increment:step] before:mt-px before:grid before:size-[17px] before:flex-none before:place-items-center before:rounded-full before:text-2xs before:font-medium before:content-[counter(step)] before:num\",\n  {\n    variants: {\n      tone: {\n        default: \"before:bg-canvas-deep before:text-muted-foreground\",\n        inverse: \"before:bg-inverse-line before:text-inverse-foreground\",\n      },\n    },\n    defaultVariants: { tone: \"default\" },\n  }\n)\n\ntype StepsContextValue = { tone: \"default\" | \"inverse\" }\nconst StepsContext = React.createContext<StepsContextValue>({ tone: \"default\" })\n\nfunction Steps({\n  className,\n  tone = \"default\",\n  size = \"md\",\n  ...props\n}: React.ComponentProps<\"ol\"> & VariantProps<typeof stepsVariants>) {\n  const value = React.useMemo(() => ({ tone: tone ?? \"default\" }), [tone])\n  return (\n    <StepsContext.Provider value={value}>\n      <ol\n        data-slot=\"steps\"\n        data-tone={tone}\n        className={cn(stepsVariants({ tone, size }), className)}\n        {...props}\n      />\n    </StepsContext.Provider>\n  )\n}\n\n/* The tone travels by context, not by a descendant rule: a `[&>li]:…` selector would\n * outrank the child's own className, which is the one contract the whole kit rests on. */\nfunction Step({ className, ...props }: React.ComponentProps<\"li\">) {\n  const { tone } = React.useContext(StepsContext)\n  return (\n    <li data-slot=\"step\" className={cn(stepVariants({ tone }), className)} {...props} />\n  )\n}\n\nexport { Steps, Step, stepsVariants, stepVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

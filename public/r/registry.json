@@ -386,6 +386,21 @@
       ]
     },
     {
+      "name": "code-field",
+      "type": "registry:ui",
+      "title": "Code field",
+      "description": "One box per character of a one-time code: type advances, backspace retreats, paste fills all, the last box completes. A paste that is not a code (a sign-in link, a token) is handed back to the caller instead of dropped.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/code-field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "section",
       "type": "registry:ui",
       "title": "Section",
@@ -926,6 +941,21 @@
       "files": [
         {
           "path": "registry/grana/ui/tenant-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "steps",
+      "type": "registry:ui",
+      "title": "Steps",
+      "description": "A numbered instruction list: a real <ol> with CSS-counter numerals, so steps renumber themselves. `tone=\"inverse\"` for a panel over a dark or photographic ground.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/steps.tsx",
           "type": "registry:ui"
         }
       ]

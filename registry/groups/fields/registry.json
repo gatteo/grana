@@ -7,81 +7,175 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "The field shell: 34px, hairline, bg-card, 13px; `mono` for keys, ids and times; `variant=\"search\"` for the sunken topbar search.",
-      "dependencies": ["@base-ui/react", "class-variance-authority"],
-      "files": [{ "path": "registry/grana/ui/input.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
       "description": "The field shell on a textarea: resize-none, 1.5 line-height, sizes to its content from a 72px floor.",
-      "files": [{ "path": "registry/grana/ui/textarea.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "registry/grana/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "native-select",
       "type": "registry:ui",
       "title": "Native select",
       "description": "Luminars' Select: the OS popup on purpose, the field shell with an SVG caret. The default select for the desktop app.",
-      "dependencies": ["lucide-react"],
-      "files": [{ "path": "registry/grana/ui/native-select.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/native-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
       "description": "The custom-popup select (Base UI): trigger = the field shell with a ChevronsUpDown caret; popup = the menu panel, portalled, with eyebrow group labels.",
-      "dependencies": ["@base-ui/react", "lucide-react"],
-      "files": [{ "path": "registry/grana/ui/select.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
       "description": "A 16px box: hairline when off, ink when on or indeterminate; no brand hue.",
-      "dependencies": ["@base-ui/react", "lucide-react"],
-      "files": [{ "path": "registry/grana/ui/checkbox.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
       "description": "A 30×18 track (24×14 sm): sunken hairline track when off, ink when on; no brand hue.",
-      "dependencies": ["@base-ui/react"],
-      "files": [{ "path": "registry/grana/ui/switch.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
       "description": "The field label: sans 500 at 13px; dims with a disabled peer.",
-      "files": [{ "path": "registry/grana/ui/label.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "registry/grana/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "field",
       "type": "registry:ui",
       "title": "Field",
       "description": "RF `.field` + `.form-error` on the Luminars shell: Field / FieldLabel / FieldDescription / FieldError (+ FieldSet, FieldLegend, FieldGroup, FieldSeparator, FieldContent, FieldTitle).",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@grana/label", "@grana/separator"],
-      "files": [{ "path": "registry/grana/ui/field.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/label",
+        "@grana/separator"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "input-group",
       "type": "registry:ui",
       "title": "Input group",
       "description": "The field shell drawn on a group so an icon, a unit, a kbd or a quiet button sits inside the hairline; `variant=\"search\"` = RF `.search` with its ⌘K kbd.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@grana/button", "@grana/input", "@grana/textarea"],
-      "files": [{ "path": "registry/grana/ui/input-group.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/button",
+        "@grana/input",
+        "@grana/textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "command",
       "type": "registry:ui",
       "title": "Command",
       "description": "The ⌘K palette on cmdk: the menu panel with a search row, eyebrow group headings, accent-highlighted items and mono shortcuts; CommandDialog mounts it in a Dialog.",
-      "dependencies": ["cmdk", "lucide-react"],
-      "registryDependencies": ["@grana/dialog"],
-      "files": [{ "path": "registry/grana/ui/command.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "code-field",
+      "type": "registry:ui",
+      "title": "Code field",
+      "description": "One box per character of a one-time code: type advances, backspace retreats, paste fills all, the last box completes. A paste that is not a code (a sign-in link, a token) is handed back to the caller instead of dropped.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/code-field.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }
