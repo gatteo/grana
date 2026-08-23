@@ -1,5 +1,10 @@
 # Grana
 
+> Public so that any machine can install from it without a token. It is a working design system for
+> two specific products, not a general-purpose library, and it carries no licence — all rights
+> reserved. The four typefaces it self-hosts are not Grana's to relicense: see
+> [`public/fonts/LICENSE.md`](public/fonts/LICENSE.md).
+
 The shared design system for **Revenue Farm** and **Luminars**. One token layer, one set of
 components, two brands, two surfaces — distributed as a [shadcn registry](https://ui.shadcn.com/docs/registry)
 and consumed **by copy**: every app owns the source it installs, and re-pulls to update.
@@ -20,26 +25,16 @@ Works identically in Vite (the Luminars desktop) and Next.js (the hosted surface
 
 1. **Tailwind v4 + shadcn init** in the app (once):
    `npx shadcn@latest init -b base` — Base UI, CSS variables, neutral base colour.
-2. **Point the app at the registry.** This repo is private, so the CLI reads it through the GitHub
-   contents API with a token. In the app's `components.json`:
+2. **Point the app at the registry.** This repo is public and `main` is the registry, so there is
+   no token and no server — one line in the app's `components.json`:
    ```json
    "registries": {
-     "@grana": {
-       "url": "https://api.github.com/repos/gatteo/grana/contents/public/r/{name}.json",
-       "headers": {
-         "Authorization": "Bearer ${GH_TOKEN}",
-         "Accept": "application/vnd.github.raw"
-       }
-     }
+     "@grana": "https://raw.githubusercontent.com/gatteo/grana/main/public/r/{name}.json"
    }
    ```
-   and in the shell that runs the CLI:
-   ```bash
-   export GH_TOKEN=$(gh auth token)     # any token with read access to this repo
-   ```
-   The token is never written into a repo. Without it the CLI stops with "Set the required
-   environment variables"; it also reads `.env` / `.env.local` from the consuming project if you
-   would rather keep it there.
+   For a one-off install anywhere, with no configuration at all, the GitHub address works too —
+   `npx shadcn@latest add gatteo/grana/button`. The namespace is still worth configuring in a real
+   consumer: items declare their siblings as `@grana/<name>`, and only the namespace resolves those.
 3. **Install the theme**, then the components you need:
    ```bash
    npx shadcn@latest add @grana/theme
@@ -71,10 +66,10 @@ git commit && git push       # this is the publish
 it with `typecheck` and `lint` before every commit. A component edited and pushed without a rebuild
 ships the *old* code to both products and nothing errors.
 
-Two notes on the transport. The contents API is used rather than `raw.githubusercontent.com`
-because raw serves `cache-control: max-age=300` — after a push, a re-pull could quietly install the
-previous version for five minutes. The API is always fresh, caps files at 1 MB (the largest item
-here is 37 KB) and allows 5,000 requests an hour authenticated.
+One caveat with the transport: `raw.githubusercontent.com` serves `cache-control: max-age=300`, so
+for up to five minutes after a push a re-pull can still hand back the previous version of a file.
+It is silent when it happens. If you have just pushed and the re-pull looks unchanged, wait it out —
+or use the local server below, which is the right tool for that loop anyway.
 
 **Iterating on Grana itself** does not need a push. Serve the built registry locally and install
 from the direct URL, which bypasses the namespace:

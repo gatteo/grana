@@ -19,7 +19,8 @@ if (!profile || !cfg.profiles[profile]) { console.error(`usage: diff.mjs --profi
 const pc = cfg.profiles[profile];
 const OUT = join(args.out ? resolve(args.out) : join(REPO, 'ds-bundle'), profile);
 if (!existsSync(join(OUT, '_ds_sync.json'))) { console.error(`✗ ${OUT} has no _ds_sync.json — run build.mjs first`); process.exit(1); }
-const oldDir = args.old ? resolve(args.old) : pc.oldBundle;
+// `oldBundle` is repo-relative in config.json (an absolute path would not survive a clone).
+const oldDir = args.old ? resolve(args.old) : resolve(REPO, pc.oldBundle);
 
 // Files that are part of a bundle: no dot-files, no dot-dirs, no screenshots.
 const bundleFiles = (dir) => walk(dir, (n, r) => !n.startsWith('.') && !r.split('/').some((s) => s.startsWith('.')) && !r.startsWith('_screenshots/'))

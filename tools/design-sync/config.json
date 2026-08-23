@@ -11,7 +11,7 @@
         "docs/guidelines/luminars-DESIGN.md",
         "docs/guidelines/01-foundations.md"
       ],
-      "oldBundle": "/Users/gatteo/projects/grana/ds-bundle-pushed/luminars"
+      "oldBundle": "ds-bundle-pushed/luminars"
     },
     "rf": {
       "product": "Revenue Farm",
@@ -25,7 +25,7 @@
         "docs/guidelines/04-motion.md",
         "docs/guidelines/05-imagery.md"
       ],
-      "oldBundle": "/Users/gatteo/projects/grana/ds-bundle-pushed/rf"
+      "oldBundle": "ds-bundle-pushed/rf"
     }
   },
   "cards": {
