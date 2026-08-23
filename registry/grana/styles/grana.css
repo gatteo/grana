@@ -244,7 +244,7 @@
 }
 
 /* ═══ 4. The Tailwind theme — utilities read the slots, never the palette ══ */
-@theme inline {
+@theme inline static {
   /* shadcn slots */
   --color-background: var(--background);
   --color-foreground: var(--foreground);

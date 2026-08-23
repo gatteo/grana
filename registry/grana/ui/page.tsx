@@ -9,13 +9,19 @@ import { cn } from "@/lib/utils"
  * settings, a history; `medium` (860) mixes prose with objects; `wide` (1080) is for tables.
  * `full` fills the card (the RF page) and pairs with `stack` (flex column, gap 20). */
 
-const pageVariants = cva("mx-auto w-full min-w-0", {
+const pageVariants = cva("w-full min-w-0", {
   variants: {
     width: {
       narrow: "max-w-[760px]",
       medium: "max-w-[860px]",
       wide: "max-w-[1080px]",
       full: "max-w-none",
+    },
+    /* The product page hugs the left edge of its panel (skin-spec §14); `center` is the
+     * marketing/document case. */
+    align: {
+      start: "",
+      center: "mx-auto",
     },
     pad: {
       tight: "px-7 pt-[22px] pb-10",
@@ -30,6 +36,7 @@ const pageVariants = cva("mx-auto w-full min-w-0", {
   },
   defaultVariants: {
     width: "medium",
+    align: "start",
     pad: "default",
     stack: false,
   },
@@ -38,6 +45,7 @@ const pageVariants = cva("mx-auto w-full min-w-0", {
 function Page({
   className,
   width = "medium",
+  align = "start",
   pad = "default",
   stack = false,
   ...props
@@ -47,18 +55,17 @@ function Page({
       data-slot="page"
       data-width={width}
       data-pad={pad}
-      className={cn(pageVariants({ width, pad, stack }), className)}
+      className={cn(pageVariants({ width, align, pad, stack }), className)}
       {...props}
     />
   )
 }
 
-/* The title speaks in the product's voice: `font-voice` resolves to Cabinet Grotesk on
- * Luminars and General Sans on RF from the token alone. The weight follows the same split
- * (Luminars 700, RF 500 — skin-spec §14); there is no weight token yet, so it reads the
- * brand attribute directly. */
+/* The title speaks in the product's voice: `font-voice` + `font-weight-voice` resolve to
+ * Cabinet Grotesk 700 on Luminars and General Sans 500 on RF from the tokens alone
+ * (skin-spec §14). Only the tracking still reads the brand attribute. */
 const pageTitleVariants = cva(
-  "font-voice font-bold tracking-[-0.01em] text-balance in-data-[brand=rf]:font-medium in-data-[brand=rf]:tracking-[-0.022em]",
+  "font-voice font-weight-voice tracking-[-0.01em] text-balance in-data-[brand=rf]:tracking-[-0.022em]",
   {
     variants: {
       size: {

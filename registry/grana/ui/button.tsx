@@ -32,7 +32,7 @@ const buttonVariants = cva(
         ghost:
           "border-transparent bg-transparent text-faint not-disabled:hover:bg-accent not-disabled:hover:text-accent-foreground",
         /* a text link that sits in a button row */
-        link: "border-transparent bg-transparent px-0 text-foreground underline decoration-stone-400 underline-offset-[3px] not-disabled:hover:decoration-foreground",
+        link: "h-auto border-transparent bg-transparent px-0 text-[length:inherit] text-foreground underline decoration-stone-400 underline-offset-[3px] not-disabled:hover:decoration-foreground",
         /* marketing: primary on a dark band or imagery (RF `.btn--on-dark`) */
         "on-dark":
           "border-transparent bg-ecru text-ink not-disabled:hover:bg-stone-0",
