@@ -9,7 +9,9 @@
     "clsx",
     "tailwind-merge",
     "@base-ui/react",
-    "lucide-react"
+    "lucide-react",
+    "tailwindcss",
+    "shadcn"
   ],
   "registryDependencies": [
     "@grana/utils"

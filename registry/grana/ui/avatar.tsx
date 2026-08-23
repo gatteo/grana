@@ -4,7 +4,7 @@ import * as React from "react"
 import { Avatar as AvatarPrimitive } from "@base-ui/react/avatar"
 import { cva, type VariantProps } from "class-variance-authority"
 
-import { cn } from "@/lib/utils"
+import { cn, getInitials } from "@/lib/utils"
 
 /* The human/machine contract (RF §18, shared by Luminars' actor badges): a HUMAN is a round
  * avatar with initials; a MACHINE is a square dashed-border tile ("AI", "SYS") in mono.
@@ -57,16 +57,6 @@ const avatarVariants = cva(
   }
 )
 
-/** First letter of the first two words, uppercase — the `initials()` both repos carry. */
-function getInitials(name: string): string {
-  return name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((w) => w[0] ?? "")
-    .join("")
-    .toUpperCase()
-}
 
 function Avatar({
   className,

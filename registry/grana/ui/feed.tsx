@@ -1,7 +1,8 @@
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
-import { Avatar, getInitials } from "@/registry/grana/ui/avatar"
+import { Avatar } from "@/registry/grana/ui/avatar"
+import { getInitials } from "@/lib/utils"
 import { Badge } from "@/registry/grana/ui/badge"
 
 /* The activity feed (skin-spec §18): rows of actor + sentence + mono timestamp, and the

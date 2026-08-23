@@ -55,6 +55,7 @@ function Page({
       data-slot="page"
       data-width={width}
       data-pad={pad}
+      data-stack={stack ? "on" : undefined}
       className={cn(pageVariants({ width, align, pad, stack }), className)}
       {...props}
     />
@@ -102,7 +103,7 @@ function PageHead({
       data-slot="page-head"
       data-size={size}
       className={cn(
-        "mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3",
+        "mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 in-data-[stack=on]:mb-0",
         className
       )}
       {...props}
