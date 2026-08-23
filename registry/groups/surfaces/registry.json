@@ -1,5 +1,131 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "grana",
-  "items": []
+  "items": [
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "The surface box: white, hairline, 10px radius. padded (Luminars) or a frame whose children own the edges; CardHeader is the RF PanelHead (500 title · mono context · hairline).",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/card.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "The calm list: 13.5px, hairline rows, mono-caps head; headerFill / hover / minWidth for the RF .data look, bleed / rowHeight / align from Luminars; data-num or the num prop for numeric columns.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/table.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "The Luminars Menu recipe on Base UI's Menu: portalled, fixed-safe, hairline + panel shadow, 13px items with the accent highlight, mono shortcuts, a destructive item.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/dropdown-menu.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal frame: card ground, strong hairline, 14px radius, panel shadow, a warm-ink veil.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["@grana/button"],
+      "files": [{ "path": "registry/grana/ui/dialog.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "A side-anchored panel with the Dialog's surface language; four sides.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "registryDependencies": ["@grana/button"],
+      "files": [{ "path": "registry/grana/ui/sheet.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A non-modal anchored layer with the Menu panel's skin and room for prose.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/popover.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll area",
+      "description": "A scrolling region with a quiet overlay scrollbar.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/scroll-area.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "The 1px hairline, horizontal or vertical.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/separator.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "An unstyled disclosure: the caller composes the trigger and the panel.",
+      "dependencies": ["@base-ui/react"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/collapsible.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Underline tabs (default): quiet labels on a hairline, the active one in ink with an ink underline; a filled pill strip as variant=default.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/ui/tabs.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "The list row primitive: media · title/description · actions; hairline-divided rows in an ItemGroup.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["@grana/separator"],
+      "files": [{ "path": "registry/grana/ui/item.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "The nav chrome: transparent on the canvas, width from the brand token, eyebrow group labels, 13px rows with the sidebar-active + inset-ring active recipe, mono counts; SidebarInset is the inset content card.",
+      "dependencies": ["@base-ui/react", "class-variance-authority", "lucide-react"],
+      "registryDependencies": [
+        "@grana/button",
+        "@grana/input",
+        "@grana/separator",
+        "@grana/sheet",
+        "@grana/skeleton",
+        "@grana/tooltip",
+        "@grana/use-mobile"
+      ],
+      "files": [{ "path": "registry/grana/ui/sidebar.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "A matchMedia hook for the sidebar's mobile sheet (below 768px).",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [{ "path": "registry/grana/hooks/use-mobile.ts", "type": "registry:hook" }]
+    }
+  ]
 }

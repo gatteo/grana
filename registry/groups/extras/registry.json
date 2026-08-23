@@ -1,5 +1,22 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "grana",
-  "items": []
+  "items": [
+    {
+      "name": "prose",
+      "type": "registry:ui",
+      "title": "Prose",
+      "description": "Rendered markdown, dressed: sans medium headings, mono code on the sunken fill, a 2px blockquote rule, hairline table rows, quiet underlined links. sm (the rail) · md (the run report) · lg (the serif reading column).",
+      "dependencies": ["class-variance-authority", "@base-ui/react"],
+      "files": [{ "path": "registry/grana/ui/prose.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "executor-chip",
+      "type": "registry:ui",
+      "title": "ExecutorChip",
+      "description": "Who performs a step — agent (dashed: an inferred AI step) · human · api · screen · wait — in the executor hues; a pill with the soft fill, the hue as text, a 30% hairline. The hues collapse to stone under RF.",
+      "dependencies": ["class-variance-authority", "@base-ui/react"],
+      "files": [{ "path": "registry/grana/ui/executor-chip.tsx", "type": "registry:ui" }]
+    }
+  ]
 }

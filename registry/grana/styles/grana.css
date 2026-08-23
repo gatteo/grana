@@ -135,7 +135,7 @@
   --sidebar-active-ring: var(--sidebar-active-line);
 
   --surface-2: var(--stone-100); /* sunken panels inside a card */
-  --canvas-deep: var(--stone-200);
+  --canvas-deep: var(--canvas-deep-brand); /* brand-dependent: ecru-deep (Luminars) | stone-200 (RF) */
 }
 
 /* The marketing surface — warm paper, expressive, depth allowed. */
@@ -171,10 +171,13 @@
 :root,
 [data-brand="luminars"] {
   --canvas: var(--ecru);
+  --canvas-deep-brand: var(--ecru-deep);
   --focus: var(--ochre);
   --face-voice: var(--face-display); /* the display face IS allowed inside the product (DSN-9) */
   --voice-weight: 700; /* page titles, teaching headlines */
   --sidebar-width: 236px;
+  --sidebar-pad: 14px;
+  --shell-gap: 12px; /* the canvas showing around the inset panel */
   --shell-radius: 14px; /* the inset panel */
   --sidebar-active-ground: var(--canvas-deep); /* the active nav row: a deeper tint of the canvas */
   --sidebar-active-line: transparent;
@@ -203,10 +206,13 @@
 /* Revenue Farm: a neutral multi-tenant tool; the customer's logo is the only identity. */
 [data-brand="rf"] {
   --canvas: var(--stone-100);
+  --canvas-deep-brand: var(--stone-200);
   --focus: var(--stone-900);
   --face-voice: var(--face-sans); /* Cabinet Grotesk is banned inside the RF product */
   --voice-weight: 500;
   --sidebar-width: 244px;
+  --sidebar-pad: 12px;
+  --shell-gap: 8px; /* the canvas showing around the big white card */
   --shell-radius: 14px; /* the big white card */
   --sidebar-active-ground: var(--stone-0); /* the active nav row: a white pill with an inset hairline */
   --sidebar-active-line: var(--stone-200);
@@ -374,6 +380,8 @@
   --text-metric--letter-spacing: -0.03em;
 
   --spacing-sidebar: var(--sidebar-width);
+  --spacing-sidebar-pad: var(--sidebar-pad);
+  --spacing-shell-gap: var(--shell-gap);
 
   /* A live status dot breathes — only while something is actually happening. */
   --animate-dot-pulse: dot-pulse 1.4s ease-in-out infinite;
