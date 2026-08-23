@@ -58,6 +58,12 @@
   --status-serious: #ec835a;
   --status-critical: #d03b3b;
   --status-info: #2a78d6;
+  /* The same five as TEXT on white — the fills above fail AA at small sizes; these clear it. */
+  --status-good-ink: #0a7d0a;
+  --status-warning-ink: #7a5400;
+  --status-serious-ink: #a8461f;
+  --status-critical-ink: #a52a2a;
+  --status-info-ink: #1f5aa3;
 
   /* Charts — slot ORDER is the colour-blindness mechanism; never reshuffle. */
   --chart-1: #1b8a5f;
@@ -167,6 +173,7 @@
   --canvas: var(--ecru);
   --focus: var(--ochre);
   --face-voice: var(--face-display); /* the display face IS allowed inside the product (DSN-9) */
+  --voice-weight: 700; /* page titles, teaching headlines */
   --sidebar-width: 236px;
   --shell-radius: 14px; /* the inset panel */
   --sidebar-active-ground: var(--canvas-deep); /* the active nav row: a deeper tint of the canvas */
@@ -198,6 +205,7 @@
   --canvas: var(--stone-100);
   --focus: var(--stone-900);
   --face-voice: var(--face-sans); /* Cabinet Grotesk is banned inside the RF product */
+  --voice-weight: 500;
   --sidebar-width: 244px;
   --shell-radius: 14px; /* the big white card */
   --sidebar-active-ground: var(--stone-0); /* the active nav row: a white pill with an inset hairline */
@@ -297,6 +305,11 @@
   --color-status-serious: var(--status-serious);
   --color-status-critical: var(--status-critical);
   --color-status-info: var(--status-info);
+  --color-status-good-ink: var(--status-good-ink);
+  --color-status-warning-ink: var(--status-warning-ink);
+  --color-status-serious-ink: var(--status-serious-ink);
+  --color-status-critical-ink: var(--status-critical-ink);
+  --color-status-info-ink: var(--status-info-ink);
 
   --color-exec-agent: var(--exec-agent);
   --color-exec-agent-soft: var(--exec-agent-soft);
@@ -331,6 +344,7 @@
   --font-mono: var(--face-mono);
   --font-serif: var(--face-serif);
   --font-voice: var(--face-voice); /* the product's display face — brand decides which */
+  --font-weight-voice: var(--voice-weight); /* …and its weight: `font-voice font-weight-voice` */
 
   /* Shape: ONE scale, ratified D-G3. rounded-xs 4 · rounded-sm 6 · rounded-md 10 · rounded-lg 14.
    * Pills are rounded-full. Nothing else exists; xl+ alias to 14 so stock code cannot invent radii. */

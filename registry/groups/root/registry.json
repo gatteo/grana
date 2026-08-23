@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "grana",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn()",
+      "description": "clsx + tailwind-merge, with the merger taught Grana's extra font sizes (text-2xs, text-13, text-metric). Replaces the stock utils.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [{ "path": "lib/utils.ts", "type": "registry:lib", "target": "lib/utils.ts" }]
+    },
+    {
+      "name": "theme",
+      "type": "registry:style",
+      "title": "Grana theme",
+      "description": "The Grana token layer: palette, semantic slots per surface, brand overrides, the Tailwind theme and base. Import styles/grana.css as the Tailwind entry; set data-brand and data-surface on <html>; copy public/fonts.",
+      "dependencies": ["tw-animate-css", "class-variance-authority", "clsx", "tailwind-merge", "@base-ui/react", "lucide-react"],
+      "registryDependencies": ["@grana/utils"],
+      "files": [
+        { "path": "registry/grana/styles/grana.css", "type": "registry:file", "target": "styles/grana.css" },
+        { "path": "registry/grana/styles/fonts.css", "type": "registry:file", "target": "styles/fonts.css" }
+      ]
+    }
+  ]
+}

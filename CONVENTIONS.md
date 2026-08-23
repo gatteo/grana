@@ -104,7 +104,12 @@ Append to `registry/groups/<group>/registry.json`:
 
 `dependencies` = npm packages the file imports. `registryDependencies` = sibling grana items, always
 namespaced `@grana/<name>` (a bare name resolves to shadcn's built-in, not ours). `pnpm
-registry:build` must pass with your items in.
+registry:build` merges every group file into the root `registry.json` (generated — never edit it
+by hand) and must pass with your items in. Item file paths are repo-relative.
+
+Custom font sizes (`text-2xs`, `text-13`, `text-metric`) are safe with `cn()` — `lib/utils.ts`
+teaches tailwind-merge the names and ships to consumers as `@grana/utils`. Prefer them over
+`text-[13px]`.
 
 ## 5. Done means
 

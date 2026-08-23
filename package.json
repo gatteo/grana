@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit -p .",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "registry:build": "shadcn build",
+    "registry:build": "node scripts/merge-registry.mjs && shadcn build",
     "registry:serve": "node scripts/serve-registry.mjs"
   },
   "dependencies": {
