@@ -218,3 +218,15 @@ them in lockstep when bumping Tailwind). `react`, `react-dom`, `tailwindcss`, `p
 `cd tools/design-sync && pnpm install` (and `pnpm exec playwright install chromium` at the root
 if chromium is missing). `tools/design-sync` and `ds-bundle` are excluded from `pnpm lint`;
 `tsconfig.json` never included them.
+
+## Push log
+
+- **2026-08-23** — first push of both profiles by the lead through DesignSync: "Luminars V3 · Grana"
+  (`dc653a61…`, 282 writes / 102 deletes) and "Revenue Farm · Grana" (`975e6747…`, 285 writes /
+  351 deletes). Both projects verified with `list_files` afterwards: exactly the bundle plus the
+  app's own `_adherence.oxlintrc.json` / `_ds_manifest.json`. The RF project's old marketing cards
+  (42) and motion cards (2) have no Grana counterpart yet and were removed with the runtime they
+  depended on; the old bundle stays at `platform/packages/ui/ds-bundle/`. The Luminars screens
+  file (`aa561d58…`, a regular project) still embeds the OLD RF bundle under `_ds/` — its artboards
+  reference `window.RFUI`; do not swap that folder for the Grana bundle (`window.Grana`) without
+  re-drawing them. Deletes are capped at 256 paths per `delete_files` call.
