@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "A 16px box: hairline when off, ink when on or indeterminate; no brand hue.",
+  "dependencies": [
+    "@base-ui/react",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/checkbox.tsx",
+      "content": "\"use client\"\n\nimport { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\"\n\nimport { cn } from \"@/lib/utils\"\nimport { CheckIcon, MinusIcon } from \"lucide-react\"\n\n/* A 16px box on the field face: hairline (`border-border-strong`, the frame step — stone-200\n * vanishes at this size) when off, ink when on or indeterminate. No brand hue, no ring of its\n * own — the global `:focus-visible` outline is the focus state. The `after:` box widens the\n * hit area to the row's height without growing the mark. */\nfunction Checkbox({ className, ...props }: CheckboxPrimitive.Root.Props) {\n  return (\n    <CheckboxPrimitive.Root\n      data-slot=\"checkbox\"\n      className={cn(\n        \"peer group/checkbox relative flex size-4 shrink-0 items-center justify-center rounded-xs border border-border-strong bg-card transition-colors duration-[120ms] after:absolute after:-inset-x-3 after:-inset-y-2 not-disabled:hover:border-stone-400 disabled:cursor-default disabled:opacity-50 aria-invalid:border-destructive data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground data-indeterminate:border-primary data-indeterminate:bg-primary data-indeterminate:text-primary-foreground group-has-disabled/field:opacity-50\",\n        className\n      )}\n      {...props}\n    >\n      <CheckboxPrimitive.Indicator\n        data-slot=\"checkbox-indicator\"\n        className=\"grid place-content-center text-current transition-none [&>svg]:size-3 [&>svg]:stroke-[2.25]\"\n      >\n        <CheckIcon className=\"group-data-indeterminate/checkbox:hidden\" />\n        <MinusIcon className=\"hidden group-data-indeterminate/checkbox:block\" />\n      </CheckboxPrimitive.Indicator>\n    </CheckboxPrimitive.Root>\n  )\n}\n\nexport { Checkbox }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,40 +1,75 @@
+import * as React from "react"
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 
 import { cn } from "@/lib/utils"
 
+/* Tooltip — the Luminars `.tip` behaviour on Base UI: 180 ms to open, 120 ms grace to close
+ * (the popup is hoverable, WCAG 1.4.13), focus opens at once, Escape dismisses, a capture-phase
+ * scroll anywhere closes it (every product surface scrolls inside an inset panel). Portalled
+ * and `fixed`, preferred above with a 7px gap, 10px from any edge. The panel is the light
+ * popover ground — hairline + `shadow-panel` — not the dark `.tip`. */
 function TooltipProvider({
-  delay = 0,
+  delay = 180,
+  closeDelay = 120,
   ...props
 }: TooltipPrimitive.Provider.Props) {
   return (
     <TooltipPrimitive.Provider
       data-slot="tooltip-provider"
       delay={delay}
+      closeDelay={closeDelay}
       {...props}
     />
   )
 }
 
-function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
-  return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
+function Tooltip({ actionsRef, ...props }: TooltipPrimitive.Root.Props) {
+  const ownActions = React.useRef<TooltipPrimitive.Root.Actions | null>(null)
+  const actions = actionsRef ?? ownActions
+
+  React.useEffect(() => {
+    const close = () => actions.current?.close()
+    window.addEventListener("scroll", close, { capture: true, passive: true })
+    window.addEventListener("resize", close, { passive: true })
+    return () => {
+      window.removeEventListener("scroll", close, { capture: true })
+      window.removeEventListener("resize", close)
+    }
+  }, [actions])
+
+  return (
+    <TooltipPrimitive.Root data-slot="tooltip" actionsRef={actions} {...props} />
+  )
 }
 
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+function TooltipTrigger({
+  delay = 180,
+  closeDelay = 120,
+  ...props
+}: TooltipPrimitive.Trigger.Props) {
+  return (
+    <TooltipPrimitive.Trigger
+      data-slot="tooltip-trigger"
+      delay={delay}
+      closeDelay={closeDelay}
+      {...props}
+    />
+  )
 }
 
 function TooltipContent({
   className,
   side = "top",
-  sideOffset = 4,
+  sideOffset = 7,
   align = "center",
   alignOffset = 0,
+  collisionPadding = 10,
   children,
   ...props
 }: TooltipPrimitive.Popup.Props &
   Pick<
     TooltipPrimitive.Positioner.Props,
-    "align" | "alignOffset" | "side" | "sideOffset"
+    "align" | "alignOffset" | "side" | "sideOffset" | "collisionPadding"
   >) {
   return (
     <TooltipPrimitive.Portal>
@@ -43,18 +78,18 @@ function TooltipContent({
         alignOffset={alignOffset}
         side={side}
         sideOffset={sideOffset}
-        className="isolate z-50"
+        collisionPadding={collisionPadding}
+        className="isolate z-70"
       >
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
-            "z-50 inline-flex w-fit max-w-xs origin-(--transform-origin) items-center gap-1.5 rounded-md bg-foreground px-3 py-1.5 text-xs text-background has-data-[slot=kbd]:pr-1.5 data-[side=bottom]:slide-in-from-top-2 data-[side=inline-end]:slide-in-from-left-2 data-[side=inline-start]:slide-in-from-right-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 **:data-[slot=kbd]:relative **:data-[slot=kbd]:isolate **:data-[slot=kbd]:z-50 **:data-[slot=kbd]:rounded-sm data-[state=delayed-open]:animate-in data-[state=delayed-open]:fade-in-0 data-[state=delayed-open]:zoom-in-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+            "z-70 w-max max-w-[260px] origin-(--transform-origin) rounded-sm border border-border bg-popover px-2.5 py-2 text-left text-xs leading-[1.45] font-normal whitespace-normal text-popover-foreground shadow-panel duration-[130ms] ease-out data-[side=bottom]:slide-in-from-top-0.5 data-[side=left]:slide-in-from-right-0.5 data-[side=right]:slide-in-from-left-0.5 data-[side=top]:slide-in-from-bottom-0.5 data-open:animate-in data-open:fade-in-0 data-closed:animate-out data-closed:fade-out-0",
             className
           )}
           {...props}
         >
           {children}
-          <TooltipPrimitive.Arrow className="z-50 size-2.5 translate-y-[calc(-50%-2px)] rotate-45 rounded-[2px] bg-foreground fill-foreground data-[side=bottom]:top-1 data-[side=inline-end]:top-1/2! data-[side=inline-end]:-left-1 data-[side=inline-end]:-translate-y-1/2 data-[side=inline-start]:top-1/2! data-[side=inline-start]:-right-1 data-[side=inline-start]:-translate-y-1/2 data-[side=left]:top-1/2! data-[side=left]:-right-1 data-[side=left]:-translate-y-1/2 data-[side=right]:top-1/2! data-[side=right]:-left-1 data-[side=right]:-translate-y-1/2 data-[side=top]:-bottom-2.5" />
         </TooltipPrimitive.Popup>
       </TooltipPrimitive.Positioner>
     </TooltipPrimitive.Portal>

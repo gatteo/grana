@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "notice",
+  "title": "Notice",
+  "description": "A condition the person did not cause — offline, degraded, nothing yet — stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/notice.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* A Notice reports a condition the person did not cause — offline, degraded, nothing yet —\n * calmly, and may have nothing to offer but a single action. It stands apart from Alert on\n * purpose: Alert is `role=\"alert\"` (an assertive live region for a message that just\n * happened); a Notice is a standing state of the page and announces nothing.\n *\n *   card  — Luminars `.notice`: sunken box, hairline, voice-face title (default)\n *   plain — RF `.empty`: a centered faint line, no box */\nconst noticeVariants = cva(\"grid\", {\n  variants: {\n    variant: {\n      card: \"max-w-[560px] gap-1.5 rounded-md border border-border bg-surface-2 p-8\",\n      plain: \"justify-items-center gap-1.5 px-6 py-10 text-center\",\n    },\n  },\n  defaultVariants: {\n    variant: \"card\",\n  },\n})\n\nfunction Notice({\n  className,\n  variant = \"card\",\n  eyebrow,\n  title,\n  action,\n  children,\n  ...props\n}: React.ComponentProps<\"section\"> &\n  VariantProps<typeof noticeVariants> & {\n    /** A mono-caps line above the title (RF upsell). */\n    eyebrow?: React.ReactNode\n    title?: React.ReactNode\n    /** The one action that resolves the condition, if there is one. */\n    action?: React.ReactNode\n  }) {\n  return (\n    <section\n      data-slot=\"notice\"\n      data-variant={variant}\n      className={cn(noticeVariants({ variant }), className)}\n      {...props}\n    >\n      {eyebrow ? (\n        <span data-slot=\"notice-eyebrow\" className=\"eyebrow\">\n          {eyebrow}\n        </span>\n      ) : null}\n      {title ? (\n        <h3\n          data-slot=\"notice-title\"\n          className={cn(\n            variant === \"card\"\n              ? \"font-voice text-base font-bold leading-tight\"\n              : \"text-sm font-medium leading-snug\"\n          )}\n        >\n          {title}\n        </h3>\n      ) : null}\n      {children != null ? (\n        <div\n          data-slot=\"notice-body\"\n          className={cn(\n            \"text-13 leading-normal\",\n            variant === \"card\" ? \"text-muted-foreground\" : \"text-faint\"\n          )}\n        >\n          {children}\n        </div>\n      ) : null}\n      {action ? (\n        <div data-slot=\"notice-action\" className=\"mt-1 flex flex-wrap items-center gap-2\">\n          {action}\n        </div>\n      ) : null}\n    </section>\n  )\n}\n\nexport { Notice, noticeVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

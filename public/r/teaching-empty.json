@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "teaching-empty",
+  "title": "TeachingEmpty",
+  "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, and exactly one primary action.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@grana/button"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/teaching-empty.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/registry/grana/ui/button\"\n\n/* The first-visit empty state that TEACHES (skin-spec §17, DSN-3): what this screen will\n * show and the one action that gets the person there. Exactly one action, and it is the ink\n * primary — an empty surface has no other verb to compete with. Pass `action` as a string\n * (+ `onAction`) and the Button is rendered here; pass a node to own it. */\nfunction TeachingEmpty({\n  className,\n  eyebrow,\n  title,\n  body,\n  action,\n  onAction,\n  children,\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"title\"> & {\n  /** A mono label above the title (the object kind this screen will list). */\n  eyebrow?: React.ReactNode\n  title: React.ReactNode\n  /** One paragraph: what will appear here once there is something. */\n  body?: React.ReactNode\n  /** The ONE action. A string renders `<Button variant=\"primary\">`; a node is rendered as-is. */\n  action?: React.ReactNode\n  onAction?: () => void\n}) {\n  return (\n    <div\n      data-slot=\"teaching-empty\"\n      className={cn(\n        \"flex flex-col items-start gap-2 rounded-md border border-border bg-card px-8 py-9\",\n        className\n      )}\n      {...props}\n    >\n      {eyebrow !== undefined && eyebrow !== null ? (\n        <span data-slot=\"teaching-empty-eyebrow\" className=\"eyebrow block\">\n          {eyebrow}\n        </span>\n      ) : null}\n      <div\n        data-slot=\"teaching-empty-title\"\n        className=\"font-voice text-[19px] leading-[1.2] font-bold tracking-[-0.01em] text-balance in-data-[brand=rf]:font-medium\"\n      >\n        {title}\n      </div>\n      {body !== undefined && body !== null ? (\n        <p\n          data-slot=\"teaching-empty-body\"\n          className=\"max-w-[62ch] text-13 leading-[1.55] text-muted-foreground\"\n        >\n          {body}\n        </p>\n      ) : null}\n      {children}\n      {action !== undefined && action !== null ? (\n        <div data-slot=\"teaching-empty-action\" className=\"mt-1.5\">\n          {typeof action === \"string\" ? (\n            <Button variant=\"primary\" onClick={onAction}>\n              {action}\n            </Button>\n          ) : (\n            action\n          )}\n        </div>\n      ) : null}\n    </div>\n  )\n}\n\nexport { TeachingEmpty }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

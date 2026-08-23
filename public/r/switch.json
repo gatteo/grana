@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "A 30×18 track (24×14 sm): sunken hairline track when off, ink when on; no brand hue.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/switch.tsx",
+      "content": "import { Switch as SwitchPrimitive } from \"@base-ui/react/switch\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* Neither kit had a switch; this is the Checkbox's rule on a track. Off: a sunken track\n * (`bg-muted`) in the frame hairline with a white thumb ringed by the same hairline. On: ink\n * track, white thumb. No brand hue, no ring of its own — the global `:focus-visible` outline\n * is the focus state. 30×18 (thumb 14) by default, 24×14 (thumb 10) for `size=\"sm\"`. */\nfunction Switch({\n  className,\n  size = \"default\",\n  ...props\n}: SwitchPrimitive.Root.Props & {\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SwitchPrimitive.Root\n      data-slot=\"switch\"\n      data-size={size}\n      className={cn(\n        \"peer group/switch relative inline-flex shrink-0 items-center rounded-full border transition-colors duration-[120ms] after:absolute after:-inset-x-3 after:-inset-y-2 aria-invalid:border-destructive data-[size=default]:h-[18px] data-[size=default]:w-[30px] data-[size=sm]:h-3.5 data-[size=sm]:w-6 data-checked:border-primary data-checked:bg-primary data-unchecked:border-border-strong data-unchecked:bg-muted data-disabled:cursor-default data-disabled:opacity-50 not-data-disabled:data-unchecked:hover:border-stone-400\",\n        className\n      )}\n      {...props}\n    >\n      <SwitchPrimitive.Thumb\n        data-slot=\"switch-thumb\"\n        className=\"pointer-events-none block rounded-full bg-card ring-1 ring-border-strong transition-transform duration-[120ms] ease-brand-out data-checked:bg-primary-foreground data-checked:ring-0 group-data-[size=default]/switch:size-3.5 group-data-[size=default]/switch:data-checked:translate-x-[13px] group-data-[size=default]/switch:data-unchecked:translate-x-px group-data-[size=sm]/switch:size-2.5 group-data-[size=sm]/switch:data-checked:translate-x-[11px] group-data-[size=sm]/switch:data-unchecked:translate-x-px\"\n      />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { Switch }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

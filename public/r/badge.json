@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "A property of the thing — its grade, its author — in mono caps. outline · dashed (inferred, not asserted) · ink · tag · action.",
+  "dependencies": [
+    "class-variance-authority",
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/badge.tsx",
+      "content": "import { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* A Badge names a PROPERTY of the thing — its grade, who authored it — never a state (that\n * is a Chip). Mono caps, hairline. `dashed` is the standing signal for \"inferred, not\n * asserted\" (machine-made): both kits share that contract; never use dashed for anything else.\n *\n *   outline — Luminars `.badge` (default): pill, 10px mono caps, border-strong\n *   dashed  — `.badge[data-dashed]`: the same, dashed\n *   ink     — filled, for the one badge that must read first (a count, a grade)\n *   tag     — RF `.tag`: 4px square, 9px mono caps, hairline, faint\n *   action  — RF `.by-ai` / \"Azione AI\": 4px square, dashed stone-400, mono caps */\nconst badgeVariants = cva(\n  \"inline-flex w-fit shrink-0 items-center justify-center border font-mono font-medium uppercase whitespace-nowrap [&>svg]:pointer-events-none [&>svg]:shrink-0\",\n  {\n    variants: {\n      variant: {\n        outline:\n          \"gap-1 border-border-strong px-2 py-0.5 text-[10px] tracking-[.08em] text-muted-foreground [&>svg]:size-2.5\",\n        dashed:\n          \"gap-1 border-dashed border-border-strong px-2 py-0.5 text-[10px] tracking-[.08em] text-muted-foreground [&>svg]:size-2.5\",\n        ink: \"gap-1 border-primary bg-primary px-2 py-0.5 text-[10px] tracking-[.08em] text-primary-foreground [&>svg]:size-2.5\",\n        tag: \"gap-1 border-border px-[5px] py-0.5 text-[9px] tracking-[.07em] text-faint [&>svg]:size-2.5\",\n        action:\n          \"gap-1 border-dashed border-stone-400 px-[5px] py-px text-[9px] tracking-[.07em] text-muted-foreground [&>svg]:size-2.5\",\n      },\n      shape: {\n        pill: \"rounded-full\",\n        square: \"rounded-xs\",\n      },\n    },\n    defaultVariants: {\n      variant: \"outline\",\n      shape: \"pill\",\n    },\n  }\n)\n\ntype BadgeVariant = NonNullable<VariantProps<typeof badgeVariants>[\"variant\"]>\ntype BadgeShape = NonNullable<VariantProps<typeof badgeVariants>[\"shape\"]>\n\n/* RF's tags are square, Luminars' badges are pills; the variant picks unless told. */\nconst defaultShape = (variant: BadgeVariant): BadgeShape =>\n  variant === \"tag\" || variant === \"action\" ? \"square\" : \"pill\"\n\nfunction Badge({\n  className,\n  variant = \"outline\",\n  shape,\n  render,\n  ...props\n}: useRender.ComponentProps<\"span\"> & VariantProps<typeof badgeVariants>) {\n  const resolvedShape = shape ?? defaultShape(variant ?? \"outline\")\n  return useRender({\n    defaultTagName: \"span\",\n    props: mergeProps<\"span\">(\n      {\n        className: cn(badgeVariants({ variant, shape: resolvedShape }), className),\n      },\n      props\n    ),\n    render,\n    state: {\n      slot: \"badge\",\n      variant,\n      shape: resolvedShape,\n    },\n  })\n}\n\nexport { Badge, badgeVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

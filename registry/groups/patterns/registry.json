@@ -1,5 +1,151 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "grana",
-  "items": []
+  "homepage": "https://github.com/gatteo/grana",
+  "items": [
+    {
+      "name": "page",
+      "type": "registry:ui",
+      "title": "Page + PageHead",
+      "description": "The content-panel page (narrow 760 · medium 860 · wide 1080 · full; three padding steps) and its header: a font-voice title, a tabular subtitle, one primary action.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/page.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow",
+      "type": "registry:ui",
+      "title": "Eyebrow + SectionHead",
+      "description": "The mono ALL-CAPS section label on one size scale (xs · sm · md · lg), with the numbered-index and unit-tint forms; SectionHead is the marketing eyebrow + display h2 + lead.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/eyebrow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "StatGrid + Stat",
+      "description": "The KPI row: hairline-gap cells (RF) or gap-12 cards (Luminars); eyebrow label, tabular value, a delta that carries direction and a word, a faint mono base line. Null is a dash, never a zero.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/stat.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "The generic empty surface: plain (a centred faint line) or card (the sunken Notice that reports a condition the person did not cause).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "teaching-empty",
+      "type": "registry:ui",
+      "title": "TeachingEmpty",
+      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, and exactly one primary action.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "../../grana/ui/teaching-empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "first-visit",
+      "type": "registry:ui",
+      "title": "FirstVisit",
+      "description": "The dismissible first-visit panel: inline, never modal, remembered in localStorage; the dismiss is a quiet xs Button.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "../../grana/ui/first-visit.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "term",
+      "type": "registry:ui",
+      "title": "Term",
+      "description": "A word of art with its plain explanation one hover/focus away: a small mono ? trails the word; tabIndex 0, always-present sr description, 180/120 ms on the Tooltip.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/tooltip"
+      ],
+      "files": [
+        {
+          "path": "../../grana/ui/term.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feed",
+      "type": "registry:ui",
+      "title": "Feed + FeedItem",
+      "description": "The activity feed: actor + sentence + mono time. Humans are round avatars with initials; machines are dashed square tiles with a dashed badge after the sentence.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/avatar",
+        "@grana/badge"
+      ],
+      "files": [
+        {
+          "path": "../../grana/ui/feed.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tenant-badge",
+      "type": "registry:ui",
+      "title": "TenantBadge + TenantTile",
+      "description": "The tenant identity row: a 28px ink tile with initials or logo, the name, a meta line.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/tenant-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    }
+  ]
 }

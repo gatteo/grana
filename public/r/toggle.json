@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "title": "Toggle",
+  "description": "A two-state pill: borderless with a hover fill, or outlined; pressed takes the deeper canvas tint.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/toggle.tsx",
+      "content": "import { Toggle as TogglePrimitive } from \"@base-ui/react/toggle\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* Toggle — a two-state pill. `default` is borderless with a hover fill (an icon toggle in a\n * toolbar); `outline` carries the quiet hairline. Pressed = the deeper canvas tint, ink text,\n * a firmer hairline — the same ground a pressed Button takes. Sizes follow Button. */\nconst toggleVariants = cva(\n  \"group/toggle inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-colors duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 data-pressed:border-stone-400 data-pressed:bg-canvas-deep data-pressed:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4\",\n  {\n    variants: {\n      variant: {\n        default:\n          \"border-transparent bg-transparent text-muted-foreground not-disabled:hover:bg-accent not-disabled:hover:text-accent-foreground\",\n        outline:\n          \"border-border-strong bg-transparent text-muted-foreground not-disabled:hover:border-stone-400 not-disabled:hover:text-foreground\",\n      },\n      size: {\n        xs: \"h-6 min-w-6 gap-1 px-2.5 text-[11.5px] [&_svg:not([class*='size-'])]:size-3.5\",\n        sm: \"h-8 min-w-8 gap-1.5 px-3.5 text-[12.5px] [&_svg:not([class*='size-'])]:size-3.5\",\n        md: \"h-[34px] min-w-[34px] gap-1.5 px-4 text-[12.5px]\",\n        lg: \"h-10 min-w-10 gap-1.5 px-5 text-[13.5px]\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"md\",\n    },\n  }\n)\n\nfunction Toggle({\n  className,\n  variant = \"default\",\n  size = \"md\",\n  ...props\n}: TogglePrimitive.Props & VariantProps<typeof toggleVariants>) {\n  return (\n    <TogglePrimitive\n      data-slot=\"toggle\"\n      data-variant={variant}\n      data-size={size}\n      className={cn(toggleVariants({ variant, size }), className)}\n      {...props}\n    />\n  )\n}\n\nexport { Toggle, toggleVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

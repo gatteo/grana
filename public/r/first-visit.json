@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "first-visit",
+  "title": "FirstVisit",
+  "description": "The dismissible first-visit panel: inline, never modal, remembered in localStorage; the dismiss is a quiet xs Button.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@grana/button"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/first-visit.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Button } from \"@/registry/grana/ui/button\"\n\n/* The dismissible first-visit panel (skin-spec §17): a per-surface explainer shown until\n * dismissed, remembered in localStorage. Inline, never a modal — the surface stays usable\n * while it teaches. Renders nothing once dismissed. */\n\nconst DEFAULT_PREFIX = \"grana.guide.\"\n\nfunction readDismissed(key: string) {\n  try {\n    return typeof localStorage !== \"undefined\" && localStorage.getItem(key) === \"dismissed\"\n  } catch {\n    return false\n  }\n}\n\nfunction FirstVisit({\n  className,\n  id,\n  title,\n  dismissLabel,\n  storagePrefix = DEFAULT_PREFIX,\n  onDismiss,\n  children,\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"title\" | \"id\"> & {\n  /** Stable per-surface key; dismissal is remembered under `${storagePrefix}${id}`. */\n  id: string\n  title: React.ReactNode\n  /** The dismiss verb, in the product's words (\"Ho capito\", \"Got it\"). */\n  dismissLabel: React.ReactNode\n  /** Override to keep an existing product's stored dismissals (Luminars: `luminars.guide.`). */\n  storagePrefix?: string\n  onDismiss?: () => void\n}) {\n  const storageKey = `${storagePrefix}${id}`\n  const [dismissed, setDismissed] = React.useState(() => readDismissed(storageKey))\n  if (dismissed) return null\n  return (\n    <div\n      data-slot=\"first-visit\"\n      className={cn(\n        \"mb-4 flex items-start justify-between gap-4 rounded-md border border-border bg-surface-2 px-4 py-3\",\n        className\n      )}\n      {...props}\n    >\n      <div\n        data-slot=\"first-visit-body\"\n        className=\"flex max-w-[68ch] min-w-0 flex-col gap-[3px]\"\n      >\n        <span data-slot=\"first-visit-title\" className=\"text-13 font-semibold\">\n          {title}\n        </span>\n        <span\n          data-slot=\"first-visit-text\"\n          className=\"text-[12.5px] leading-[1.5] text-muted-foreground\"\n        >\n          {children}\n        </span>\n      </div>\n      <Button\n        data-slot=\"first-visit-dismiss\"\n        variant=\"quiet\"\n        size=\"xs\"\n        className=\"flex-none\"\n        onClick={() => {\n          try {\n            localStorage.setItem(storageKey, \"dismissed\")\n          } catch {\n            /* private mode: the panel still goes away for this session */\n          }\n          setDismissed(true)\n          onDismiss?.()\n        }}\n      >\n        {dismissLabel}\n      </Button>\n    </div>\n  )\n}\n\nexport { FirstVisit }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

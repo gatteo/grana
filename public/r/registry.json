@@ -4,7 +4,25 @@
   "homepage": "https://github.com/gatteo/grana",
   "items": [
     {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "cn()",
+      "description": "clsx + tailwind-merge, with the merger taught Grana's extra font sizes (text-2xs, text-13, text-metric). Replaces the stock utils.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "files": [
+        {
+          "path": "lib/utils.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        }
+      ]
+    },
+    {
       "name": "theme",
+      "type": "registry:style",
       "title": "Grana theme",
       "description": "The Grana token layer: palette, semantic slots per surface, brand overrides, the Tailwind theme and base. Import styles/grana.css as the Tailwind entry; set data-brand and data-surface on <html>; copy public/fonts.",
       "dependencies": [
@@ -14,6 +32,9 @@
         "tailwind-merge",
         "@base-ui/react",
         "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/utils"
       ],
       "files": [
         {
@@ -26,8 +47,867 @@
           "type": "registry:file",
           "target": "styles/fonts.css"
         }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The verb: one ink primary per screen, quiet hairlines for the rest, the two-rung destructive ladder, pressed, icon sizes; marketing on-dark and glass. Always a pill, one height per size.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
       ],
-      "type": "registry:style"
+      "files": [
+        {
+          "path": "registry/grana/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "back-link",
+      "type": "registry:ui",
+      "title": "BackLink",
+      "description": "The way back up: a faint inline line above a detail page, or the padded nav row of the shell takeover.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/back-link.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "segmented",
+      "type": "registry:ui",
+      "title": "Segmented",
+      "description": "One-of-N that filters, never navigates: the raised pill track (Luminars) or the boxed hairline group (RF), with counts in num.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/segmented.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "filter-chip",
+      "type": "registry:ui",
+      "title": "FilterChip",
+      "description": "A pressable pill for a dynamic, wrapping, many-of-many set; selected is aria-pressed, an optional count in num.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/filter-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state pill: borderless with a hover fill, or outlined; pressed takes the deeper canvas tint.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "ToggleGroup",
+      "description": "A row or column of Toggles sharing one pressed state; spacing 0 joins them into one pill track.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A key: mono 10px on the sunken fill inside a hairline, 4px radius.",
+      "files": [
+        {
+          "path": "registry/grana/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Portalled, fixed, hoverable: 180 ms open / 120 ms close, closes on any scroll; the popover ground with a hairline and shadow-panel.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "The trail above a detail page: 13px secondary text, the current page in ink, faint chevrons.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "prose",
+      "type": "registry:ui",
+      "title": "Prose",
+      "description": "Rendered markdown, dressed: sans medium headings, mono code on the sunken fill, a 2px blockquote rule, hairline table rows, quiet underlined links. sm (the rail) · md (the run report) · lg (the serif reading column).",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/prose.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "executor-chip",
+      "type": "registry:ui",
+      "title": "ExecutorChip",
+      "description": "Who performs a step — agent (dashed: an inferred AI step) · human · api · screen · wait — in the executor hues; a pill with the soft fill, the hue as text, a 30% hairline. The hues collapse to stone under RF.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/executor-chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "The field shell: 34px, hairline, bg-card, 13px; `mono` for keys, ids and times; `variant=\"search\"` for the sunken topbar search.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "The field shell on a textarea: resize-none, 1.5 line-height, sizes to its content from a 72px floor.",
+      "files": [
+        {
+          "path": "registry/grana/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native select",
+      "description": "Luminars' Select: the OS popup on purpose, the field shell with an SVG caret. The default select for the desktop app.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/native-select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "The custom-popup select (Base UI): trigger = the field shell with a ChevronsUpDown caret; popup = the menu panel, portalled, with eyebrow group labels.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A 16px box: hairline when off, ink when on or indeterminate; no brand hue.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A 30×18 track (24×14 sm): sunken hairline track when off, ink when on; no brand hue.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "The field label: sans 500 at 13px; dims with a disabled peer.",
+      "files": [
+        {
+          "path": "registry/grana/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "RF `.field` + `.form-error` on the Luminars shell: Field / FieldLabel / FieldDescription / FieldError (+ FieldSet, FieldLegend, FieldGroup, FieldSeparator, FieldContent, FieldTitle).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/label",
+        "@grana/separator"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input group",
+      "description": "The field shell drawn on a group so an icon, a unit, a kbd or a quiet button sits inside the hairline; `variant=\"search\"` = RF `.search` with its ⌘K kbd.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/button",
+        "@grana/input",
+        "@grana/textarea"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/input-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "The ⌘K palette on cmdk: the menu panel with a search row, eyebrow group headings, accent-highlighted items and mono shortcuts; CommandDialog mounts it in a Dialog.",
+      "dependencies": [
+        "cmdk",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/dialog"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/command.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "page",
+      "type": "registry:ui",
+      "title": "Page + PageHead",
+      "description": "The content-panel page (narrow 760 · medium 860 · wide 1080 · full; three padding steps) and its header: a font-voice title, a tabular subtitle, one primary action.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/page.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "eyebrow",
+      "type": "registry:ui",
+      "title": "Eyebrow + SectionHead",
+      "description": "The mono ALL-CAPS section label on one size scale (xs · sm · md · lg), with the numbered-index and unit-tint forms; SectionHead is the marketing eyebrow + display h2 + lead.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/eyebrow.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "stat",
+      "type": "registry:ui",
+      "title": "StatGrid + Stat",
+      "description": "The KPI row: hairline-gap cells (RF) or gap-12 cards (Luminars); eyebrow label, tabular value, a delta that carries direction and a word, a faint mono base line. Null is a dash, never a zero.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/stat.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "The generic empty surface: plain (a centred faint line) or card (the sunken Notice that reports a condition the person did not cause).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "teaching-empty",
+      "type": "registry:ui",
+      "title": "TeachingEmpty",
+      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, and exactly one primary action.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/teaching-empty.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "first-visit",
+      "type": "registry:ui",
+      "title": "FirstVisit",
+      "description": "The dismissible first-visit panel: inline, never modal, remembered in localStorage; the dismiss is a quiet xs Button.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/first-visit.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "term",
+      "type": "registry:ui",
+      "title": "Term",
+      "description": "A word of art with its plain explanation one hover/focus away: a small mono ? trails the word; tabIndex 0, always-present sr description, 180/120 ms on the Tooltip.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/tooltip"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/term.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "feed",
+      "type": "registry:ui",
+      "title": "Feed + FeedItem",
+      "description": "The activity feed: actor + sentence + mono time. Humans are round avatars with initials; machines are dashed square tiles with a dashed badge after the sentence.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@grana/avatar",
+        "@grana/badge"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/feed.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tenant-badge",
+      "type": "registry:ui",
+      "title": "TenantBadge + TenantTile",
+      "description": "The tenant identity row: a 28px ink tile with initials or logo, the name, a meta line.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/tenant-badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "status-dot",
+      "type": "registry:ui",
+      "title": "StatusDot",
+      "description": "A status dot: 7px (6 inside a Chip), six tones, optional live pulse, optional accessible label. Always beside a word.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/status-dot.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill) or tinted (the RF 12% fill with an 11px glyph).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/status-dot"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A property of the thing — its grade, its author — in mono caps. outline · dashed (inferred, not asserted) · ink · tag · action.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "notice",
+      "type": "registry:ui",
+      "title": "Notice",
+      "description": "A condition the person did not cause — offline, degraded, nothing yet — stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/notice.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "An inline message about something that just happened (role=alert): hairline on the card ground, a leading icon or StatusDot, default or destructive.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A human (round, initials) or a machine (square dashed tile) — the actor contract. outline (Luminars) or filled (RF); xs sm md lg; image, badge, group.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A breathing stone-200 placeholder, shaped by className.",
+      "files": [
+        {
+          "path": "registry/grana/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Indeterminate work in progress; inherits the text colour, 16px by default.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Determinate progress: a 2px stone track, an ink bar, a num readout. Never a brand or status hue.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Toaster",
+      "description": "Toasts on sonner: a popover-ground hairline card with shadow-panel, chip-tone dots for the types, and notify() which stamps a mono time.",
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@grana/status-dot",
+        "@grana/spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "The surface box: white, hairline, 10px radius. padded (Luminars) or a frame whose children own the edges; CardHeader is the RF PanelHead (500 title · mono context · hairline).",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "The calm list: 13.5px, hairline rows, mono-caps head; headerFill / hover / minWidth for the RF .data look, bleed / rowHeight / align from Luminars; data-num or the num prop for numeric columns.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "The Luminars Menu recipe on Base UI's Menu: portalled, fixed-safe, hairline + panel shadow, 13px items with the accent highlight, mono shortcuts, a destructive item.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal frame: card ground, strong hairline, 14px radius, panel shadow, a warm-ink veil.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "A side-anchored panel with the Dialog's surface language; four sides.",
+      "dependencies": [
+        "@base-ui/react",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A non-modal anchored layer with the Menu panel's skin and room for prose.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll area",
+      "description": "A scrolling region with a quiet overlay scrollbar.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "The 1px hairline, horizontal or vertical.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "An unstyled disclosure: the caller composes the trigger and the panel.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Underline tabs (default): quiet labels on a hairline, the active one in ink with an ink underline; a filled pill strip as variant=default.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "The list row primitive: media · title/description · actions; hairline-divided rows in an ItemGroup.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/separator"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/item.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "The nav chrome: transparent on the canvas, width from the brand token, eyebrow group labels, 13px rows with the sidebar-active + inset-ring active recipe, mono counts; SidebarInset is the inset content card.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "@grana/button",
+        "@grana/input",
+        "@grana/separator",
+        "@grana/sheet",
+        "@grana/skeleton",
+        "@grana/tooltip",
+        "@grana/use-mobile"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/sidebar.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "use-mobile",
+      "type": "registry:hook",
+      "title": "useIsMobile",
+      "description": "A matchMedia hook for the sidebar's mobile sheet (below 768px).",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/hooks/use-mobile.ts",
+          "type": "registry:hook"
+        }
+      ]
     }
   ]
 }

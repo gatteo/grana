@@ -1,5 +1,78 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "grana",
-  "items": []
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The verb: one ink primary per screen, quiet hairlines for the rest, the two-rung destructive ladder, pressed, icon sizes; marketing on-dark and glass. Always a pill, one height per size.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "files": [{ "path": "registry/grana/ui/button.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "back-link",
+      "type": "registry:ui",
+      "title": "BackLink",
+      "description": "The way back up: a faint inline line above a detail page, or the padded nav row of the shell takeover.",
+      "dependencies": ["@base-ui/react", "class-variance-authority", "lucide-react"],
+      "files": [{ "path": "registry/grana/ui/back-link.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "segmented",
+      "type": "registry:ui",
+      "title": "Segmented",
+      "description": "One-of-N that filters, never navigates: the raised pill track (Luminars) or the boxed hairline group (RF), with counts in num.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "files": [{ "path": "registry/grana/ui/segmented.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "filter-chip",
+      "type": "registry:ui",
+      "title": "FilterChip",
+      "description": "A pressable pill for a dynamic, wrapping, many-of-many set; selected is aria-pressed, an optional count in num.",
+      "dependencies": ["@base-ui/react"],
+      "files": [{ "path": "registry/grana/ui/filter-chip.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A two-state pill: borderless with a hover fill, or outlined; pressed takes the deeper canvas tint.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "files": [{ "path": "registry/grana/ui/toggle.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "ToggleGroup",
+      "description": "A row or column of Toggles sharing one pressed state; spacing 0 joins them into one pill track.",
+      "dependencies": ["@base-ui/react", "class-variance-authority"],
+      "registryDependencies": ["@grana/toggle"],
+      "files": [{ "path": "registry/grana/ui/toggle-group.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A key: mono 10px on the sunken fill inside a hairline, 4px radius.",
+      "files": [{ "path": "registry/grana/ui/kbd.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Portalled, fixed, hoverable: 180 ms open / 120 ms close, closes on any scroll; the popover ground with a hairline and shadow-panel.",
+      "dependencies": ["@base-ui/react"],
+      "files": [{ "path": "registry/grana/ui/tooltip.tsx", "type": "registry:ui" }]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "The trail above a detail page: 13px secondary text, the current page in ink, faint chevrons.",
+      "dependencies": ["@base-ui/react", "lucide-react"],
+      "files": [{ "path": "registry/grana/ui/breadcrumb.tsx", "type": "registry:ui" }]
+    }
+  ]
 }

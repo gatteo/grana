@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "back-link",
+  "title": "BackLink",
+  "description": "The way back up: a faint inline line above a detail page, or the padded nav row of the shell takeover.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/back-link.tsx",
+      "content": "import { Button as ButtonPrimitive } from \"@base-ui/react/button\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { ArrowLeftIcon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The way back up — skin-spec §2. `inline` is the Luminars kit recipe (a faint 13px line\n * above a detail page); `nav` is the shell recipe (a padded row in the object-focus takeover,\n * with the hover fill of a nav item). Renders a <button> by default; `render={<a href>}`\n * hands it to a router. */\nconst backLinkVariants = cva(\n  \"inline-flex items-center gap-1.5 text-left whitespace-nowrap transition-colors duration-[120ms] ease-out select-none [&_svg]:size-3.5 [&_svg]:shrink-0 [&_svg]:stroke-[1.75]\",\n  {\n    variants: {\n      variant: {\n        inline: \"text-[13px] text-faint hover:text-foreground\",\n        nav: \"rounded-sm px-2 py-[7px] text-sm font-medium text-muted-foreground hover:bg-canvas-deep hover:text-foreground\",\n      },\n    },\n    defaultVariants: {\n      variant: \"inline\",\n    },\n  }\n)\n\nfunction BackLink({\n  className,\n  variant = \"inline\",\n  children,\n  nativeButton,\n  render,\n  ...props\n}: ButtonPrimitive.Props & VariantProps<typeof backLinkVariants>) {\n  const isNative = nativeButton ?? render === undefined\n  return (\n    <ButtonPrimitive\n      data-slot=\"back-link\"\n      data-variant={variant}\n      type={isNative ? \"button\" : undefined}\n      render={render}\n      nativeButton={isNative}\n      className={cn(backLinkVariants({ variant }), className)}\n      {...props}\n    >\n      <ArrowLeftIcon aria-hidden />\n      {children}\n    </ButtonPrimitive>\n  )\n}\n\nexport { BackLink, backLinkVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

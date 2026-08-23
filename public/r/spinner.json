@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "Indeterminate work in progress; inherits the text colour, 16px by default.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/spinner.tsx",
+      "content": "import * as React from \"react\"\nimport { Loader2Icon } from \"lucide-react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* Work in progress, indeterminate. Inherits the text colour (muted beside a label, the\n * button's foreground inside one); 16px by default, `size-3.5` inside small controls. */\nfunction Spinner({\n  className,\n  label = \"Loading\",\n  ...props\n}: React.ComponentProps<\"svg\"> & { label?: string }) {\n  return (\n    <Loader2Icon\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label={label}\n      strokeWidth={1.75}\n      className={cn(\"size-4 shrink-0 animate-spin\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Spinner }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

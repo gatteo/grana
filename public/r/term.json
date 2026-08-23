@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "term",
+  "title": "Term",
+  "description": "A word of art with its plain explanation one hover/focus away: a small mono ? trails the word; tabIndex 0, always-present sr description, 180/120 ms on the Tooltip.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@grana/tooltip"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/term.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport {\n  Tooltip,\n  TooltipContent,\n  TooltipTrigger,\n} from \"@/registry/grana/ui/tooltip\"\n\n/* A word of art with its plain explanation one hover/focus away (skin-spec §17). The term\n * still appears; the tip explains, it never replaces. The affordance is a small mono `?`\n * trailing the word — the dotted underline is retired. `marker=\"none\"` is for children that\n * are already an object (a chip, a badge): the shape is its own affordance.\n *\n * Timing: 180 ms open (a pointer crossing the word never flashes a tip), 120 ms close grace\n * (WCAG 1.4.13 hoverable — the pointer may travel onto the tip). Focus opens, blur closes,\n * Escape dismisses. The description is always in the DOM (sr-only) so the aria link never\n * points at nothing. */\n\nconst OPEN_DELAY_MS = 180\nconst CLOSE_DELAY_MS = 120\n\ntype TermMarker = \"icon\" | \"none\"\n\nfunction Term({\n  className,\n  label,\n  explain,\n  marker = \"icon\",\n  side = \"top\",\n  children,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  /** The visible word; `children` override it for custom rendering. */\n  label?: React.ReactNode\n  /** The plain-language explanation shown on hover/focus and read by assistive tech. */\n  explain: React.ReactNode\n  marker?: TermMarker\n  side?: React.ComponentProps<typeof TooltipContent>[\"side\"]\n  children?: React.ReactNode\n}) {\n  const id = React.useId()\n  return (\n    <Tooltip>\n      <TooltipTrigger\n        delay={OPEN_DELAY_MS}\n        closeDelay={CLOSE_DELAY_MS}\n        render={\n          <span\n            data-slot=\"term\"\n            data-marker={marker}\n            tabIndex={0}\n            aria-describedby={id}\n            className={cn(\n              \"group/term relative inline cursor-help rounded-xs\",\n              className\n            )}\n            {...props}\n          />\n        }\n      >\n        {children ?? label}\n        {marker === \"icon\" ? (\n          <span\n            data-slot=\"term-marker\"\n            aria-hidden=\"true\"\n            className=\"ml-1 inline-block size-3 rounded-full border border-border-strong text-center align-middle font-mono text-[9px] leading-[10px] font-medium tracking-normal normal-case text-faint transition-colors duration-[140ms] group-hover/term:border-stone-400 group-hover/term:text-foreground group-focus-visible/term:border-stone-400 group-focus-visible/term:text-foreground\"\n          >\n            ?\n          </span>\n        ) : null}\n        <span id={id} className=\"sr-only\">\n          {explain}\n        </span>\n      </TooltipTrigger>\n      <TooltipContent\n        side={side}\n        sideOffset={7}\n        className=\"max-w-[260px] text-left font-sans text-xs leading-[1.45] font-normal tracking-normal normal-case whitespace-normal\"\n      >\n        {explain}\n      </TooltipContent>\n    </Tooltip>\n  )\n}\n\nexport { Term, type TermMarker }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

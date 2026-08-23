@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "The field shell on a textarea: resize-none, 1.5 line-height, sizes to its content from a 72px floor.",
+  "files": [
+    {
+      "path": "registry/grana/ui/textarea.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The field shell (see input.tsx) on a textarea: same padding, face and hairline, 1.5\n * line-height, `resize: none` by design (Luminars: surfaces grow it themselves — here the\n * field sizes to its content from a 72px floor). */\nfunction Textarea({ className, ...props }: React.ComponentProps<\"textarea\">) {\n  return (\n    <textarea\n      data-slot=\"textarea\"\n      className={cn(\n        \"flex field-sizing-content min-h-18 w-full min-w-0 resize-none rounded-sm border border-input bg-card px-2.5 py-[7px] text-13 leading-normal text-foreground transition-colors duration-[120ms] placeholder:text-faint not-disabled:hover:border-border-strong disabled:cursor-default disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Textarea }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

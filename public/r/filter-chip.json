@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-chip",
+  "title": "FilterChip",
+  "description": "A pressable pill for a dynamic, wrapping, many-of-many set; selected is aria-pressed, an optional count in num.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/filter-chip.tsx",
+      "content": "import { Toggle as TogglePrimitive } from \"@base-ui/react/toggle\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* FilterChip — skin-spec §4. A pressable pill for a DYNAMIC, wrapping, many-of-many set (the\n * connector catalog); deliberately not a Segmented variant. `selected` is the pressed state;\n * the chip reports it as `aria-pressed`. A count, when given, is set in `num`. */\ntype FilterChipProps = Omit<\n  TogglePrimitive.Props,\n  \"pressed\" | \"defaultPressed\" | \"onPressedChange\"\n> & {\n  selected?: boolean\n  defaultSelected?: boolean\n  onSelectedChange?: TogglePrimitive.Props[\"onPressedChange\"]\n  count?: number\n}\n\nfunction FilterChip({\n  className,\n  selected,\n  defaultSelected,\n  onSelectedChange,\n  count,\n  children,\n  ...props\n}: FilterChipProps) {\n  return (\n    <TogglePrimitive\n      data-slot=\"filter-chip\"\n      pressed={selected}\n      defaultPressed={defaultSelected}\n      onPressedChange={onSelectedChange}\n      className={cn(\n        \"inline-flex h-[30px] shrink-0 items-center justify-center gap-1.5 rounded-full border border-border-strong px-3.5 text-[12.5px] whitespace-nowrap text-muted-foreground transition-colors duration-[120ms] ease-out select-none not-disabled:hover:border-stone-400 not-disabled:hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50 data-pressed:bg-canvas-deep data-pressed:font-medium data-pressed:text-foreground [&_svg]:size-3.5 [&_svg]:shrink-0 [&_svg]:stroke-[1.5]\",\n        className\n      )}\n      {...props}\n    >\n      {children}\n      {count !== undefined ? (\n        <span data-slot=\"filter-chip-count\" className=\"num text-faint\">\n          {count}\n        </span>\n      ) : null}\n    </TogglePrimitive>\n  )\n}\n\nexport { FilterChip }\nexport type { FilterChipProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

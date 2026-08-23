@@ -1,0 +1,16 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tenant-badge",
+  "title": "TenantBadge + TenantTile",
+  "description": "The tenant identity row: a 28px ink tile with initials or logo, the name, a meta line.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/grana/ui/tenant-badge.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The tenant identity row (skin-spec §18): a 28px square ink tile with the customer's\n * initials (or logo) + name + a meta line. In a neutral multi-tenant tool the customer's\n * mark is the only identity the chrome carries. */\n\nfunction initials(name: string) {\n  return name\n    .split(/\\s+/)\n    .filter(Boolean)\n    .slice(0, 2)\n    .map((part) => (part[0] ?? \"\").toUpperCase())\n    .join(\"\")\n}\n\nfunction TenantTile({\n  className,\n  name,\n  logoUrl,\n  ...props\n}: React.ComponentProps<\"span\"> & {\n  name: string\n  logoUrl?: string\n}) {\n  return (\n    <span\n      data-slot=\"tenant-tile\"\n      className={cn(\n        \"grid size-7 shrink-0 place-items-center overflow-hidden rounded-sm bg-primary text-[11px] font-semibold tracking-[0.01em] text-primary-foreground select-none\",\n        className\n      )}\n      {...props}\n    >\n      {logoUrl ? (\n        <img src={logoUrl} alt=\"\" className=\"size-full object-cover\" />\n      ) : (\n        initials(name)\n      )}\n    </span>\n  )\n}\n\nfunction TenantBadge({\n  className,\n  name,\n  detail,\n  logoUrl,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  name: string\n  /** The meta line under the name: the plan, the unit, the seat count. */\n  detail?: React.ReactNode\n  logoUrl?: string\n}) {\n  return (\n    <div\n      data-slot=\"tenant-badge\"\n      className={cn(\"flex min-w-0 items-center gap-2.5 px-2 pt-1.5 pb-4\", className)}\n      {...props}\n    >\n      <TenantTile name={name} logoUrl={logoUrl} />\n      <span data-slot=\"tenant-badge-text\" className=\"flex min-w-0 flex-col\">\n        <span\n          data-slot=\"tenant-badge-name\"\n          className=\"truncate text-sm leading-[1.3] font-medium tracking-[-0.01em]\"\n        >\n          {name}\n        </span>\n        {detail !== undefined && detail !== null ? (\n          <span\n            data-slot=\"tenant-badge-detail\"\n            className=\"truncate text-[11px] leading-[1.4] text-faint\"\n          >\n            {detail}\n          </span>\n        ) : null}\n      </span>\n    </div>\n  )\n}\n\nexport { TenantBadge, TenantTile }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

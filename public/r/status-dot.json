@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "status-dot",
+  "title": "StatusDot",
+  "description": "A status dot: 7px (6 inside a Chip), six tones, optional live pulse, optional accessible label. Always beside a word.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/status-dot.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The six status tones both products share (Luminars `tone.ts`). Chip and StatusDot read\n * the same map so the two can never drift on colour again. */\nexport type StatusTone = \"ok\" | \"attention\" | \"serious\" | \"warning\" | \"info\" | \"quiet\"\n\nconst statusDotVariants = cva(\"inline-block shrink-0 rounded-full\", {\n  variants: {\n    tone: {\n      quiet: \"bg-stone-400\",\n      ok: \"bg-status-good\",\n      attention: \"bg-status-critical\",\n      serious: \"bg-status-serious\",\n      warning: \"bg-status-warning\",\n      info: \"bg-status-info\",\n    },\n    live: {\n      /* Only a dot reporting something LIVE breathes (1.4s; the global reduced-motion rule\n       * kills it). Tailwind's pulse keyframe, retimed inline. */\n      true: \"animate-dot-pulse\",\n      false: \"\",\n    },\n  },\n  defaultVariants: {\n    tone: \"quiet\",\n    live: false,\n  },\n})\n\n/**\n * A status dot. 7px standalone, `size={6}` inside a Chip. It is always rendered beside a\n * word the caller owns (DSN-6: dot + word, never colour alone) — so by default it is hidden\n * from assistive tech; pass `label` when the dot must carry its own meaning (a table cell\n * whose word lives in the column header).\n */\nfunction StatusDot({\n  className,\n  tone = \"quiet\",\n  live = false,\n  size = 7,\n  label,\n  style,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> &\n  VariantProps<typeof statusDotVariants> & {\n    tone?: StatusTone\n    live?: boolean\n    /** Diameter in px. The spec: 7 standalone, 6 inside a chip. */\n    size?: number\n    /** An accessible name. Omit when a visible word sits beside the dot. */\n    label?: string\n  }) {\n  return (\n    <span\n      data-slot=\"status-dot\"\n      data-tone={tone}\n      data-live={live ? \"on\" : \"off\"}\n      role={label ? \"img\" : undefined}\n      aria-label={label}\n      aria-hidden={label ? undefined : true}\n      className={cn(statusDotVariants({ tone, live }), className)}\n      style={{\n        width: size,\n        height: size,\n        animationDuration: live ? \"1.4s\" : undefined,\n        ...style,\n      }}\n      {...props}\n    />\n  )\n}\n\nexport { StatusDot, statusDotVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

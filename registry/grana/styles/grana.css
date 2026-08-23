@@ -374,6 +374,14 @@
   --text-metric--letter-spacing: -0.03em;
 
   --spacing-sidebar: var(--sidebar-width);
+
+  /* A live status dot breathes — only while something is actually happening. */
+  --animate-dot-pulse: dot-pulse 1.4s ease-in-out infinite;
+  @keyframes dot-pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
 }
 
 /* ═══ 5. Base ═════════════════════════════════════════════════════════════ */

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "An inline message about something that just happened (role=alert): hairline on the card ground, a leading icon or StatusDot, default or destructive.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/alert.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* An inline message about something that just happened (`role=\"alert\"`). Hairline on the\n * card ground, 13px; a leading mark — a lucide icon or a `StatusDot` — takes the first\n * column. Status never decorates: the destructive variant colours the mark, the title and\n * the hairline (the one permitted coloured border), never a fill.\n *\n * For a standing condition the person did not cause (offline, nothing yet) use `Notice`. */\nconst alertVariants = cva(\n  \"group/alert relative grid w-full gap-0.5 rounded-md border border-border bg-card px-3.5 py-3 text-left text-13 has-data-[slot=alert-action]:pr-20 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2.5 has-[>[data-slot=status-dot]]:grid-cols-[auto_1fr] has-[>[data-slot=status-dot]]:gap-x-2.5 *:[svg]:row-span-2 *:[svg]:translate-y-px *:[svg]:text-current *:[svg:not([class*='size-'])]:size-3.5 *:data-[slot=status-dot]:row-span-2 *:data-[slot=status-dot]:mt-[6px]\",\n  {\n    variants: {\n      variant: {\n        default: \"text-foreground\",\n        destructive:\n          \"border-destructive text-foreground *:[svg]:text-destructive *:data-[slot=alert-title]:text-destructive\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  }\n)\n\nfunction Alert({\n  className,\n  variant = \"default\",\n  ...props\n}: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>) {\n  return (\n    <div\n      data-slot=\"alert\"\n      data-variant={variant}\n      role=\"alert\"\n      className={cn(alertVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-title\"\n      className={cn(\n        \"font-medium group-has-[>svg]/alert:col-start-2 group-has-[>[data-slot=status-dot]]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDescription({\n  className,\n  ...props\n}: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-description\"\n      className={cn(\n        \"text-13 text-pretty text-muted-foreground group-has-[>svg]/alert:col-start-2 group-has-[>[data-slot=status-dot]]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-3\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction AlertAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-action\"\n      className={cn(\"absolute top-2 right-2\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Alert, AlertTitle, AlertDescription, AlertAction, alertVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

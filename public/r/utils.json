@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utils",
+  "title": "cn()",
+  "description": "clsx + tailwind-merge, with the merger taught Grana's extra font sizes (text-2xs, text-13, text-metric). Replaces the stock utils.",
+  "dependencies": [
+    "clsx",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "lib/utils.ts",
+      "content": "import { clsx, type ClassValue } from \"clsx\"\nimport { extendTailwindMerge } from \"tailwind-merge\"\n\n/* Grana's theme adds font sizes Tailwind's default scale lacks (`text-2xs` 10.5px, `text-13`\n * 13px, `text-metric`). tailwind-merge cannot tell a custom size from a colour and would drop\n * `text-13` whenever a `text-<colour>` follows it — so the merger is taught the names here.\n * Installed into consumers as `@grana/utils` (the theme item depends on it). */\nconst twMerge = extendTailwindMerge({\n  extend: {\n    classGroups: {\n      \"font-size\": [{ text: [\"2xs\", \"13\", \"metric\"] }],\n    },\n  },\n})\n\nexport function cn(...inputs: ClassValue[]) {\n  return twMerge(clsx(inputs))\n}\n",
+      "type": "registry:lib",
+      "target": "lib/utils.ts"
+    }
+  ],
+  "type": "registry:lib"
+}
