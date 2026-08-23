@@ -1,0 +1,433 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+ * Grana — the shared design system for Revenue Farm and Luminars.
+ *
+ * L0 foundations, in three layers:
+ *   1. the raw palette (brand-independent; components never read it directly)
+ *   2. semantic slots under shadcn's names, per SURFACE  (data-surface="app|marketing")
+ *   3. the few values that differ per BRAND               (data-brand="luminars|rf")
+ *
+ * A consumer imports this file as its Tailwind entry (or @imports it from its own) and
+ * puts data-brand + data-surface on <html>. Without either attribute you get the
+ * Luminars app look — the defaults are explicit, not accidental.
+ *
+ * Light only. Both products are light by design ("dark is punctuation, never the theme").
+ * ──────────────────────────────────────────────────────────────────────────── */
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "./fonts.css";
+
+/* ═══ 1. Raw palette ═══════════════════════════════════════════════════════ */
+:root {
+  /* The warm stone ramp — the only source of borders, fills and ink. */
+  --stone-0: #ffffff;
+  --stone-50: #fbfaf9;
+  --stone-100: #f5f3f2;
+  --stone-200: #e9e7e4;
+  --stone-300: #d7d5d2;
+  --stone-400: #b4b1ae;
+  --stone-500: #8c8985;
+  --stone-550: #716e6b; /* the quietest TEXT step that still clears AA on white */
+  --stone-600: #66635f;
+  --stone-700: #484541;
+  --stone-800: #2e2b28;
+  --stone-900: #1a1816; /* ink — text and the primary action */
+  --stone-950: #0e0d0a;
+
+  /* Paper */
+  --ecru: #f6f3ee;
+  --ecru-deep: #eeeae2;
+  --line: #e3ded5; /* marketing hairline on ecru */
+  --line-strong: #d0cabf;
+
+  /* Dark punctuation (marketing bands only) */
+  --inverse: #0c0b09;
+  --inverse-foreground: #f6f3ee;
+  --inverse-muted: #b3ada4;
+  --inverse-line: rgba(246, 243, 238, 0.14);
+
+  /* The one warm accent. Wayfinding, eyebrows' index numbers, the focus ring (Luminars).
+   * Never a button, never a fill. */
+  --ochre: #a97a2e;
+  --ochre-dark: #cfa14b;
+  --selection: #eadfc6;
+
+  /* Status — identical on every surface; always dot/icon + word, never colour alone. */
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+  --status-info: #2a78d6;
+
+  /* Charts — slot ORDER is the colour-blindness mechanism; never reshuffle. */
+  --chart-1: #1b8a5f;
+  --chart-2: #e8873b;
+  --chart-3: #2a78d6;
+  --chart-4: #e05c7a;
+  --chart-5: #c9a227;
+  --chart-6: #0e9ca8;
+  --chart-7: #7c5cd6;
+  --chart-8: #d03b3b;
+
+  /* Faces. Named families load from /fonts (see fonts.css); the stacks degrade cleanly. */
+  --face-display: "Cabinet Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --face-sans: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --face-mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --face-serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+
+  /* Depth — soft, warm-tinted, gentle. The RF product surface nulls both (see §3). */
+  --shadow-card: 0 1px 2px rgba(26, 24, 22, 0.05), 0 4px 16px rgba(26, 24, 22, 0.05);
+  --shadow-panel: 0 1px 2px rgba(26, 24, 22, 0.04), 0 10px 34px rgba(26, 24, 22, 0.09);
+
+  /* Motion */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Texture (marketing canvases): inline SVG noise, composited with plain alpha, never blend modes. */
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --dots: radial-gradient(rgba(26, 24, 22, 0.16) 1px, transparent 1px);
+  --dots-size: 18px 18px;
+}
+
+/* ═══ 2. Semantic slots (shadcn names) per surface ════════════════════════ */
+
+/* The product surface — the default. Neutral, flat, colour = status/data only. */
+:root,
+[data-surface="app"] {
+  --background: var(--canvas); /* brand-dependent: ecru (Luminars) | stone-100 (RF) */
+  --foreground: var(--stone-900);
+  --card: var(--stone-0);
+  --card-foreground: var(--stone-900);
+  --popover: var(--stone-0);
+  --popover-foreground: var(--stone-900);
+  --primary: var(--stone-900);
+  --primary-foreground: var(--stone-0);
+  --secondary: var(--stone-100); /* the filled-muted ground (segmented active, kbd) */
+  --secondary-foreground: var(--stone-900);
+  --muted: var(--stone-100); /* sunken fills: table header, muted inputs */
+  --muted-foreground: var(--stone-600); /* secondary text */
+  --faint: var(--stone-550); /* the quietest text that still clears AA */
+  --accent: var(--stone-100); /* hover fill on rows, menu items, ghost buttons */
+  --accent-foreground: var(--stone-900);
+  --destructive: var(--status-critical);
+  --destructive-foreground: var(--stone-0);
+  --border: var(--stone-200); /* THE hairline */
+  --border-strong: var(--stone-300);
+  --input: var(--stone-200);
+  --ring: var(--focus); /* brand-dependent: ochre (Luminars) | ink (RF) */
+
+  /* Sidebar slots — the chrome sits ON the canvas, transparent, no right border. */
+  --sidebar: transparent;
+  --sidebar-foreground: var(--stone-600);
+  --sidebar-primary: var(--stone-900);
+  --sidebar-primary-foreground: var(--stone-0);
+  --sidebar-accent: var(--stone-200); /* hover */
+  --sidebar-accent-foreground: var(--stone-900);
+  --sidebar-border: var(--stone-200);
+  --sidebar-ring: var(--focus);
+
+  --surface-2: var(--stone-100); /* sunken panels inside a card */
+  --canvas-deep: var(--stone-200);
+}
+
+/* The marketing surface — warm paper, expressive, depth allowed. */
+[data-surface="marketing"] {
+  --background: var(--ecru);
+  --foreground: var(--stone-900);
+  --card: var(--stone-0);
+  --card-foreground: var(--stone-900);
+  --popover: var(--stone-0);
+  --popover-foreground: var(--stone-900);
+  --primary: var(--stone-900);
+  --primary-foreground: var(--ecru);
+  --secondary: rgba(255, 255, 255, 0.4); /* the "glass" ground; pair with backdrop-blur */
+  --secondary-foreground: var(--stone-900);
+  --muted: var(--ecru-deep);
+  --muted-foreground: var(--stone-600);
+  --faint: var(--stone-550);
+  --accent: var(--ecru-deep);
+  --accent-foreground: var(--stone-900);
+  --destructive: var(--status-critical);
+  --destructive-foreground: var(--ecru);
+  --border: var(--line);
+  --border-strong: var(--line-strong);
+  --input: var(--line);
+  --ring: var(--stone-900);
+  --surface-2: var(--ecru-deep);
+  --canvas-deep: var(--ecru-deep);
+}
+
+/* ═══ 3. Brand overrides — the short list of things that legitimately differ ═ */
+
+/* Luminars (the default): a warm desktop product with a voice. */
+:root,
+[data-brand="luminars"] {
+  --canvas: var(--ecru);
+  --focus: var(--ochre);
+  --face-voice: var(--face-display); /* the display face IS allowed inside the product (DSN-9) */
+  --sidebar-width: 236px;
+  --shell-radius: 14px; /* the inset panel */
+
+  /* Executor hues — functional colour-coding of who/what performs a step. */
+  --exec-agent: #0e7a8a;
+  --exec-agent-soft: #e0f2f5;
+  --exec-human: #a05a9e;
+  --exec-human-soft: #f6e9f5;
+  --exec-api: #4a6bd0;
+  --exec-api-soft: #e8edfb;
+  --exec-screen: #6c7a3a;
+  --exec-screen-soft: #eef1e0;
+
+  /* Unit tints are RF-only; declared here so the utilities always resolve. */
+  --unit-demand: var(--stone-700);
+  --unit-demand-dark: var(--stone-400);
+  --unit-piattaforma: var(--stone-700);
+  --unit-piattaforma-dark: var(--stone-400);
+  --unit-academy: var(--stone-700);
+  --unit-academy-dark: var(--stone-400);
+  --unit-installatori: var(--stone-700);
+  --unit-installatori-dark: var(--stone-400);
+}
+
+/* Revenue Farm: a neutral multi-tenant tool; the customer's logo is the only identity. */
+[data-brand="rf"] {
+  --canvas: var(--stone-100);
+  --focus: var(--stone-900);
+  --face-voice: var(--face-sans); /* Cabinet Grotesk is banned inside the RF product */
+  --sidebar-width: 244px;
+  --shell-radius: 14px; /* the big white card */
+
+  --unit-demand: #0058a8;
+  --unit-demand-dark: #4495ea;
+  --unit-piattaforma: #00744d;
+  --unit-piattaforma-dark: #26a073;
+  --unit-academy: #8a5100;
+  --unit-academy-dark: #ba7924;
+  --unit-installatori: #964432;
+  --unit-installatori-dark: #c96a55;
+
+  --exec-agent: var(--stone-700);
+  --exec-agent-soft: var(--stone-100);
+  --exec-human: var(--stone-700);
+  --exec-human-soft: var(--stone-100);
+  --exec-api: var(--stone-700);
+  --exec-api-soft: var(--stone-100);
+  --exec-screen: var(--stone-700);
+  --exec-screen-soft: var(--stone-100);
+}
+
+/* The RF product surface carries no shadows at all — hairlines only. */
+[data-brand="rf"][data-surface="app"],
+[data-brand="rf"] [data-surface="app"] {
+  --shadow-card: none;
+  --shadow-panel: none;
+}
+
+/* ═══ 4. The Tailwind theme — utilities read the slots, never the palette ══ */
+@theme inline {
+  /* shadcn slots */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Grana additions */
+  --color-faint: var(--faint);
+  --color-border-strong: var(--border-strong);
+  --color-surface-2: var(--surface-2);
+  --color-canvas: var(--canvas);
+  --color-canvas-deep: var(--canvas-deep);
+  --color-ink: var(--stone-900);
+  --color-ecru: var(--ecru);
+  --color-ecru-deep: var(--ecru-deep);
+  --color-ochre: var(--ochre);
+  --color-ochre-dark: var(--ochre-dark);
+  --color-inverse: var(--inverse);
+  --color-inverse-foreground: var(--inverse-foreground);
+  --color-inverse-muted: var(--inverse-muted);
+  --color-inverse-line: var(--inverse-line);
+
+  --color-stone-0: var(--stone-0);
+  --color-stone-50: var(--stone-50);
+  --color-stone-100: var(--stone-100);
+  --color-stone-200: var(--stone-200);
+  --color-stone-300: var(--stone-300);
+  --color-stone-400: var(--stone-400);
+  --color-stone-500: var(--stone-500);
+  --color-stone-550: var(--stone-550);
+  --color-stone-600: var(--stone-600);
+  --color-stone-700: var(--stone-700);
+  --color-stone-800: var(--stone-800);
+  --color-stone-900: var(--stone-900);
+  --color-stone-950: var(--stone-950);
+
+  --color-status-good: var(--status-good);
+  --color-status-warning: var(--status-warning);
+  --color-status-serious: var(--status-serious);
+  --color-status-critical: var(--status-critical);
+  --color-status-info: var(--status-info);
+
+  --color-exec-agent: var(--exec-agent);
+  --color-exec-agent-soft: var(--exec-agent-soft);
+  --color-exec-human: var(--exec-human);
+  --color-exec-human-soft: var(--exec-human-soft);
+  --color-exec-api: var(--exec-api);
+  --color-exec-api-soft: var(--exec-api-soft);
+  --color-exec-screen: var(--exec-screen);
+  --color-exec-screen-soft: var(--exec-screen-soft);
+
+  --color-unit-demand: var(--unit-demand);
+  --color-unit-demand-dark: var(--unit-demand-dark);
+  --color-unit-piattaforma: var(--unit-piattaforma);
+  --color-unit-piattaforma-dark: var(--unit-piattaforma-dark);
+  --color-unit-academy: var(--unit-academy);
+  --color-unit-academy-dark: var(--unit-academy-dark);
+  --color-unit-installatori: var(--unit-installatori);
+  --color-unit-installatori-dark: var(--unit-installatori-dark);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-chart-6: var(--chart-6);
+  --color-chart-7: var(--chart-7);
+  --color-chart-8: var(--chart-8);
+
+  /* Faces: font-display / font-sans / font-mono / font-serif / font-voice */
+  --font-display: var(--face-display);
+  --font-sans: var(--face-sans);
+  --font-mono: var(--face-mono);
+  --font-serif: var(--face-serif);
+  --font-voice: var(--face-voice); /* the product's display face — brand decides which */
+
+  /* Shape: ONE scale, ratified D-G3. rounded-xs 4 · rounded-sm 6 · rounded-md 10 · rounded-lg 14.
+   * Pills are rounded-full. Nothing else exists; xl+ alias to 14 so stock code cannot invent radii. */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 14px;
+  --radius-2xl: 14px;
+  --radius-3xl: 14px;
+  --radius-4xl: 14px;
+  --radius-shell: var(--shell-radius);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-panel: var(--shadow-panel);
+
+  --ease-brand: var(--ease);
+  --ease-brand-out: var(--ease-out);
+
+  /* Type sizes the kits actually use beyond Tailwind's scale. */
+  --text-2xs: 10.5px;
+  --text-2xs--line-height: 1.3;
+  --text-13: 13px;
+  --text-13--line-height: 1.45;
+  --text-metric: clamp(1.625rem, 2.4vw, 2rem);
+  --text-metric--line-height: 1;
+  --text-metric--letter-spacing: -0.03em;
+
+  --spacing-sidebar: var(--sidebar-width);
+}
+
+/* ═══ 5. Base ═════════════════════════════════════════════════════════════ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* The product reads at 14px; marketing at the browser's 16px. */
+  [data-surface="app"] body,
+  body[data-surface="app"] {
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  code,
+  pre,
+  kbd {
+    font-family: var(--face-mono);
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--selection);
+    color: var(--stone-900);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* ═══ 6. The two global roles ═════════════════════════════════════════════ */
+
+/* Numerals are never proportional: every numeric readout carries `num`. */
+@utility num {
+  font-family: var(--face-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* The mono ALL-CAPS section label (app recipe; marketing widens to text-xs tracking-[.14em]). */
+@utility eyebrow {
+  font-family: var(--face-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  line-height: 1.3;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--faint);
+}
+
+/* The marketing grain veil: a pseudo-layer above an image, below content. */
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--grain);
+    background-size: 240px 240px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+}
