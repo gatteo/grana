@@ -10,7 +10,8 @@
     "typecheck": "tsc --noEmit -p .",
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
-    "registry:build": "shadcn build"
+    "registry:build": "shadcn build",
+    "registry:serve": "node scripts/serve-registry.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

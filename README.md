@@ -16,19 +16,25 @@ Works identically in Vite (the Luminars desktop) and Next.js (the hosted surface
 
 1. **Tailwind v4 + shadcn init** in the app (once):
    `npx shadcn@latest init -b base` — Base UI, CSS variables, neutral base colour.
-2. **Point the app at this registry** in its `components.json`:
-   ```json
-   "registries": { "@grana": "file:///Users/gatteo/projects/grana/public/r/{name}.json" }
+2. **Serve this registry and point the app at it.** The shadcn CLI resolves namespaces by URL only
+   (`file://` is not implemented), so while both repos live on one machine:
+   ```bash
+   pnpm registry:build && pnpm registry:serve     # in grana → http://127.0.0.1:5190/r/{name}.json
    ```
-   (a local path while both repos live on one machine; a GitHub registry or an authenticated URL
-   once the repo is hosted — `shadcn add` accepts either without changing the components).
+   and in the app's `components.json`:
+   ```json
+   "registries": { "@grana": "http://127.0.0.1:5190/r/{name}.json" }
+   ```
+   (Once the repo is hosted, a GitHub registry — `add gatteo/grana/button#v1` — or an
+   authenticated URL replaces this line; the components don't change.)
 3. **Install the theme**, then the components you need:
    ```bash
    npx shadcn@latest add @grana/theme
    npx shadcn@latest add @grana/button @grana/chip @grana/card @grana/table …
    ```
-   The theme lands as `styles/grana.css` + `styles/fonts.css`. Make `grana.css` the app's Tailwind
-   entry (or `@import "./grana.css"` from it). Copy `public/fonts/` into the app's public dir.
+   The theme lands as `styles/grana.css` + `styles/fonts.css` (under `src/` when the app has one).
+   Make `grana.css` the app's Tailwind entry (or `@import "./grana.css"` from it). Copy grana's
+   `public/fonts/` into the app's public dir. Proven 2026-08-23 against a scratch Vite app.
 4. **Declare brand and surface** on `<html>`:
    ```html
    <html data-brand="luminars" data-surface="app">   <!-- or data-brand="rf", data-surface="marketing" -->
