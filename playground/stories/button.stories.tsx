@@ -161,30 +161,26 @@ export default function ButtonStories() {
         </div>
       </Story>
 
-      <Story title="Marketing" note="switch Surface → marketing: glass = RF .btn--quiet, on-dark / glass-dark sit on a dark band; xl = the RF hero size (50). Active nudges 1px down on the marketing surface only">
+      <Story title="Marketing" note="switch Surface → marketing: the same md/sm sizes take the field recipe (padding-driven, 14/13px at 1.6 leading — the RF .btn). glass = .btn--quiet; on-dark / glass-dark sit on a dark band. Active nudges 1px down on the marketing surface only">
         <Row>
           {marketingVariants.slice(0, 2).map((variant) => (
-            <Button key={variant} variant={variant} size="xl">
+            <Button key={variant} variant={variant}>
               {variant === "primary" ? "Prenota una demo" : "Scopri come funziona"}
             </Button>
           ))}
           {marketingVariants.slice(0, 2).map((variant) => (
-            <Button key={variant} variant={variant} size="lg">
+            <Button key={variant} variant={variant} size="sm">
               {variant === "primary" ? "Prenota una demo" : "Scopri come funziona"}
             </Button>
           ))}
         </Row>
         <div className="flex flex-wrap items-center gap-3 rounded-md bg-inverse p-6">
-          <Button variant="on-dark" size="xl">
+          <Button variant="on-dark">Inizia ora</Button>
+          <Button variant="glass-dark">Guarda il video</Button>
+          <Button variant="on-dark" size="sm">
             Inizia ora
           </Button>
-          <Button variant="glass-dark" size="xl">
-            Guarda il video
-          </Button>
-          <Button variant="on-dark" size="lg">
-            Inizia ora
-          </Button>
-          <Button variant="glass-dark" size="lg">
+          <Button variant="glass-dark" size="sm">
             Guarda il video
           </Button>
         </div>

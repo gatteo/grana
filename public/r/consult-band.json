@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "consult-band",
+  "title": "ConsultBand",
+  "description": "The consulting offer band: the head, the steps, the note and the two verbs.",
+  "registryDependencies": [
+    "@grana/utils",
+    "@grana/section",
+    "@grana/canvas",
+    "@grana/eyebrow",
+    "@grana/button"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/consult-band.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Canvas } from \"@/registry/grana/ui/canvas\"\nimport { Eyebrow } from \"@/registry/grana/ui/eyebrow\"\nimport { Wrap } from \"@/registry/grana/ui/section\"\n\n/* The contextual sales moment (RF `.consult`): a framed field mid-page carrying a message\n * written for what the reader is looking at right now, not a generic pitch.\n *\n * One register below `CtaBand` on purpose — left-aligned, compact, and on the tight air of its\n * own clamp instead of the full section rhythm, so a page can carry several without any of them\n * reading as the ending. Its wash falls sideways (96°, 0.82 → 0.34) rather than down: the copy\n * lives on the left, the actions on the right, and the picture stays visible under the verbs.\n *\n * It stays an `<aside>` — a complementary landmark next to the page's argument, not a section of\n * it — so it composes `Wrap` directly instead of `Section`. */\n\nconst CONSULT_WASH =\n  \"linear-gradient(96deg, rgba(12,11,9,0.82) 0%, rgba(12,11,9,0.6) 55%, rgba(12,11,9,0.34) 100%)\"\n\nexport type ConsultBandProps = Omit<React.ComponentProps<\"aside\">, \"title\"> & {\n  image: string\n  imagePos?: string\n  duotone?: boolean\n  /** Mono context label, e.g. \"Parla con noi\". */\n  eyebrow?: React.ReactNode\n  title: React.ReactNode\n  /** Serif line under the title — contextual to the page. */\n  line?: React.ReactNode\n  /** Button row (usually one on-dark CTA + one glass-dark link). */\n  actions: React.ReactNode\n}\n\n/**\n * Contextual sales moment: a framed field mid-page with a message\n * written for what the reader is looking at, not a generic pitch.\n * One register below CtaBand — left-aligned, compact.\n */\nfunction ConsultBand({\n  image,\n  imagePos,\n  duotone = false,\n  eyebrow,\n  title,\n  line,\n  actions,\n  className,\n  ...props\n}: ConsultBandProps) {\n  return (\n    <aside\n      data-slot=\"consult-band\"\n      className={cn(\"py-[clamp(1.5rem,3vw,2.5rem)]\", className)}\n      {...props}\n    >\n      <Wrap>\n        <Canvas\n          img={image}\n          pos={imagePos}\n          duotone={duotone}\n          marks=\"light\"\n          grainOpacity={0.14}\n          wash={CONSULT_WASH}\n          reveal\n        >\n          <div\n            data-slot=\"consult-band-inner\"\n            className=\"flex flex-wrap items-center justify-between gap-x-10 gap-y-6 px-[clamp(1.5rem,3.5vw,3rem)] py-[clamp(2rem,4vw,3rem)]\"\n          >\n            <div data-slot=\"consult-band-copy\">\n              {eyebrow ? (\n                <Eyebrow\n                  size=\"lg\"\n                  className=\"mb-3 block leading-[1.6] text-inverse-foreground/70\"\n                >\n                  {eyebrow}\n                </Eyebrow>\n              ) : null}\n              <h3\n                data-slot=\"consult-band-title\"\n                className=\"max-w-[24ch] font-display text-[clamp(1.5rem,2.2vw,2rem)] leading-[1.12] font-bold tracking-[-0.015em] text-balance text-inverse-foreground\"\n              >\n                {title}\n              </h3>\n              {line ? (\n                <p\n                  data-slot=\"consult-band-line\"\n                  className=\"mt-3 max-w-[48ch] font-serif text-[1.0625rem] leading-[1.55] text-inverse-foreground/85\"\n                >\n                  {line}\n                </p>\n              ) : null}\n            </div>\n            <div\n              data-slot=\"consult-band-actions\"\n              className=\"flex flex-wrap gap-3\"\n            >\n              {actions}\n            </div>\n          </div>\n        </Canvas>\n      </Wrap>\n    </aside>\n  )\n}\n\nexport { ConsultBand }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

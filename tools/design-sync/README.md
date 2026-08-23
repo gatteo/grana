@@ -221,6 +221,12 @@ if chromium is missing). `tools/design-sync` and `ds-bundle` are excluded from `
 
 ## Push log
 
+- **2026-08-23 (round 2)** — the marketing group joins both projects: "Revenue Farm · Grana" 419
+  writes / 7 deletes (the stale `_preview/img/*` from the pre-Grana bundle) and "Luminars V3 ·
+  Grana" 416 writes / 0 deletes. 76 cards in seven groups; the textures now ship in the bundle
+  (`img/`) and every card resolves them through `window.__dsImgBase`. `profiles.<p>.oldBundle`
+  now points at `ds-bundle-pushed/<p>` inside this repo (gitignored) — the mirror of what the
+  projects actually hold, updated immediately after each push.
 - **2026-08-23** — first push of both profiles by the lead through DesignSync: "Luminars V3 · Grana"
   (`dc653a61…`, 282 writes / 102 deletes) and "Revenue Farm · Grana" (`975e6747…`, 285 writes /
   351 deletes). Both projects verified with `list_files` afterwards: exactly the bundle plus the

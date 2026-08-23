@@ -10,6 +10,7 @@ import { REPO, TOOL, ls } from './common.mjs';
 
 export const GRANA_CSS = join(REPO, 'registry', 'grana', 'styles', 'grana.css');
 const FONTS_DIR = join(REPO, 'public', 'fonts');
+const IMG_DIR = join(REPO, 'public', 'img');
 
 /** Directories the scanner reads for class candidates. */
 export const SCAN_DIRS = [
@@ -80,6 +81,16 @@ export const SAFELIST = [
   `{first:border-t-0,last:border-b-0,first:pt-0,last:pb-0,even:bg-muted,odd:bg-card}`,
   `{line-clamp-1,line-clamp-2,line-clamp-3}`, `{resize-none,appearance-none,scroll-smooth,snap-x,snap-start}`,
   `{isolate,invisible,visible,collapse}`, `{prose,lead}`,
+  // The marketing register: the composite type roles, the field geometry, the entrances.
+  `{display,h2,h3,lead,serif,metric,link,voice}`,
+  `text-{display,h2,h3,lead,metric,2xs,13}`,
+  `{px,py,p,gap,mt,mb}-{gutter,section,frame}`,
+  `max-w-{measure,head,lead,text}`, `rounded-img`,
+  `{animate-rise,animate-img-settle,animate-stake-in}`,
+  `{bg,text,border}-{inverse,inverse-foreground,inverse-muted,inverse-line,ecru,ecru-deep,ochre,ochre-dark}`,
+  `{bg,text}-unit-{demand,piattaforma,academy,installatori}`,
+  `{bg,text}-unit-{demand,piattaforma,academy,installatori}-dark`,
+  `text-balance`, `text-pretty`, `{backdrop-saturate-150,mix-blend-normal}`,
   `{sm:,md:,lg:}{flex,hidden,block,grid,flex-row,flex-col,items-center,justify-between}`,
   `{sm:,md:,lg:}{p,px,py,gap}-{2,3,4,5,6,8,10,12}`,
 ];
@@ -91,9 +102,12 @@ function brandPin(granaCss, brand) {
   }
   const block = /\[data-brand="rf"\]\s*\{([^}]*)\}/.exec(granaCss)?.[1];
   const appRule = /\[data-brand="rf"\]\[data-surface="app"\][^{]*\{([^}]*)\}/.exec(granaCss)?.[1];
-  const root = /:root\s*\{([\s\S]*?)\n\}/.exec(granaCss)?.[1] ?? '';
-  const shadowCard = /--shadow-card:\s*([^;]+);/.exec(root)?.[1]?.trim();
-  const shadowPanel = /--shadow-panel:\s*([^;]+);/.exec(root)?.[1]?.trim();
+  // The app pin nulls the shadows on :root, which would flatten the marketing surface too — so the
+  // marketing block's own (deeper, warmer) shadows are restored after it. Read them from that
+  // block, never from :root: the product's shadows are not the paper's.
+  const marketing = /\[data-surface="marketing"\]\s*\{([\s\S]*?)\n\}/.exec(granaCss)?.[1] ?? '';
+  const shadowCard = /--shadow-card:\s*([^;]+);/.exec(marketing)?.[1]?.trim();
+  const shadowPanel = /--shadow-panel:\s*([^;]+);/.exec(marketing)?.[1]?.trim();
   if (!block) throw new Error('brandPin: could not find the [data-brand="rf"] block in grana.css');
   const decls = (s) => s.replace(/\/\*[\s\S]*?\*\//g, '').split(';').map((d) => d.trim()).filter(Boolean).map((d) => `  ${d};`).join('\n');
   return `
@@ -154,5 +168,18 @@ export async function buildCss({ out, brand }) {
     `html:not([data-surface="marketing"]) body { font-size: 14px; line-height: 1.45; }\n`;
   writeFileSync(join(out, '_ds_bundle.css'), css);
   writeFileSync(join(out, 'styles.css'), '@import "./fonts/fonts.css";\n@import "./_ds_bundle.css";\n');
-  return { candidates: candidates.length, files: scanner.files.length, bytes: Buffer.byteLength(css), fontFaces: faces.length, fontFiles };
+
+  // Textures: the marketing components ARE their imagery — a Canvas with no picture is an empty
+  // wash. The stories name them `/img/…`; each page resolves that through `window.__dsImgBase`.
+  const imgOut = join(out, 'img');
+  mkdirSync(imgOut, { recursive: true });
+  const imgFiles = [];
+  if (existsSync(IMG_DIR)) {
+    for (const f of ls(IMG_DIR)) {
+      if (!/\.(jpe?g|png|webp|avif|svg|gif)$/i.test(f)) continue;
+      cpSync(join(IMG_DIR, f), join(imgOut, f));
+      imgFiles.push(f);
+    }
+  }
+  return { candidates: candidates.length, files: scanner.files.length, bytes: Buffer.byteLength(css), fontFaces: faces.length, fontFiles, imgFiles };
 }

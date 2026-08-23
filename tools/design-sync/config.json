@@ -7,8 +7,11 @@
       "brand": "luminars",
       "projectId": "dc653a61-a8aa-4714-860b-125c733cbe8d",
       "projectName": "Luminars V3 · Grana",
-      "guidelines": ["docs/guidelines/luminars-DESIGN.md", "docs/guidelines/01-foundations.md"],
-      "oldBundle": "/Users/gatteo/projects/luminars-v3/ds-bundle"
+      "guidelines": [
+        "docs/guidelines/luminars-DESIGN.md",
+        "docs/guidelines/01-foundations.md"
+      ],
+      "oldBundle": "/Users/gatteo/projects/grana/ds-bundle-pushed/luminars"
     },
     "rf": {
       "product": "Revenue Farm",
@@ -22,19 +25,130 @@
         "docs/guidelines/04-motion.md",
         "docs/guidelines/05-imagery.md"
       ],
-      "oldBundle": "/Users/gatteo/projects/revenuefarm/platform/packages/ui/ds-bundle"
+      "oldBundle": "/Users/gatteo/projects/grana/ds-bundle-pushed/rf"
     }
   },
   "cards": {
-    "label": { "story": "field", "only": ["Label"] },
-    "native-select": { "story": "select", "only": ["NativeSelect"] },
-    "toggle-group": { "story": "toggle", "only": ["ToggleGroup · spaced", "ToggleGroup · joined (spacing 0)"] },
-    "button": { "surface": { "Marketing": "marketing" } },
+    "label": {
+      "story": "field",
+      "only": [
+        "Label"
+      ]
+    },
+    "native-select": {
+      "story": "select",
+      "only": [
+        "NativeSelect"
+      ]
+    },
+    "toggle-group": {
+      "story": "toggle",
+      "only": [
+        "ToggleGroup · spaced",
+        "ToggleGroup · joined (spacing 0)"
+      ]
+    },
+    "button": {
+      "surface": {
+        "Marketing": "marketing"
+      }
+    },
     "eyebrow": {
       "surface": {
         "Numbered index": "marketing",
         "SectionHead · start": "marketing",
         "SectionHead · center, serif lead": "marketing"
+      }
+    },
+    "section": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "canvas": {
+      "surface": "marketing"
+    },
+    "panel": {
+      "surface": "marketing"
+    },
+    "reveal": {
+      "surface": "marketing"
+    },
+    "count-up": {
+      "surface": "marketing"
+    },
+    "logo-mark": {
+      "surface": "marketing"
+    },
+    "hero": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "page-hero": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "rising-panel": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "product-shot": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "float-panel": {
+      "surface": "marketing"
+    },
+    "snippets": {
+      "surface": "marketing"
+    },
+    "shots": {
+      "surface": "marketing"
+    },
+    "illustration-card": {
+      "surface": "marketing"
+    },
+    "proof-band": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "way-card": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "modules-grid": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "dark-band": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "unit-card": {
+      "surface": "marketing"
+    },
+    "post-card": {
+      "surface": "marketing"
+    },
+    "case-study-block": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "consult-band": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "tailor-band": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "cta-band": {
+      "surface": "marketing",
+      "viewport": "1320x900"
+    },
+    "prose": {
+      "surface": {
+        "Editorial · article": "marketing",
+        "Editorial · manifesto": "marketing"
       }
     }
   },

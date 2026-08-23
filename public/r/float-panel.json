@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "float-panel",
+  "title": "FloatPanel",
+  "description": "The small panel that floats over a canvas, carrying one fragment of the product.",
+  "registryDependencies": [
+    "@grana/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/float-panel.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The white artefact panel floating on a field (RF `.float-panel`).\n *\n * Everything the marketing surface says about the product it says through one of these: a small\n * white card, a firmer hairline than the page's, the deep panel shadow, laid over a `Canvas`. It\n * is decorative by construction — `aria-hidden` on the root, because a screen reader gains\n * nothing from a drawn invoice — and the copy inside it is Italian product-demo data, not prose.\n *\n * It is its own container (`container-type: inline-size`): a card canvas gets narrow long before\n * the viewport does, so the fragments inside compact on the panel's width, not the phone's. The\n * `@max-[…]` rules in `snippets`/`shots` resolve against this element.\n *\n * It does not lift on its own — the card that owns it does (`.ill-card:hover .float-panel`), and\n * the transition that carries the lift lives here so any owner can drive it. */\nexport interface FloatPanelProps\n  extends Omit<React.ComponentProps<\"div\">, \"title\" | \"children\"> {\n  /** Mono uppercase header, e.g. \"Preventivo · #2026-0184\". */\n  title?: string\n  /** The wide register (RF `.float-panel--wide`): min(430px, 96%) instead of min(340px, 92%). */\n  wide?: boolean\n  className?: string\n  children: React.ReactNode\n}\n\nfunction FloatPanel({ title, wide, className, children, ...props }: FloatPanelProps) {\n  return (\n    <div\n      data-slot=\"float-panel\"\n      data-wide={wide ? \"\" : undefined}\n      aria-hidden=\"true\"\n      className={cn(\n        \"@container min-w-0 w-[min(340px,92%)] rounded-sm border border-line-artefact bg-stone-0 px-[1.125rem] py-4 text-left text-[13px] shadow-panel transition-[translate] duration-400 ease-brand-out\",\n        /* A panel nested in another panel tightens up — the same rule the CSS carries. */\n        \"@max-[320px]:px-[0.8125rem] @max-[320px]:py-3\",\n        wide && \"w-[min(430px,96%)]\",\n        className\n      )}\n      {...props}\n    >\n      {title ? (\n        <h5\n          data-slot=\"float-panel-title\"\n          className=\"mb-2.5 font-mono text-[11px] font-medium tracking-[0.08em] text-stone-500 uppercase\"\n        >\n          {title}\n        </h5>\n      ) : null}\n      {children}\n    </div>\n  )\n}\n\nexport { FloatPanel }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

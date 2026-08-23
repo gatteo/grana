@@ -39,6 +39,9 @@
   --ecru-deep: #eeeae2;
   --line: #e3ded5; /* marketing hairline on ecru */
   --line-strong: #d0cabf;
+  /* The frame around a PICTURE of the product (a panel, a float panel, a drawn artefact): a
+   * shade firmer than the page's hairline, so the thing inside reads as an object on the paper. */
+  --line-artefact: rgba(14, 13, 10, 0.12);
 
   /* Dark punctuation (marketing bands only) */
   --inverse: #0c0b09;
@@ -136,6 +139,28 @@
 
   --surface-2: var(--stone-100); /* sunken panels inside a card */
   --canvas-deep: var(--canvas-deep-brand); /* brand-dependent: ecru-deep (Luminars) | stone-200 (RF) */
+
+  /* The type/space scale the utilities read. The product surface is fixed; the marketing
+   * surface re-points every one of these to its fluid scale (§2b) — one utility, two registers. */
+  --fs-display: 2rem;
+  --fs-h2: 1.5rem;
+  --fs-h3: 1.125rem;
+  --fs-lead: 0.9375rem;
+  --fs-metric: clamp(1.625rem, 2.4vw, 2rem);
+  --ls-metric: -0.03em;
+  --lh-body: 1.45;
+  /* The leading each text size carries. The product keeps Tailwind's ratios; the marketing
+   * surface re-points all four at the body's 1.6 (see §2b) — on paper the size sets the size and
+   * the page sets the rhythm, which is what the BEM stylesheet did by simply not declaring one. */
+  --lh-xs: calc(1 / 0.75);
+  --lh-sm: calc(1.25 / 0.875);
+  --lh-base: 1.5;
+  --lh-lead: 1.5;
+  --eyebrow-leading: 1.3;
+  --eyebrow-size: 10.5px;
+  --eyebrow-tracking: 0.09em;
+  --gutter: 16px;
+  --space-section: 24px;
 }
 
 /* The marketing surface — warm paper, expressive, depth allowed. */
@@ -163,6 +188,34 @@
   --ring: var(--stone-900);
   --surface-2: var(--ecru-deep);
   --canvas-deep: var(--ecru-deep);
+
+  /* Type: fluid, set in the field. The product's fixed scale would read as a dialog box
+   * blown up; marketing sizes are clamped against the viewport (RF `tokens.css`). */
+  --fs-display: clamp(3.25rem, 7vw, 6.25rem);
+  --fs-h2: clamp(2.25rem, 4vw, 3.5rem);
+  --fs-h3: clamp(1.25rem, 1.6vw, 1.5rem);
+  --fs-lead: clamp(1.125rem, 1.4vw, 1.375rem);
+  --fs-metric: clamp(2rem, 3vw, 2.875rem);
+  --ls-metric: -0.04em;
+  --lh-body: 1.6; /* marketing is read, not scanned */
+  --lh-xs: var(--lh-body);
+  --lh-sm: var(--lh-body);
+  --lh-base: var(--lh-body);
+  --lh-lead: var(--lh-body);
+  --eyebrow-size: 0.75rem; /* the eyebrow widens on paper */
+  --eyebrow-tracking: 0.14em;
+  --eyebrow-leading: var(--lh-body);
+
+  /* Field geometry: the 1280 measure, the fluid gutter, the section rhythm. */
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --space-section: clamp(5.5rem, 9vw, 9rem);
+
+  /* Depth is allowed here, and it is deeper and warmer than the product's. */
+  --shadow-card: 0 1px 2px rgba(14, 13, 10, 0.04), 0 16px 44px -28px rgba(14, 13, 10, 0.22);
+  --shadow-panel: 0 1px 2px rgba(14, 13, 10, 0.06), 0 32px 72px -30px rgba(14, 13, 10, 0.42);
+
+  /* The marketing easing — a longer settle than the product's snap. */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 /* ═══ 3. Brand overrides — the short list of things that legitimately differ ═ */
@@ -279,6 +332,7 @@
   /* Grana additions */
   --color-faint: var(--faint);
   --color-border-strong: var(--border-strong);
+  --color-line-artefact: var(--line-artefact);
   --color-surface-2: var(--surface-2);
   --color-canvas: var(--canvas);
   --color-canvas-deep: var(--canvas-deep);
@@ -362,6 +416,8 @@
   --radius-3xl: 14px;
   --radius-4xl: 14px;
   --radius-shell: var(--shell-radius);
+  /* Imagery sits between sm and md: a photograph's corner is its own role, not a scale step. */
+  --radius-img: 8px;
 
   --shadow-card: var(--shadow-card);
   --shadow-panel: var(--shadow-panel);
@@ -369,24 +425,85 @@
   --ease-brand: var(--ease);
   --ease-brand-out: var(--ease-out);
 
-  /* Type sizes the kits actually use beyond Tailwind's scale. */
+  /* Type sizes the kits actually use beyond Tailwind's scale. The four expressive steps read
+   * the surface's scale: on the product they are fixed, on marketing they are fluid. */
   --text-2xs: 10.5px;
   --text-2xs--line-height: 1.3;
   --text-13: 13px;
   --text-13--line-height: 1.45;
-  --text-metric: clamp(1.625rem, 2.4vw, 2rem);
+  --text-metric: var(--fs-metric);
   --text-metric--line-height: 1;
-  --text-metric--letter-spacing: -0.03em;
+  --text-metric--letter-spacing: var(--ls-metric);
+  --text-display: var(--fs-display);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.028em;
+  --text-h2: var(--fs-h2);
+  --text-h2--line-height: 1.04;
+  --text-h2--letter-spacing: -0.02em;
+  --text-h3: var(--fs-h3);
+  --text-h3--line-height: 1.22;
+  --text-h3--letter-spacing: -0.012em;
+  --text-lead: var(--fs-lead);
+  --text-lead--line-height: var(--lh-lead);
+  --text-xs--line-height: var(--lh-xs);
+  --text-sm--line-height: var(--lh-sm);
+  --text-base--line-height: var(--lh-base);
 
   --spacing-sidebar: var(--sidebar-width);
   --spacing-sidebar-pad: var(--sidebar-pad);
   --spacing-shell-gap: var(--shell-gap);
+
+  /* Marketing field geometry — `px-gutter`, `py-section`, `p-frame`, `max-w-measure`. */
+  --spacing-gutter: var(--gutter);
+  --spacing-section: var(--space-section);
+  --spacing-frame: clamp(6px, 0.7vw, 10px);
+  --container-measure: 1280px;
+  --container-head: max(38rem, 70%);
+  --container-lead: max(32rem, 62%);
+  --container-text: 62ch;
 
   /* A live status dot breathes — only while something is actually happening. */
   --animate-dot-pulse: dot-pulse 1.4s ease-in-out infinite;
   @keyframes dot-pulse {
     50% {
       opacity: 0.35;
+    }
+  }
+
+  /* Marketing entrances. Every one of them is gated on the `js` class ([.js_&]:animate-rise) —
+   * without scripting there is no hidden state and the page is readable as served. Durations
+   * that differ from these defaults are set at the call site with [animation-duration:…]. */
+  --animate-rise: rise 0.9s var(--ease-out) both;
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 26px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
+  }
+  /* The hero texture settles out of a 4.5% overscale — the field stops moving as you arrive. */
+  --animate-img-settle: img-settle 2.2s var(--ease-out) both;
+  @keyframes img-settle {
+    from {
+      scale: 1.045;
+    }
+    to {
+      scale: 1;
+    }
+  }
+  /* A measurement stake planted in the field, after the copy has landed. */
+  --animate-stake-in: stake-in 0.55s var(--ease-out) both;
+  @keyframes stake-in {
+    from {
+      opacity: 0;
+      translate: 0 10px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
     }
   }
 }
@@ -401,13 +518,19 @@
   }
   body {
     @apply bg-background text-foreground;
+    line-height: var(--lh-body);
     -webkit-font-smoothing: antialiased;
   }
   /* The product reads at 14px; marketing at the browser's 16px. */
   [data-surface="app"] body,
   body[data-surface="app"] {
     font-size: 14px;
-    line-height: 1.45;
+  }
+  /* Marketing bands bleed past the measure on purpose; the page must not scroll sideways
+   * because of one. `clip` (not `hidden`) keeps `position: sticky` working inside. */
+  [data-surface="marketing"] body,
+  body[data-surface="marketing"] {
+    overflow-x: clip;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {
@@ -426,12 +549,25 @@
     background: var(--selection);
     color: var(--stone-900);
   }
+  /* In-page anchors glide on paper (a marketing page is a document you move around in); the
+   * product jumps. Reduced motion turns the glide off below. */
+  html[data-surface="marketing"] {
+    scroll-behavior: smooth;
+  }
   @media (prefers-reduced-motion: reduce) {
+    html[data-surface="marketing"] {
+      scroll-behavior: auto;
+    }
+    /* The DELAYS matter as much as the durations: an entrance with `fill-mode: both` holds its
+     * `from` state — opacity 0 — for the whole delay even when the duration is clamped, so a
+     * staggered hero stayed blank for a second. Zero both. */
     *,
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0s !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0s !important;
     }
   }
 }
@@ -451,14 +587,15 @@
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
-/* The mono ALL-CAPS section label (app recipe; marketing widens to text-xs tracking-[.14em]). */
+/* The mono ALL-CAPS section label. One utility, two registers: the surface sets the size and
+ * the tracking (10.5px/.09em in the product, 12px/.14em on paper). */
 @utility eyebrow {
   font-family: var(--face-mono);
-  font-size: 10.5px;
+  font-size: var(--eyebrow-size);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: var(--eyebrow-leading);
   text-transform: uppercase;
-  letter-spacing: 0.09em;
+  letter-spacing: var(--eyebrow-tracking);
   color: var(--faint);
 }
 
@@ -481,5 +618,105 @@
     background-size: 240px 240px;
     opacity: 0.15;
     pointer-events: none;
+  }
+}
+
+/* ═══ 7. The marketing register ═══════════════════════════════════════════
+ * Four composite type roles a marketing page reaches for constantly. Each is face + size +
+ * weight + leading + tracking in one class, the way `voice` and `num` are — the alternative
+ * is six utilities repeated on every heading of every band. They read the surface's scale, so
+ * the same class is a product heading on `data-surface="app"` and a field-sized one on paper.
+ * ──────────────────────────────────────────────────────────────────────── */
+
+/* The hero line. Display face, the heaviest weight the family carries. */
+@utility display {
+  font-family: var(--face-display);
+  font-size: var(--fs-display);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+/* The band title. */
+@utility h2 {
+  font-family: var(--face-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* The card / sub-band title. */
+@utility h3 {
+  font-family: var(--face-display);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+}
+
+/* The paragraph under a title: one size up, muted, held to a reading measure. */
+@utility lead {
+  font-size: var(--fs-lead);
+  color: var(--muted-foreground);
+  max-width: var(--container-text);
+}
+
+/* The editorial voice — a serif paragraph inside a sans page. */
+@utility serif {
+  font-family: var(--face-serif);
+  letter-spacing: 0;
+}
+
+/* The number as a headline: mono, tabular, tight. `num` is the readout; this is the metric. */
+@utility metric {
+  font-family: var(--face-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-weight: 500;
+  font-size: var(--fs-metric);
+  line-height: 1;
+  letter-spacing: var(--ls-metric);
+}
+
+/* The inline text link: ink, a stone rule under it that warms to ochre under the pointer.
+ * Never blue, never underlined by the browser. */
+@utility link {
+  color: var(--foreground);
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--stone-400);
+  padding-bottom: 1px;
+  transition: border-color 0.18s var(--ease);
+  &:hover {
+    border-color: var(--ochre);
+  }
+}
+
+/* ═══ 8. Entrance motion ═══════════════════════════════════════════════════
+ * `RevealObserver` puts `js` on <html> and `.in-view` on each `[data-reveal]` as it enters the
+ * viewport. The `js` gate is load-bearing: without scripting there is no hidden state at all,
+ * so a no-JS render is fully readable. Reduced motion reveals everything immediately.
+ * ──────────────────────────────────────────────────────────────────────── */
+@layer base {
+  .js [data-reveal] {
+    opacity: 0;
+    translate: 0 22px;
+    transition:
+      opacity 0.75s var(--ease-out) var(--d, 0s),
+      translate 0.75s var(--ease-out) var(--d, 0s);
+  }
+  .js [data-reveal].in-view {
+    opacity: 1;
+    translate: 0 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js [data-reveal] {
+      opacity: 1;
+      translate: 0 0;
+      transition: none;
+    }
   }
 }

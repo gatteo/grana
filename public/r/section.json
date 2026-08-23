@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "section",
+  "title": "Section",
+  "description": "The page skeleton on paper: the section rhythm and the 1280 field measure.",
+  "dependencies": [
+    "class-variance-authority"
+  ],
+  "registryDependencies": [
+    "@grana/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/section.tsx",
+      "content": "import * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The page skeleton on paper (RF `.section` / `.section--sunken` / `.wrap`).\n *\n * `Section` is the vertical rhythm — one clamped block of air above and below, the same for every\n * band, so a page reads as a document and not as a stack of boxes. `sunken` drops the band onto\n * the deeper ecru between two hairlines; it is how the page changes register without changing\n * colour. `Wrap` is the field measure: 1280 centred, with the fluid gutter. A band is always\n * `Section > Wrap` — the band paints edge to edge, the content stays inside the measure. */\nconst sectionVariants = cva(\"py-section\", {\n  variants: {\n    variant: {\n      plain: \"\",\n      sunken: \"border-y border-border bg-muted\",\n    },\n  },\n  defaultVariants: { variant: \"plain\" },\n})\n\nfunction Section({\n  className,\n  variant = \"plain\",\n  ...props\n}: React.ComponentProps<\"section\"> & VariantProps<typeof sectionVariants>) {\n  return (\n    <section\n      data-slot=\"section\"\n      data-variant={variant}\n      className={cn(sectionVariants({ variant }), className)}\n      {...props}\n    />\n  )\n}\n\nfunction Wrap({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"wrap\"\n      className={cn(\"mx-auto w-full max-w-measure px-gutter\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Section, Wrap, sectionVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

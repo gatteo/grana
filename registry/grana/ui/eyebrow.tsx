@@ -74,9 +74,10 @@ function Eyebrow({
   })
 }
 
-/* The marketing section header (skin-spec §19): numbered eyebrow + h2 + optional lead, with
- * the measure rules. The h2 is the display face on purpose — this is a marketing band, not the
- * product surface, so it does not ask the brand which voice to use. */
+/* The marketing section header (skin-spec §19): numbered eyebrow + h2 + optional lead, with the
+ * measure rules. The title takes the `h2` utility — the display face on purpose (this is a band,
+ * not the product surface, so it does not ask the brand which voice to use) at the SURFACE's
+ * size, so the same header reads at field scale on paper and at product scale in an app. */
 function SectionHead({
   className,
   index,
@@ -99,6 +100,8 @@ function SectionHead({
     <div
       data-slot="section-head"
       data-align={align}
+      /* A section head fades in with the band it introduces — the observer reads the attribute. */
+      data-reveal=""
       className={cn(
         "mb-[clamp(2.5rem,4vw,3.5rem)] max-w-[max(38rem,70%)]",
         align === "center" && "mx-auto max-w-[56ch] text-center",
@@ -111,7 +114,7 @@ function SectionHead({
       </Eyebrow>
       <h2
         data-slot="section-head-title"
-        className="font-display text-[clamp(2.25rem,4vw,3.5rem)] leading-[1.04] font-bold tracking-[-0.02em] text-balance"
+        className="h2"
       >
         {title}
       </h2>
@@ -121,7 +124,7 @@ function SectionHead({
           className={cn(
             "mt-4 max-w-[max(32rem,62%)] text-muted-foreground",
             align === "center" && "mx-auto max-w-[48ch]",
-            serifLead && "font-serif text-lg"
+            serifLead && "font-serif"
           )}
         >
           {lead}
@@ -131,4 +134,8 @@ function SectionHead({
   )
 }
 
+/** The four Revenue Farm business units — the only place a tint is allowed to name a thing. */
+type UnitTint = "demand" | "piattaforma" | "academy" | "installatori"
+
 export { Eyebrow, SectionHead, eyebrowVariants }
+export type { UnitTint }

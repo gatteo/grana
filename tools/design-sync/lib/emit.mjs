@@ -7,27 +7,38 @@ import { GROUP_ORDER } from './registry.mjs';
 
 const CARD_CSS = 'body{margin:0;padding:20px 24px}.ds-single{transform:translateZ(0)}' +
   '.ds-error{font:13px ui-monospace,monospace;color:#a52a2a;white-space:pre-wrap}';
+// A marketing card is a page, not a specimen on a shelf: no gutter, and the story's own section
+// chrome steps back so a band reads at its real width.
+const BLEED_CSS = 'body{margin:0;padding:0}.ds-single{transform:translateZ(0)}' +
+  '[data-ds-story]{border:0;padding:0}[data-ds-story]>header{padding:14px 24px 0}' +
+  '.ds-error{font:13px ui-monospace,monospace;color:#a52a2a;white-space:pre-wrap}';
 
 /** The card page: the story page mounted from the bundle global under the profile's brand. */
 export function cardHtml({ group, name, brand, viewport, titles, only, surface, description }) {
   const json = (v) => JSON.stringify(v ?? null).replace(/</g, '\\u003c');
+  // `cards.<item>.surface` is either a map of section title → surface (the section is wrapped) or
+  // one string for the whole card. A marketing card carries the surface on <html> and drops the
+  // body padding: its bands are full-bleed, and a gutter would make every one of them a lie.
+  const wholeSurface = typeof surface === 'string' ? surface : null;
+  const perSection = wholeSurface ? {} : (surface ?? {});
   return `<!-- @dsCard group="${escapeHtml(group)}" viewport="${escapeHtml(viewport)}" -->
 <!doctype html>
-<html data-brand="${escapeHtml(brand)}" data-surface="app"><head><meta charset="utf-8">
+<html data-brand="${escapeHtml(brand)}" data-surface="${escapeHtml(wholeSurface ?? 'app')}"><head><meta charset="utf-8">
   <title>${escapeHtml(name)}</title>
   <link rel="stylesheet" href="../../../styles.css">
   <link rel="stylesheet" href="../../../_ds_bundle.css">
-  <style>${CARD_CSS}</style>
+  <style>${wholeSurface === 'marketing' ? BLEED_CSS : CARD_CSS}</style>
 </head><body>
   <!-- ${escapeHtml(description)} -->
   <div id="root" class="ds-single"></div>
+  <script>window.__dsImgBase="../../../";</script>
   <script src="../../../_vendor/react.js"></script>
   <script src="../../../_vendor/react-dom.js"></script>
   <script src="../../../_ds_bundle.js"></script>
   <script>
     window.__dsCells=${json(titles)};
     window.__dsOnly=${json(only)};
-    window.__dsSurface=${json(surface ?? {})};
+    window.__dsSurface=${json(perSection)};
     window.__dsMode="single";
     var q=null;try{q=new URLSearchParams(location.search).get('story')}catch(e){}
     if(q)window.__dsOnly=[q];
@@ -193,7 +204,7 @@ export function emitReviewPage({ out, comps, profile }) {
     cs.map((c) => `<figure style="margin:0;border:1px solid #e5e7eb;border-radius:10px;overflow:hidden"><figcaption style="font:600 13px system-ui;padding:8px 12px;background:#f9fafb;border-bottom:1px solid #e5e7eb">${escapeHtml(c.name)}</figcaption><iframe src="components/${encodeURIComponent(c.group)}/${encodeURIComponent(c.name)}/${encodeURIComponent(c.name)}.html" loading="lazy" style="width:100%;height:360px;border:0" title="${escapeHtml(c.name)}"></iframe></figure>`).join('\n') +
     `</div>`).join('\n');
   writeFileSync(join(out, '.review.html'),
-    `<!doctype html>\n<html><head><meta charset="utf-8"><title>Grana · ${escapeHtml(profile)} — preview review</title></head>\n<body style="margin:0;padding:24px;background:#fff;font-family:system-ui">\n<h1 style="font:600 20px system-ui;margin:0 0 4px">Preview review — ${escapeHtml(profile)} — ${comps.length} components</h1>\n<p style="font:13px system-ui;color:#6b7280;margin:0">Each card is the live preview html exactly as the Design System pane renders it.</p>\n${sections}\n</body></html>\n`);
+    `<!doctype html>\n<html><head><meta charset="utf-8"><title>Grana · ${escapeHtml(profile)} — preview review</title></head>\n<body style="margin:0;padding:24px;background:#fff;font-family:system-ui"><script>window.__dsImgBase="";</script>\n<h1 style="font:600 20px system-ui;margin:0 0 4px">Preview review — ${escapeHtml(profile)} — ${comps.length} components</h1>\n<p style="font:13px system-ui;color:#6b7280;margin:0">Each card is the live preview html exactly as the Design System pane renders it.</p>\n${sections}\n</body></html>\n`);
 }
 
 /** README.md — the agent prompt header: product intro + the grana idiom + the rules + the index. */

@@ -3,7 +3,7 @@
 // .prompt.md examples are sliced from the same file. Items without a story of their own point
 // at another item's story with `cards.<item>.story` (+ `only` to keep the relevant sections).
 import { build } from 'esbuild';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { SyntaxKind } from 'ts-morph';
 import { REPO, TOOL } from './common.mjs';
@@ -89,6 +89,21 @@ function granaGlobalPlugin(globalName) {
   };
 }
 
+/**
+ * Stories name textures the way the playground serves them — `/img/dune-2.jpg`, absolute from the
+ * dev server's root. Inside a bundle nothing is at the root: a card sits three folders deep and
+ * the review page sits at the top. So every `/img/…` literal in the compiled preview becomes a
+ * lookup against `window.__dsImgBase`, which each page sets to its own depth. Without this the
+ * canvases render as empty washes and the whole marketing group looks broken.
+ */
+function rebaseImages(file) {
+  const src = readFileSync(file, 'utf8');
+  const out = src.replace(/(["'])\/img\/([A-Za-z0-9._\-/]+)\1/g,
+    (_m, q, path) => `(window.__dsImgBase||"/")+${q}img/${path}${q}`);
+  if (out !== src) writeFileSync(file, out);
+  return (src.match(/["']\/img\//g) ?? []).length;
+}
+
 /** Compile one story file → `_preview/<Name>.js` (IIFE assigning `__dsPreview`, `.default` = the page). */
 export async function compilePreview({ entry, outFile, globalName }) {
   try {
@@ -101,6 +116,7 @@ export async function compilePreview({ entry, outFile, globalName }) {
       plugins: [reactShim, granaGlobalPlugin(globalName), aliasPlugin],
       logLevel: 'silent',
     });
+    rebaseImages(outFile);
     return { ok: true };
   } catch (e) {
     const err = e?.errors?.[0];

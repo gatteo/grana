@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "reveal",
+  "title": "RevealObserver",
+  "description": "The scroll-entrance driver: the js gate, [data-reveal] observation, reduced-motion bypass.",
+  "files": [
+    {
+      "path": "registry/grana/ui/reveal.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\n/* The scroll-entrance driver (RF `motion/reveal-observer`), mounted once in the marketing layout.\n *\n * It puts `js` on <html> — the gate every hidden initial state hangs off, so a page rendered\n * without scripting is fully visible — then observes every `[data-reveal]` and adds `in-view` as it\n * enters the viewport, unobserving after. Siblings stagger through an inline `--d`. A\n * MutationObserver picks up elements added by a client navigation. Without IntersectionObserver,\n * or under reduced motion, everything is revealed at once: the entrance is a courtesy, never a\n * condition for reading the page. */\nfunction RevealObserver(): null {\n  React.useEffect(() => {\n    document.documentElement.classList.add(\"js\")\n\n    const reduced = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches\n    const io =\n      !reduced && \"IntersectionObserver\" in window\n        ? new IntersectionObserver(\n            (entries) => {\n              for (const entry of entries) {\n                if (!entry.isIntersecting) continue\n                entry.target.classList.add(\"in-view\")\n                io?.unobserve(entry.target)\n              }\n            },\n            { rootMargin: \"0px 0px -10% 0px\", threshold: 0.15 }\n          )\n        : null\n\n    const seen = new WeakSet<Element>()\n    const scan = () => {\n      document.querySelectorAll<HTMLElement>(\"[data-reveal]\").forEach((el) => {\n        if (seen.has(el)) return\n        seen.add(el)\n        if (io) io.observe(el)\n        else el.classList.add(\"in-view\")\n      })\n    }\n\n    scan()\n    const mo = new MutationObserver(scan)\n    mo.observe(document.body, { childList: true, subtree: true })\n\n    return () => {\n      mo.disconnect()\n      io?.disconnect()\n      /* The gate goes with the driver: `js` left behind after unmount would hold every\n       * [data-reveal] added afterwards at opacity 0 with nothing left to reveal it. */\n      document.documentElement.classList.remove(\"js\")\n    }\n  }, [])\n\n  return null\n}\n\nexport { RevealObserver }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -386,6 +386,403 @@
       ]
     },
     {
+      "name": "section",
+      "type": "registry:ui",
+      "title": "Section",
+      "description": "The page skeleton on paper: the section rhythm and the 1280 field measure.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/section.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "canvas",
+      "type": "registry:ui",
+      "title": "Canvas",
+      "description": "Every image on the site: texture, legibility wash, grain, content, registration marks.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/canvas.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "panel",
+      "type": "registry:ui",
+      "title": "Panel",
+      "description": "The product framed on paper (Panel) and the neutral card it sits beside (Plot).",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "reveal",
+      "type": "registry:ui",
+      "title": "RevealObserver",
+      "description": "The scroll-entrance driver: the js gate, [data-reveal] observation, reduced-motion bypass.",
+      "files": [
+        {
+          "path": "registry/grana/ui/reveal.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "count-up",
+      "type": "registry:ui",
+      "title": "CountUp",
+      "description": "A metric that counts to its value once, in Italian grouping, and never re-runs.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/count-up.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "logo-mark",
+      "type": "registry:ui",
+      "title": "LogoMark",
+      "description": "The wordmark lockup: the mark tile and the name, at three scales.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/logo-mark.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hero",
+      "type": "registry:ui",
+      "title": "Hero",
+      "description": "The home field: full-bleed texture, the display line, the stakes pinned to the edge.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/hero.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "page-hero",
+      "type": "registry:ui",
+      "title": "PageHero",
+      "description": "The inner-page head: a framed canvas, eyebrow, title, lead, actions and facts.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/canvas",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/page-hero.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "rising-panel",
+      "type": "registry:ui",
+      "title": "RisingPanel",
+      "description": "The product rising into the fold under the hero, with its caption.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/panel"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/rising-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "product-shot",
+      "type": "registry:ui",
+      "title": "ProductShot",
+      "description": "The app, drawn — the tenant dashboard as a static picture, not a screenshot.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/product-shot.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "float-panel",
+      "type": "registry:ui",
+      "title": "FloatPanel",
+      "description": "The small panel that floats over a canvas, carrying one fragment of the product.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/float-panel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "snippets",
+      "type": "registry:ui",
+      "title": "Snippets",
+      "description": "Seven product fragments for a float panel: rows, chat, chart, checklist, browser, quote, review.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/float-panel"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/snippets.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "shots",
+      "type": "registry:ui",
+      "title": "Shots",
+      "description": "Eleven more product fragments: pipeline, timeline, score, compare, form, call, alert, stats, split, result, variants.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/float-panel"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/shots.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "illustration-card",
+      "type": "registry:ui",
+      "title": "IllustrationCard",
+      "description": "A canvas with a floating fragment above it and a title/body under it.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/canvas",
+        "@grana/eyebrow"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/illustration-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "proof-band",
+      "type": "registry:ui",
+      "title": "ProofBand",
+      "description": "The numbers strip under the hero: four metrics between hairlines, no decoration.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/count-up",
+        "@grana/section"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/proof-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "way-card",
+      "type": "registry:ui",
+      "title": "WayCard",
+      "description": "One of the ways to work with us: a tinted canvas, a floating snippet, the promise under it.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/canvas",
+        "@grana/eyebrow"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/way-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "modules-grid",
+      "type": "registry:ui",
+      "title": "ModulesGrid",
+      "description": "The module map: a hairline grid of cells, each carrying its live / beta / soon state.",
+      "registryDependencies": [
+        "@grana/utils"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/modules-grid.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "dependencies": [
+        "class-variance-authority"
+      ]
+    },
+    {
+      "name": "dark-band",
+      "type": "registry:ui",
+      "title": "DarkBand",
+      "description": "The dark punctuation: one band per page, image behind, the manifesto on it.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/eyebrow",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/dark-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "unit-card",
+      "type": "registry:ui",
+      "title": "UnitCard",
+      "description": "One business unit: a duotone canvas in the unit tint and the lockup under it.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/canvas"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/unit-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "post-card",
+      "type": "registry:ui",
+      "title": "PostCard",
+      "description": "An article, a guide or a tool as a card: editorial texture, title, meta, verified line.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/canvas",
+        "@grana/eyebrow"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/post-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "case-study-block",
+      "type": "registry:ui",
+      "title": "CaseStudyBlock",
+      "description": "A result told twice: the headline metric with its quote, and the before/after table.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/eyebrow"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/case-study-block.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "consult-band",
+      "type": "registry:ui",
+      "title": "ConsultBand",
+      "description": "The consulting offer band: the head, the steps, the note and the two verbs.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/canvas",
+        "@grana/eyebrow",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/consult-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "tailor-band",
+      "type": "registry:ui",
+      "title": "TailorBand",
+      "description": "The tailoring promise: numbered steps between hairlines, the note, the actions.",
+      "registryDependencies": [
+        "@grana/section",
+        "@grana/eyebrow",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/tailor-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "cta-band",
+      "type": "registry:ui",
+      "title": "CtaBand",
+      "description": "The closing band: a full-bleed canvas, one question, two verbs.",
+      "registryDependencies": [
+        "@grana/utils",
+        "@grana/section",
+        "@grana/canvas",
+        "@grana/button"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/cta-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "page",
       "type": "registry:ui",
       "title": "Page + PageHead",

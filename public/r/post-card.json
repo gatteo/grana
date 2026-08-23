@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "post-card",
+  "title": "PostCard",
+  "description": "An article, a guide or a tool as a card: editorial texture, title, meta, verified line.",
+  "registryDependencies": [
+    "@grana/utils",
+    "@grana/canvas",
+    "@grana/eyebrow"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/post-card.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Canvas } from \"@/registry/grana/ui/canvas\"\nimport { Eyebrow } from \"@/registry/grana/ui/eyebrow\"\n\n/* An article, a guide or a tool as a card (RF `.post`).\n *\n * A wide 21/9 header so the texture reads as a band and not as a photograph, the mono category\n * above the title, and the verified stamp pinned to the bottom edge — the dated-truth device:\n * the rules change every year, so the card says when it was last checked instead of pretending\n * to be timeless. Hover lifts the whole card 4px onto the card shadow.\n *\n * `href` turns the whole card into the link; without it, pass a link element as `title`. */\n\ntype PostCardProps = Omit<React.ComponentProps<\"article\">, \"title\"> & {\n  /** Header image (21/9 canvas). */\n  image: string\n  imagePos?: string\n  /** Mono category eyebrow, e.g. \"Guida\". */\n  category: React.ReactNode\n  /**\n   * Post title (display face, 700). Pass a link element here for localized\n   * routing when the card itself is not an anchor.\n   */\n  title: React.ReactNode\n  /** The dated-truth stamp, e.g. \"Verificato il 12/07/2026\". */\n  verified?: React.ReactNode\n  /** Renders the whole card as an `<a>` when set. */\n  href?: string\n  /** Reveal stagger delay in seconds. */\n  delay?: number\n}\n\nfunction PostCard({\n  className,\n  image,\n  imagePos,\n  category,\n  title,\n  verified,\n  href,\n  delay,\n  style,\n  ...props\n}: PostCardProps) {\n  const rootStyle = {\n    ...(delay ? { \"--d\": `${delay}s` } : {}),\n    ...style,\n  } as React.CSSProperties\n  const rootClass = cn(\n    \"flex flex-col overflow-hidden rounded-img border border-border bg-card no-underline\",\n    \"transition-[translate,box-shadow] duration-300 ease-brand-out hover:-translate-y-1 hover:shadow-card\",\n    className\n  )\n  const inner = (\n    <>\n      <Canvas\n        img={image}\n        pos={imagePos}\n        className=\"mx-[0.4375rem] mt-[0.4375rem] aspect-[21/9] rounded-xs\"\n      />\n      <div\n        data-slot=\"post-card-body\"\n        className=\"flex flex-1 flex-col gap-3 p-[1.375rem] pb-6\"\n      >\n        <Eyebrow>{category}</Eyebrow>\n        <h4\n          data-slot=\"post-card-title\"\n          className=\"font-display text-[1.125rem] leading-[1.3] font-bold tracking-[-0.012em]\"\n        >\n          {title}\n        </h4>\n        {verified ? (\n          <p\n            data-slot=\"post-card-verified\"\n            className=\"mt-auto pt-[0.875rem] font-mono text-[0.6875rem] tracking-[0.02em] text-faint\"\n          >\n            {verified}\n          </p>\n        ) : null}\n      </div>\n    </>\n  )\n\n  if (href) {\n    return (\n      <a\n        data-slot=\"post-card\"\n        data-reveal=\"\"\n        href={href}\n        style={rootStyle}\n        className={rootClass}\n        {...(props as React.ComponentProps<\"a\">)}\n      >\n        {inner}\n      </a>\n    )\n  }\n  return (\n    <article\n      data-slot=\"post-card\"\n      data-reveal=\"\"\n      style={rootStyle}\n      className={rootClass}\n      {...props}\n    >\n      {inner}\n    </article>\n  )\n}\n\nexport { PostCard }\nexport type { PostCardProps }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

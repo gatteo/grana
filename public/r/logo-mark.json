@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logo-mark",
+  "title": "LogoMark",
+  "description": "The wordmark lockup: the mark tile and the name, at three scales.",
+  "registryDependencies": [
+    "@grana/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/logo-mark.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The monogram lockup (RF `.brand`), the one place the company signs its name.\n *\n * The mark and the wordmark are one baseline-aligned unit: the tile at 30px with its own 7px\n * corner (softer than the page's 6px panel, harder than an image's 8px — the mark is neither),\n * eleven pixels of air, then the name in the display face at 700 on a tightened track. The space\n * inside \"Revenue Farm\" is non-breaking: the name never wraps mid-lockup, at any width. With a\n * wordmark the image is decorative and its alt is empty — the text already says the name; without\n * one the image carries the name itself. `href` renders it as a link (the header and footer both\n * link home); without one it is a plain span, so the mark can sit inside another anchor. */\nfunction LogoMark({\n  className,\n  src = \"/img/rf-mark.png\",\n  wordmark = true,\n  href,\n  ...props\n}: React.ComponentProps<\"span\"> & {\n  /** Mark image (the black rounded tile). */\n  src?: string\n  /** Show the \"Revenue Farm\" wordmark (the display face, 700). */\n  wordmark?: boolean\n  /** Renders as an <a> when set. */\n  href?: string\n}) {\n  const inner = (\n    <>\n      <img\n        data-slot=\"logo-mark-image\"\n        className=\"block size-[30px] rounded-[7px]\"\n        src={src}\n        alt={wordmark ? \"\" : \"Revenue Farm\"}\n        width={30}\n        height={30}\n      />\n      {wordmark ? \"Revenue\\u00A0Farm\" : null}\n    </>\n  )\n  const cls = cn(\n    \"inline-flex flex-none items-center gap-[0.6875rem] font-display text-[1.125rem] font-bold tracking-[-0.015em] no-underline\",\n    className\n  )\n  if (href) {\n    /* The props are typed against the span (the default shape); every attribute a caller can put\n     * on one is also legal on an anchor, so the widening is safe. */\n    return (\n      <a\n        data-slot=\"logo-mark\"\n        className={cls}\n        href={href}\n        {...(props as React.ComponentProps<\"a\">)}\n      >\n        {inner}\n      </a>\n    )\n  }\n  return (\n    <span data-slot=\"logo-mark\" className={cls} {...props}>\n      {inner}\n    </span>\n  )\n}\n\nexport { LogoMark }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rising-panel",
+  "title": "RisingPanel",
+  "description": "The product rising into the fold under the hero, with its caption.",
+  "registryDependencies": [
+    "@grana/utils",
+    "@grana/section",
+    "@grana/panel"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/rising-panel.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Panel, PanelScroll } from \"@/registry/grana/ui/panel\"\nimport { Wrap } from \"@/registry/grana/ui/section\"\n\n/* The product rising out of the field (RF `.showcase`).\n *\n * A `Panel` pulled up into the hero by a negative margin, so the fold is the product and not a\n * seam. It sits above the field (`z-5`) and takes the section's air below it. Its content scrolls\n * sideways instead of reflowing: a screenshot that reflows lies about the product.\n *\n * The caption underneath is the honest line — what the picture is, and where the whole thing can\n * be seen. Two ends of one row, wrapping onto two lines when there is no room for both. */\nfunction RisingPanel({\n  className,\n  caption,\n  captionLink,\n  children,\n  ...props\n}: React.ComponentProps<\"div\"> & {\n  /** Caption row, left side (the neutrality note). */\n  caption?: React.ReactNode\n  /** Caption row, right side (e.g. a `link` to the full dashboard). */\n  captionLink?: React.ReactNode\n}) {\n  return (\n    <Wrap\n      data-slot=\"rising-panel\"\n      className={cn(\n        \"relative z-[5] -mt-[clamp(6.5rem,11.5vw,10rem)] pb-section\",\n        className\n      )}\n      {...props}\n    >\n      <Panel className=\"[.js_&]:animate-rise [.js_&]:[animation-duration:1s] [.js_&]:[animation-delay:0.5s]\">\n        <PanelScroll>{children}</PanelScroll>\n      </Panel>\n      {caption || captionLink ? (\n        <div\n          data-slot=\"rising-panel-caption\"\n          className=\"mt-4.5 flex flex-wrap justify-between gap-x-4 gap-y-2 text-[13px] text-faint\"\n        >\n          {caption ? <span data-slot=\"rising-panel-note\">{caption}</span> : null}\n          {captionLink}\n        </div>\n      ) : null}\n    </Wrap>\n  )\n}\n\nexport { RisingPanel }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

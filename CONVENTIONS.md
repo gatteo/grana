@@ -11,7 +11,8 @@ contract every component in `registry/grana/` follows. Read it fully before writ
 | L0 tokens | `registry/grana/styles/grana.css` (+ `fonts.css`, `public/fonts`) | yes — **never edited by builders**; ask in your report |
 | L1 primitives | `registry/grana/ui/*.tsx` — Button, Badge, Chip, Input, Card, Table, Dialog, Menu… | yes, verbatim |
 | L2 patterns | `registry/grana/ui/*.tsx` too (flat; a pattern is still a ui item) — PageHead, StatGrid, TeachingEmpty, Feed… | yes |
-| L3 shells & sections | per product (Luminars' inset shell + agent rail; RF's big-card shell + marketing bands) | no — built FROM L1/L2 in the product repo |
+| L2 marketing | `registry/grana/ui/*.tsx` too, group `marketing` — Canvas, Section/Wrap, the bands, the heroes, the cards, the product fragments | yes |
+| L3 shells & pages | per product (Luminars' inset shell + agent rail; RF's big-card shell, its site header/footer and its 42 marketing pages) | no — built FROM L1/L2 in the product repo |
 
 Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. Keep it flat.
 
@@ -40,15 +41,41 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   Remove the stock `outline-none` and `focus-visible:ring-*` classes; let the global outline show.
   Fields included (the gold outline is the field's focus state in Luminars).
 - **Type:** `font-sans` is inherited — don't repeat it. Numbers: the `num` utility (mono, tabular)
-  on every numeric readout. Section labels: the `eyebrow` utility. The product's voice moments
-  (page titles, onboarding headlines): `font-voice` — the brand decides which face that is.
+  on every numeric readout, or `tabular` when the figures must stay in the sans. Section labels:
+  the `eyebrow` utility — it takes the product recipe (10.5px/.09em) or the paper one
+  (12px/.14em) from the surface, by itself. The product's voice moments (page titles, onboarding
+  headlines): the `voice` utility — the brand decides which face that is.
   Sizes from the spec, via Tailwind's scale (`text-sm` 14, `text-xs` 12) plus `text-13` and
   `text-2xs` (10.5). Arbitrary px (`h-[30px]`, `px-[9px]`) is fine when the spec gives a number.
+  Two traps measured in the marketing port: a fluid size needs the type hint —
+  `text-[length:clamp(...)]`, because `text-[clamp(...)]` compiles to **nothing**; and `text-13` /
+  `text-2xs` carry a line-height of their own, so a place that must inherit the surface's leading
+  wants the plain arbitrary size (`text-[13px]`) instead.
 - **Icons:** `lucide-react`, stroke 1.5–1.75, sized by the component (`[&_svg]:size-3.5`). The
   products' hand-drawn nav icons stay in the products.
 - Both brands, both surfaces: a component must look right under `data-brand="luminars"` and
   `"rf"`, and under `data-surface="app"` and `"marketing"`. It reads tokens, so it usually just does;
   verify in the playground's switcher.
+
+## 2b. The two registers
+
+The same components serve a product surface and a marketing surface. Almost everything is one
+recipe reading tokens that differ per surface — but where a component genuinely reads differently
+on paper, the difference is declared IN the component with `in-data-[surface=marketing]:`, never
+by forking the component. Two live examples:
+
+- `Button` keeps one API; on paper its `md`/`sm` sizes drop the fixed height for the padding-driven
+  field recipe (the RF `.btn`). A marketing page writes `<Button variant="primary">` and gets a
+  50px pill; the same line in the product gets a 34px one.
+- `Prose` keeps one API; `variant="editorial"` is an article on paper (display headings, a 62ch
+  measure, ruled links, dash markers) against the default product register.
+
+The marketing register also owns six composite type utilities — `display`, `h2`, `h3`, `lead`,
+`metric`, `serif` — plus `link`, the field geometry (`px-gutter`, `py-section`, `p-frame`,
+`max-w-measure|head|lead|text`), `rounded-img`, and the entrances (`animate-rise`,
+`animate-img-settle`, `animate-stake-in`, always behind the `[.js_&]` gate). They read the
+surface's scale, so the same class is a product heading in the app and a field-sized one on paper.
+Textures for stories live in `public/img` and travel into the design bundles.
 
 ## 3. The visual truth
 

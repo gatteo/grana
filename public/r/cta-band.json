@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta-band",
+  "title": "CtaBand",
+  "description": "The closing band: a full-bleed canvas, one question, two verbs.",
+  "registryDependencies": [
+    "@grana/utils",
+    "@grana/section",
+    "@grana/canvas",
+    "@grana/button"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/cta-band.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { Canvas } from \"@/registry/grana/ui/canvas\"\nimport { Section, Wrap } from \"@/registry/grana/ui/section\"\n\n/* The closing band (RF `.final`): the last thing on the page, and the only one that asks.\n *\n * The band itself is the dotted paper — the section rhythm, nothing else — and the ask lives on a\n * framed canvas inside the measure, centred. Its wash is flatter and darker than the canvas\n * default (0.38 → 0.58 top to bottom, no ecru lift at the top) because centred type crosses the\n * whole picture and cannot pick a quiet corner to sit in. One question, two verbs, light marks. */\n\nconst CTA_WASH =\n  \"linear-gradient(180deg, rgba(12, 11, 9, 0.38), rgba(12, 11, 9, 0.58))\"\n\nexport type CtaBandProps = Omit<React.ComponentProps<\"section\">, \"title\"> & {\n  image: string\n  imagePos?: string\n  title: React.ReactNode\n  /** Serif line under the title. */\n  line?: React.ReactNode\n  /** Action slot, e.g. on-dark + glass-dark buttons. */\n  actions?: React.ReactNode\n  /** Override the default CTA wash. */\n  wash?: string\n  /** Override the default grain opacity (0.14). */\n  grainOpacity?: number\n}\n\n/**\n * Final CTA: a framed canvas on the dotted section background,\n * centre-aligned h2 + serif line + actions, light marks.\n */\nfunction CtaBand({\n  image,\n  imagePos,\n  title,\n  line,\n  actions,\n  wash,\n  grainOpacity,\n  className,\n  ...props\n}: CtaBandProps) {\n  return (\n    <Section\n      data-slot=\"cta-band\"\n      className={cn(\n        \"bg-[image:var(--dots)] bg-[length:var(--dots-size)]\",\n        className\n      )}\n      {...props}\n    >\n      <Wrap>\n        <Canvas\n          img={image}\n          pos={imagePos}\n          marks=\"light\"\n          wash={wash ?? CTA_WASH}\n          grainOpacity={grainOpacity ?? 0.14}\n          reveal\n          className=\"px-[clamp(1.5rem,5vw,4rem)] py-[clamp(5rem,10vw,8.5rem)] text-center text-inverse-foreground\"\n        >\n          <h2 data-slot=\"cta-band-title\" className=\"h2 mx-auto max-w-[22ch]\">\n            {title}\n          </h2>\n          {line ? (\n            <p\n              data-slot=\"cta-band-line\"\n              className=\"mx-auto mt-[1.375rem] mb-10 max-w-[44ch] font-serif text-lead leading-[1.6] text-inverse-foreground/88\"\n            >\n              {line}\n            </p>\n          ) : null}\n          {actions ? (\n            <div\n              data-slot=\"cta-band-actions\"\n              className=\"flex flex-wrap justify-center gap-3\"\n            >\n              {actions}\n            </div>\n          ) : null}\n        </Canvas>\n      </Wrap>\n    </Section>\n  )\n}\n\nexport { CtaBand }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

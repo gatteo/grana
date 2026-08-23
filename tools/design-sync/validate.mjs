@@ -101,6 +101,12 @@ async function validateProfile(profile, OUT) {
     if (miss.length) fail(`[CSS_INCOMPLETE] _ds_bundle.css lacks ${miss.join(', ')} — Tailwind did not compile the utilities`);
     else ok(`_ds_bundle.css: ${(statSync(bundleCss).size / 1024).toFixed(0)} KB, utilities + tokens present`);
     if (/url\(\s*["']?\/fonts\//.test(css)) fail('[FONT_DANGLING] _ds_bundle.css still references /fonts/ (absolute) urls');
+    // Textures resolve through window.__dsImgBase; an absolute /img/ in a compiled preview means
+    // the rebase missed it and every canvas in that card would render as an empty wash.
+    for (const f of readdirSync(join(OUT, '_preview'))) {
+      const js = readFileSync(join(OUT, '_preview', f), 'utf8');
+      if (/["']\/img\//.test(js)) fail(`[IMG_DANGLING] _preview/${f} still references absolute /img/ urls`);
+    }
     const fontsCss = join(OUT, 'fonts', 'fonts.css');
     if (!existsSync(fontsCss)) fail('fonts/fonts.css missing');
     else {

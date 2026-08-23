@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "proof-band",
+  "title": "ProofBand",
+  "description": "The numbers strip under the hero: four metrics between hairlines, no decoration.",
+  "registryDependencies": [
+    "@grana/utils",
+    "@grana/count-up",
+    "@grana/section"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/proof-band.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\nimport { CountUp } from \"@/registry/grana/ui/count-up\"\nimport { Wrap } from \"@/registry/grana/ui/section\"\n\n/* The proof band (RF `.proof`): the company's numbers, stated once, with nothing around them.\n *\n * A white band edged top and bottom by hairlines, laid on the dotted paper — the dots are the\n * only decoration the band gets, and they belong to the page, not to the numbers. Four equal\n * columns split by hairlines, the outer two flush to the measure so the row reads as a ledger\n * ruled across the field rather than four boxes. Below 820 it folds to two columns and the\n * split rules follow: the second column loses its right rule, the first pair gains a bottom one.\n *\n * It is a `<dl>` because that is what it is: a value and the term it answers to. The value comes\n * first in the source and the label under it — the number is the headline. */\nfunction ProofBand({ className, children, ...props }: React.ComponentProps<\"section\">) {\n  return (\n    <section\n      data-slot=\"proof-band\"\n      className={cn(\n        \"border-y border-border bg-card bg-[image:var(--dots)] bg-[length:var(--dots-size)]\",\n        className\n      )}\n      {...props}\n    >\n      <Wrap>\n        <dl\n        data-slot=\"proof-band-grid\"\n        /* `repeat(N,1fr)`, not Tailwind's `grid-cols-N` (= minmax(0,1fr)): a metric that must not\n           wrap (“€ 3,7 mln”) holds its column open, and clipping it into an equal share drops a\n           line off every label beside it. */\n        className=\"grid grid-cols-[repeat(4,1fr)] max-[820px]:grid-cols-[repeat(2,1fr)]\"\n      >\n          {children}\n        </dl>\n      </Wrap>\n    </section>\n  )\n}\n\n/* One proof column: the counting metric, then the term it measures on a 22ch measure so four\n * labels of different lengths still stack into the same shape. */\nfunction ProofStat({\n  className,\n  style,\n  value,\n  decimals,\n  prefix,\n  suffix,\n  label,\n  delay,\n  ...props\n}: Omit<React.ComponentProps<\"div\">, \"prefix\"> & {\n  /** Target value (unformatted, e.g. 1847 or 4.2). */\n  value: number\n  decimals?: number\n  /** e.g. \"€ \". */\n  prefix?: string\n  /** e.g. \" mln\". */\n  suffix?: string\n  label: React.ReactNode\n  /** Reveal stagger delay in seconds (the band steps in 0.08). */\n  delay?: number\n}) {\n  return (\n    <div\n      data-slot=\"proof-stat\"\n      data-reveal=\"\"\n      style={delay ? ({ \"--d\": `${delay}s`, ...style } as React.CSSProperties) : style}\n      className={cn(\n        \"border-r border-border px-7 py-[clamp(2rem,4vw,3rem)] first:pl-0 last:border-r-0 last:pr-0\",\n        \"max-[820px]:[&:nth-child(2)]:border-r-0 max-[820px]:[&:nth-child(-n+2)]:border-b\",\n        className\n      )}\n      {...props}\n    >\n      <dd data-slot=\"proof-stat-value\" className=\"metric mb-2.5 whitespace-nowrap\">\n        <CountUp value={value} decimals={decimals} prefix={prefix} suffix={suffix} />\n      </dd>\n      <dt data-slot=\"proof-stat-label\" className=\"max-w-[22ch] text-sm text-muted-foreground\">\n        {label}\n      </dt>\n    </div>\n  )\n}\n\nexport { ProofBand, ProofStat }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

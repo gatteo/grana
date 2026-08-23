@@ -40,6 +40,29 @@ const SHORT = `
 <ul><li>push → <code>200</code></li><li>no evidence keys</li></ul>
 `;
 
+/* The other register: an article on paper (a Revenue Farm guide), where the prose IS the page. */
+const ARTICLE = `
+<p>Un lead che arriva alle 9:04 e riceve una risposta alle 17:30 non è lo stesso lead. Nei dati dei nostri installatori la probabilità di fissare un sopralluogo <strong>si dimezza dopo la prima ora</strong>, e continua a scendere per tutto il primo giorno.</p>
+<h2>Perché il primo che risponde vince</h2>
+<p>Non è una questione di simpatia. Chi risponde per primo definisce il problema: decide quali domande contano, quale impianto si sta valutando e quale prezzo diventa il metro di paragone. Gli altri preventivi arrivano dopo, e devono rispondere a una domanda che non hanno scritto loro.</p>
+<ul>
+  <li>Il 78% delle richieste di preventivo arriva fuori dall'orario commerciale.</li>
+  <li>La mediana di risposta del settore, misurata su 1.240 richieste, è di <em>4 ore e 12 minuti</em>.</li>
+  <li>Un sopralluogo fissato entro 24 ore chiude al 31%; oltre le 72 ore, all'11%.</li>
+</ul>
+<h3>Cosa misurare, in pratica</h3>
+<table>
+  <thead><tr><th>Metrica</th><th>Soglia</th><th>Dove si legge</th></tr></thead>
+  <tbody>
+    <tr><td>Tempo di prima risposta</td><td>&lt; 30 min</td><td>Panoramica → Tempo medio</td></tr>
+    <tr><td>Lead senza risposta a 24h</td><td>0</td><td>Trattative → Da qualificare</td></tr>
+    <tr><td>Sopralluoghi fissati / lead</td><td>&gt; 40%</td><td>Sales Intelligence</td></tr>
+  </tbody>
+</table>
+<blockquote>“Abbiamo smesso di discutere di prezzo il giorno in cui siamo diventati i primi a chiamare.” — Marco Bianchi, Elettro Rossi Srl</blockquote>
+<p>Il resto è organizzazione: un turno di reperibilità serale, un modello di risposta già scritto e un <a href="#prose">agente che qualifica</a> mentre la squadra è sui tetti.</p>
+`;
+
 export default function ProseStories() {
   return (
     <div>
@@ -80,6 +103,14 @@ export default function ProseStories() {
           render={<article aria-label="Nota" />}
           dangerouslySetInnerHTML={{ __html: SHORT }}
         />
+      </Story>
+
+      <Story title="Editorial · article" note="variant=editorial — the article on paper: display-face headings, a 62ch measure, links ruled in stone that warm to ochre, a dash instead of a bullet, the quote in the serif against an ochre rule, mono uppercase table heads">
+        <Prose variant="editorial" dangerouslySetInnerHTML={{ __html: ARTICLE }} />
+      </Story>
+
+      <Story title="Editorial · manifesto" note="variant=editorial size=lg — read, not scanned: one size up, headings held to 18ch with the air of a section title above them">
+        <Prose variant="editorial" size="lg" dangerouslySetInnerHTML={{ __html: ARTICLE }} />
       </Story>
 
       <Story title="Long words and Italian-length lines" note="overflow-wrap: anywhere — an unbroken token never widens the rail">

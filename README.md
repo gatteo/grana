@@ -6,6 +6,10 @@ and consumed **by copy**: every app owns the source it installs, and re-pulls to
 
 - Tokens: `registry/grana/styles/grana.css` (palette → semantic slots per surface → brand overrides).
 - Components: `registry/grana/ui/*.tsx` — Base UI primitives, `cva` variants, Tailwind v4.
+  Seven groups: `controls · fields · status · surfaces · patterns · marketing · extras`.
+  The `marketing` group is the paper register — Canvas, Section/Wrap, the bands, the heroes, the
+  cards and the product fragments the marketing sites are built from.
+- Textures: `public/img` — the editorial fields the marketing stories (and the design bundles) use.
 - Playground: `pnpm dev` (port 5180) — every component, every variant, a brand/surface switcher.
 - Builder contract: [`CONVENTIONS.md`](CONVENTIONS.md). Design rules: [`docs/guidelines/`](docs/guidelines/).
 - Measured truth of the two products' kits before unification: `docs/skin-spec.md`.

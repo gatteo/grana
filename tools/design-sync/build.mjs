@@ -48,7 +48,7 @@ for (const item of items) {
     const missing = card.only.filter((t) => !story.sections.some((s) => s.title === t));
     if (missing.length) log(`  ! ${item.name}: cards.only names sections the story does not have: ${missing.join(', ')}`);
   }
-  if (story && card.surface) {
+  if (story && card.surface && typeof card.surface === 'object') {
     const missing = Object.keys(card.surface).filter((t) => !story.sections.some((s) => s.title === t));
     if (missing.length) log(`  ! ${item.name}: cards.surface names sections the story does not have: ${missing.join(', ')}`);
   }
@@ -69,7 +69,7 @@ for (const profile of profiles) {
     }
     rmSync(out, { recursive: true, force: true });
   }
-  for (const d of ['_vendor', 'components', '_preview', 'guidelines', 'fonts']) mkdirSync(join(out, d), { recursive: true });
+  for (const d of ['_vendor', 'components', '_preview', 'guidelines', 'fonts', 'img']) mkdirSync(join(out, d), { recursive: true });
   writeFileSync(join(out, '.ds-bundle'), '');
 
   const reactVersion = await vendorReact(out);
@@ -77,7 +77,7 @@ for (const profile of profiles) {
   const bundle = await bundleGrana({ out, globalName: GLOBAL, entries: comps.map((c) => ({ file: c.file, names: c.exports.map((e) => e.name) })) });
   log(`  _ds_bundle.js: ${(bundle.bytes / 1024).toFixed(0)} KB, ${bundle.inlinedExternals.length} npm packages inlined (${bundle.inlinedExternals.join(', ')})`);
   const cssInfo = await buildCss({ out, brand: pc.brand });
-  log(`  _ds_bundle.css: ${(cssInfo.bytes / 1024).toFixed(0)} KB from ${cssInfo.candidates} candidates in ${cssInfo.files} files · fonts: ${cssInfo.fontFaces} faces, ${cssInfo.fontFiles.length} files`);
+  log(`  _ds_bundle.css: ${(cssInfo.bytes / 1024).toFixed(0)} KB from ${cssInfo.candidates} candidates in ${cssInfo.files} files · fonts: ${cssInfo.fontFaces} faces, ${cssInfo.fontFiles.length} files · img: ${cssInfo.imgFiles.length} files`);
 
   const previewOk = new Map();
   const previewFailures = {};

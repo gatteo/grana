@@ -8,14 +8,22 @@ import { cn } from "@/lib/utils"
  *
  * Every variant is a pill and every variant carries a 1px border (transparent where the
  * recipe has none) so all variants share one height per size — the measured "quiet is 2px
- * taller than primary" quirk is gone. Heights: xs 24 · sm 32 · md 34 · lg 40 · xl 50
+ * taller than primary" quirk is gone. The fill clips to the BORDER box, not the padding box:
+ * with `bg-clip-padding` a transparent border punched a 1px ring of background through the
+ * edge of every filled pill (measured against the RF marketing button, which has no border
+ * at all and is solid to its edge). Heights: xs 24 · sm 32 · md 34 · lg 40 · xl 50
  * (marketing). The destructive ladder: `destructive` is rung 1 (a quiet verb that warms to
  * critical under the pointer), `variant="danger"` is rung 2 (critical at rest). `pressed`
  * renders `aria-pressed` — only when given, an ordinary verb must not claim to be a toggle.
  *
+ * Two registers, one API: on `data-surface="marketing"` the two everyday sizes drop their fixed
+ * height for the RF `.btn` recipe — padding-driven, at the paper size, 14/13px on the body's 1.6
+ * leading. The paddings are the CSS ones minus the hairline every variant carries, so a marketing
+ * button measures 50px like its BEM ancestor and every variant still shares one height.
+ *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-full border bg-clip-padding font-medium whitespace-nowrap transition-colors duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-colors duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -38,18 +46,16 @@ const buttonVariants = cva(
           "border-transparent bg-ecru text-ink not-disabled:hover:bg-stone-0",
         /* marketing: the glass secondary on paper (RF `.btn--quiet`) */
         glass:
-          "border-border-strong bg-secondary text-foreground backdrop-blur-[10px] backdrop-saturate-[1.4] not-disabled:hover:border-stone-400 not-disabled:hover:bg-stone-0/70",
+          "border-border-strong bg-secondary text-foreground backdrop-blur-[10px] backdrop-saturate-[1.4] not-disabled:hover:border-stone-400 not-disabled:hover:bg-stone-0/72",
         /* marketing: the glass secondary on imagery (RF `.btn--ghost-dark`) */
         "glass-dark":
-          "border-inverse-line bg-inverse-foreground/10 text-inverse-foreground backdrop-blur-[12px] backdrop-saturate-[1.4] not-disabled:hover:border-inverse-foreground/40 not-disabled:hover:bg-inverse-foreground/20",
+          "border-inverse-foreground/26 bg-inverse-foreground/10 text-inverse-foreground backdrop-blur-[12px] backdrop-saturate-[1.4] not-disabled:hover:border-inverse-foreground/40 not-disabled:hover:bg-inverse-foreground/[0.18]",
       },
       size: {
         xs: "h-6 gap-1 px-2.5 text-[11.5px] [&_svg:not([class*='size-'])]:size-3.5",
-        sm: "h-8 gap-1.5 px-3.5 text-[12.5px] [&_svg:not([class*='size-'])]:size-3.5",
-        md: "h-[34px] gap-1.5 px-4 text-[12.5px]",
+        sm: "h-8 gap-1.5 px-3.5 text-[12.5px] [&_svg:not([class*='size-'])]:size-3.5 in-data-[surface=marketing]:h-auto in-data-[surface=marketing]:gap-2 in-data-[surface=marketing]:px-[15px] in-data-[surface=marketing]:py-2 in-data-[surface=marketing]:text-[13px] in-data-[surface=marketing]:leading-[1.6] in-data-[surface=marketing]:tracking-[-0.005em]",
+        md: "h-[34px] gap-1.5 px-4 text-[12.5px] in-data-[surface=marketing]:h-auto in-data-[surface=marketing]:gap-2 in-data-[surface=marketing]:px-[23px] in-data-[surface=marketing]:py-[13px] in-data-[surface=marketing]:text-sm in-data-[surface=marketing]:leading-[1.6] in-data-[surface=marketing]:tracking-[-0.005em]",
         lg: "h-10 gap-1.5 px-5 text-[13.5px]",
-        /* marketing only: the RF `.btn` hero size */
-        xl: "h-[50px] gap-2 px-6 text-sm tracking-[-0.005em]",
         icon: "size-[34px]",
         "icon-xs": "size-6 [&_svg:not([class*='size-'])]:size-3.5",
         "icon-sm": "size-8 [&_svg:not([class*='size-'])]:size-3.5",

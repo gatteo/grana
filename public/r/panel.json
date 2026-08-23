@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "panel",
+  "title": "Panel",
+  "description": "The product framed on paper (Panel) and the neutral card it sits beside (Plot).",
+  "registryDependencies": [
+    "@grana/utils"
+  ],
+  "files": [
+    {
+      "path": "registry/grana/ui/panel.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* Two surfaces the marketing page puts things on (RF `.panel` / `.plot`).\n *\n * `Panel` is the product, framed: white, a darker hairline than the page's, the deep panel\n * shadow, corners clipped. It is the only place the shadow ladder goes to `panel` — a screenshot\n * has to lift off the paper. `Plot` is the neutral card everything else sits in: raised paper, the\n * page hairline, no shadow at rest. Cards that lift on hover do it themselves; neither of these\n * moves on its own. */\nfunction Panel({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"panel\"\n      className={cn(\n        \"overflow-hidden rounded-sm border border-line-artefact bg-stone-0 shadow-panel\",\n        className\n      )}\n      {...props}\n    />\n  )\n}\n\n/* The horizontal escape hatch for a table or a wide diagram inside a Panel. */\nfunction PanelScroll({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"panel-scroll\" className={cn(\"overflow-x-auto\", className)} {...props} />\n}\n\nfunction Plot({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"plot\"\n      className={cn(\"rounded-img border border-border bg-card\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Panel, PanelScroll, Plot }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
