@@ -33,7 +33,7 @@ const eyebrowVariants = cva("eyebrow inline-flex items-baseline", {
 type EyebrowProps = useRender.ComponentProps<"span"> &
   VariantProps<typeof eyebrowVariants> & {
     /** The numbered-index form ("01"…"06"): rendered in the warm accent before the label. */
-    index?: string
+    index?: string | undefined
   }
 
 function Eyebrow({
@@ -87,7 +87,7 @@ function SectionHead({
   align = "start",
   ...props
 }: Omit<React.ComponentProps<"div">, "title"> & {
-  index?: string
+  index?: string | undefined
   eyebrow: React.ReactNode
   title: React.ReactNode
   lead?: React.ReactNode

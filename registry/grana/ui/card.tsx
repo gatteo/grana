@@ -71,10 +71,10 @@ function CardHeader({
   actions,
   children,
   ...props
-}: React.ComponentProps<"div"> & {
-  title?: React.ReactNode
-  context?: React.ReactNode
-  actions?: React.ReactNode
+}: Omit<React.ComponentProps<"div">, "title"> & {
+  title?: React.ReactNode | undefined
+  context?: React.ReactNode | undefined
+  actions?: React.ReactNode | undefined
 }) {
   return (
     <div
