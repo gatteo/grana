@@ -125,6 +125,8 @@
   --sidebar-accent-foreground: var(--stone-900);
   --sidebar-border: var(--stone-200);
   --sidebar-ring: var(--focus);
+  --sidebar-active: var(--sidebar-active-ground); /* brand-dependent, see §3 */
+  --sidebar-active-ring: var(--sidebar-active-line);
 
   --surface-2: var(--stone-100); /* sunken panels inside a card */
   --canvas-deep: var(--stone-200);
@@ -167,6 +169,8 @@
   --face-voice: var(--face-display); /* the display face IS allowed inside the product (DSN-9) */
   --sidebar-width: 236px;
   --shell-radius: 14px; /* the inset panel */
+  --sidebar-active-ground: var(--canvas-deep); /* the active nav row: a deeper tint of the canvas */
+  --sidebar-active-line: transparent;
 
   /* Executor hues — functional colour-coding of who/what performs a step. */
   --exec-agent: #0e7a8a;
@@ -196,6 +200,8 @@
   --face-voice: var(--face-sans); /* Cabinet Grotesk is banned inside the RF product */
   --sidebar-width: 244px;
   --shell-radius: 14px; /* the big white card */
+  --sidebar-active-ground: var(--stone-0); /* the active nav row: a white pill with an inset hairline */
+  --sidebar-active-line: var(--stone-200);
 
   --unit-demand: #0058a8;
   --unit-demand-dark: #4495ea;
@@ -253,6 +259,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-active-ring: var(--sidebar-active-ring);
 
   /* Grana additions */
   --color-faint: var(--faint);
@@ -405,6 +413,13 @@
 @utility num {
   font-family: var(--face-mono);
   font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Tabular figures WITHOUT the face switch — a sans subtitle that happens to carry a number. */
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
 /* The mono ALL-CAPS section label (app recipe; marketing widens to text-xs tracking-[.14em]). */
