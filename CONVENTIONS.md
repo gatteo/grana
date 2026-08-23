@@ -140,7 +140,9 @@ teaches tailwind-merge the names and ships to consumers as `@grana/utils`. Prefe
 
 ## 5. Done means
 
-- `pnpm typecheck && pnpm lint && pnpm registry:build` green.
+- `pnpm typecheck && pnpm lint && pnpm registry:build && pnpm registry:check` green. The last one
+  matters: `public/r` is the published surface and it inlines your source, so a component committed
+  without a rebuild ships the old code to both products in silence.
 - The story renders every variant/state under both brands with no console errors (`pnpm dev`, port
   5180; verify with the browser tools or a Playwright screenshot — do not assume).
 - No `dark:`, no raw colour/hex, no radius outside the scale, no `outline-none`, no relative imports.

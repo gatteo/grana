@@ -20,17 +20,26 @@ Works identically in Vite (the Luminars desktop) and Next.js (the hosted surface
 
 1. **Tailwind v4 + shadcn init** in the app (once):
    `npx shadcn@latest init -b base` — Base UI, CSS variables, neutral base colour.
-2. **Serve this registry and point the app at it.** The shadcn CLI resolves namespaces by URL only
-   (`file://` is not implemented), so while both repos live on one machine:
-   ```bash
-   pnpm registry:build && pnpm registry:serve     # in grana → http://127.0.0.1:5190/r/{name}.json
-   ```
-   and in the app's `components.json`:
+2. **Point the app at the registry.** This repo is private, so the CLI reads it through the GitHub
+   contents API with a token. In the app's `components.json`:
    ```json
-   "registries": { "@grana": "http://127.0.0.1:5190/r/{name}.json" }
+   "registries": {
+     "@grana": {
+       "url": "https://api.github.com/repos/gatteo/grana/contents/public/r/{name}.json",
+       "headers": {
+         "Authorization": "Bearer ${GH_TOKEN}",
+         "Accept": "application/vnd.github.raw"
+       }
+     }
+   }
    ```
-   (Once the repo is hosted, a GitHub registry — `add gatteo/grana/button#v1` — or an
-   authenticated URL replaces this line; the components don't change.)
+   and in the shell that runs the CLI:
+   ```bash
+   export GH_TOKEN=$(gh auth token)     # any token with read access to this repo
+   ```
+   The token is never written into a repo. Without it the CLI stops with "Set the required
+   environment variables"; it also reads `.env` / `.env.local` from the consuming project if you
+   would rather keep it there.
 3. **Install the theme**, then the components you need:
    ```bash
    npx shadcn@latest add @grana/theme
@@ -48,6 +57,35 @@ Works identically in Vite (the Luminars desktop) and Next.js (the hosted surface
 5. **Update** later with `npx shadcn@latest add @grana/button --overwrite`; see what an app has
    changed locally with `npx shadcn@latest diff`.
 
+## Publishing
+
+**What is on `main` is what consumers install.** `public/r/*.json` is the published surface and it
+INLINES the component sources, so publishing is two steps and the second one is not optional:
+
+```bash
+pnpm registry:build          # public/r/*.json ← registry.json ← registry/groups/*
+git commit && git push       # this is the publish
+```
+
+`pnpm registry:check` rebuilds into a temp dir and fails if `public/r` is behind the sources — run
+it with `typecheck` and `lint` before every commit. A component edited and pushed without a rebuild
+ships the *old* code to both products and nothing errors.
+
+Two notes on the transport. The contents API is used rather than `raw.githubusercontent.com`
+because raw serves `cache-control: max-age=300` — after a push, a re-pull could quietly install the
+previous version for five minutes. The API is always fresh, caps files at 1 MB (the largest item
+here is 37 KB) and allows 5,000 requests an hour authenticated.
+
+**Iterating on Grana itself** does not need a push. Serve the built registry locally and install
+from the direct URL, which bypasses the namespace:
+
+```bash
+pnpm registry:build && pnpm registry:serve      # → http://127.0.0.1:5190/r/{name}.json
+npx shadcn@latest add http://127.0.0.1:5190/r/button.json --overwrite   # in the consumer
+```
+Namespaced `registryDependencies` inside that item still resolve through the hosted registry, so
+install siblings explicitly when they changed together.
+
 The rule that keeps the two products from drifting: **L0–L2 are never edited inside a consumer.**
 Edit here, in the playground, then re-pull. A consumer that must diverge forks the file and the
 fork stays visible in `diff`.
@@ -59,6 +97,7 @@ pnpm install
 pnpm dev              # the playground
 pnpm typecheck && pnpm lint
 pnpm registry:build   # emits public/r/*.json from registry.json (+ the per-group includes)
+pnpm registry:check   # fails if public/r is behind the sources — the gate before every commit
 node scripts/shot.mjs <story-id> [brand] [surface] [port]   # Playwright screenshot of one story
 ```
 

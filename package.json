@@ -11,6 +11,7 @@
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
     "registry:build": "node scripts/merge-registry.mjs && shadcn build",
+    "registry:check": "node scripts/check-registry.mjs",
     "registry:serve": "node scripts/serve-registry.mjs",
     "design-sync:build": "node tools/design-sync/build.mjs --profile all",
     "design-sync:validate": "node tools/design-sync/validate.mjs --profile all",
