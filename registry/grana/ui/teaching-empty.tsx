@@ -42,7 +42,7 @@ function TeachingEmpty({
       ) : null}
       <div
         data-slot="teaching-empty-title"
-        className="font-voice text-[19px] leading-[1.2] font-bold tracking-[-0.01em] text-balance in-data-[brand=rf]:font-medium"
+        className="voice text-[19px] leading-[1.2] tracking-[-0.01em] text-balance"
       >
         {title}
       </div>

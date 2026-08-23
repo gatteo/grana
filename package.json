@@ -11,7 +11,10 @@
     "lint": "eslint . --max-warnings 0",
     "test": "vitest run",
     "registry:build": "node scripts/merge-registry.mjs && shadcn build",
-    "registry:serve": "node scripts/serve-registry.mjs"
+    "registry:serve": "node scripts/serve-registry.mjs",
+    "design-sync:build": "node tools/design-sync/build.mjs --profile all",
+    "design-sync:validate": "node tools/design-sync/validate.mjs --profile all",
+    "design-sync:diff": "node tools/design-sync/diff.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

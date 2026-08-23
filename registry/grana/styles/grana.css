@@ -349,8 +349,7 @@
   --font-sans: var(--face-sans);
   --font-mono: var(--face-mono);
   --font-serif: var(--face-serif);
-  --font-voice: var(--face-voice); /* the product's display face — brand decides which */
-  --font-weight-voice: var(--voice-weight); /* …and its weight: `font-voice font-weight-voice` */
+  --font-voice: var(--face-voice); /* the product's display face — brand decides which; `voice` sets face + weight */
 
   /* Shape: ONE scale, ratified D-G3. rounded-xs 4 · rounded-sm 6 · rounded-md 10 · rounded-lg 14.
    * Pills are rounded-full. Nothing else exists; xl+ alias to 14 so stock code cannot invent radii. */
@@ -461,6 +460,14 @@
   text-transform: uppercase;
   letter-spacing: 0.09em;
   color: var(--faint);
+}
+
+/* The product's voice — face AND weight from the brand tokens (Cabinet Grotesk 700 on
+ * Luminars, General Sans 500 on RF). One utility, because Tailwind derives the weight utility
+ * from `--font-weight-voice` as `font-voice`, which collides with the family utility. */
+@utility voice {
+  font-family: var(--face-voice);
+  font-weight: var(--voice-weight);
 }
 
 /* The marketing grain veil: a pseudo-layer above an image, below content. */

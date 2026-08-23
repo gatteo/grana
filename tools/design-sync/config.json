@@ -1,0 +1,42 @@
+{
+  "globalName": "Grana",
+  "defaultViewport": "900x700",
+  "profiles": {
+    "luminars": {
+      "product": "Luminars",
+      "brand": "luminars",
+      "projectId": "dc653a61-a8aa-4714-860b-125c733cbe8d",
+      "projectName": "Luminars V3 · Grana",
+      "guidelines": ["docs/guidelines/luminars-DESIGN.md", "docs/guidelines/01-foundations.md"],
+      "oldBundle": "/Users/gatteo/projects/luminars-v3/ds-bundle"
+    },
+    "rf": {
+      "product": "Revenue Farm",
+      "brand": "rf",
+      "projectId": "975e6747-c824-495a-9e0f-42d9a5fc0505",
+      "projectName": "Revenue Farm · Grana",
+      "guidelines": [
+        "docs/guidelines/01-foundations.md",
+        "docs/guidelines/02-marketing-site.md",
+        "docs/guidelines/03-product-app.md",
+        "docs/guidelines/04-motion.md",
+        "docs/guidelines/05-imagery.md"
+      ],
+      "oldBundle": "/Users/gatteo/projects/revenuefarm/platform/packages/ui/ds-bundle"
+    }
+  },
+  "cards": {
+    "label": { "story": "field", "only": ["Label"] },
+    "native-select": { "story": "select", "only": ["NativeSelect"] },
+    "toggle-group": { "story": "toggle", "only": ["ToggleGroup · spaced", "ToggleGroup · joined (spacing 0)"] },
+    "button": { "surface": { "Marketing": "marketing" } },
+    "eyebrow": {
+      "surface": {
+        "Numbered index": "marketing",
+        "SectionHead · start": "marketing",
+        "SectionHead · center, serif lead": "marketing"
+      }
+    }
+  },
+  "ignoreConsole": []
+}

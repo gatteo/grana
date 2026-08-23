@@ -55,7 +55,7 @@ function Notice({
           data-slot="notice-title"
           className={cn(
             variant === "card"
-              ? "font-voice text-base font-bold leading-tight"
+              ? "voice text-base leading-tight"
               : "text-sm font-medium leading-snug"
           )}
         >

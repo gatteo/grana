@@ -61,11 +61,11 @@ function Page({
   )
 }
 
-/* The title speaks in the product's voice: `font-voice` + `font-weight-voice` resolve to
- * Cabinet Grotesk 700 on Luminars and General Sans 500 on RF from the tokens alone
+/* The title speaks in the product's voice: the `voice` utility resolves face AND weight —
+ * Cabinet Grotesk 700 on Luminars, General Sans 500 on RF — from the tokens alone
  * (skin-spec §14). Only the tracking still reads the brand attribute. */
 const pageTitleVariants = cva(
-  "font-voice font-weight-voice tracking-[-0.01em] text-balance in-data-[brand=rf]:tracking-[-0.022em]",
+  "voice tracking-[-0.01em] text-balance in-data-[brand=rf]:tracking-[-0.022em]",
   {
     variants: {
       size: {

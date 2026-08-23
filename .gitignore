@@ -3,3 +3,6 @@ dist
 .DS_Store
 *.local
 shots
+ds-bundle
+tools/design-sync/node_modules
+tools/design-sync/.cache

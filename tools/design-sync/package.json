@@ -1,0 +1,12 @@
+{
+  "name": "grana-design-sync",
+  "private": true,
+  "type": "module",
+  "description": "Builds the claude.ai/design bundles (luminars + rf) from the Grana registry. Own deps only; react/react-dom/tailwindcss/playwright resolve from the repo root.",
+  "dependencies": {
+    "@tailwindcss/node": "4.3.3",
+    "@tailwindcss/oxide": "4.3.3",
+    "esbuild": "^0.28.2",
+    "ts-morph": "^28.0.0"
+  }
+}
