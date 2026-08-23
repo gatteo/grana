@@ -211,6 +211,10 @@ export function emitReadme({ out, profile, cfg, globalName, comps, guidelineFile
       return `- \`${c.name}\` — ${c.item.description}${extras.length ? ` (also: ${extras.map((x) => `\`${x}\``).join(', ')})` : ''}`;
     }).join('\n')}`).join('\n\n');
   const brandAttr = `data-brand="${cfg.brand}"`;
+  // The voice utility follows the compiled stylesheet: grana.css is moving from
+  // `font-voice font-weight-voice` (two utilities) to one `voice` utility (face + weight).
+  const css = readText(join(out, '_ds_bundle.css'));
+  const voice = /\.voice\s*\{/.test(css) ? '`voice`' : /\.font-weight-voice\s*\{/.test(css) ? '`font-voice font-weight-voice`' : '`font-voice`';
   const readme = `# Building with ${cfg.product} (the Grana design system)
 
 ${intro}
@@ -248,7 +252,7 @@ only where a component already uses them). Never write a hex colour, never \`dar
 | Executor | \`bg-exec-agent-soft text-exec-agent\` (+ human / api / screen) |
 | Shape | \`rounded-xs\` 4 · \`rounded-sm\` 6 · \`rounded-md\` 10 · \`rounded-lg\` 14 · \`rounded-full\` (pills). Nothing else exists. |
 | Depth | \`shadow-card\`, \`shadow-panel\` — only where the recipe says; the RF product surface nulls both through the tokens |
-| Type | \`font-sans\` is inherited (General Sans — don't repeat it); \`font-voice font-weight-voice\` for the product's voice moments (page titles, teaching headlines — the brand decides the face); \`font-mono\` / \`num\` for ids, eyebrows and ALL numerals; \`font-serif\` for long-form prose only. Sizes: \`text-2xs\` 10.5 · \`text-xs\` 12 · \`text-13\` · \`text-sm\` 14 · \`text-base\` · \`text-lg\` · \`text-xl\` · \`text-2xl\` · \`text-metric\` |
+| Type | \`font-sans\` is inherited (General Sans — don't repeat it); ${voice} for the product's voice moments (page titles, teaching headlines — the brand decides the face); \`font-mono\` / \`num\` for ids, eyebrows and ALL numerals; \`font-serif\` for long-form prose only. Sizes: \`text-2xs\` 10.5 · \`text-xs\` 12 · \`text-13\` · \`text-sm\` 14 · \`text-base\` · \`text-lg\` · \`text-xl\` · \`text-2xl\` · \`text-metric\` |
 | Layout | \`flex\` / \`grid\` / \`gap-*\` / \`p-*\` / \`m-*\` / \`w-*\` / \`max-w-*\` / \`items-*\` / \`justify-*\` / \`grid-cols-1…6,12\` (+ \`sm:\` \`md:\` \`lg:\`), \`overflow-*\`, \`truncate\`, \`whitespace-nowrap\`, \`text-balance\` |
 | Focus | one global \`:focus-visible\` outline (2px \`--ring\`, offset 2). Never \`outline-none\`, never your own ring. |
 

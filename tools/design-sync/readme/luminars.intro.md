@@ -2,7 +2,7 @@ Luminars is a calm, warm, monochrome desktop product. It watches all day, so it 
 read as a surveillance dashboard: soft ecru canvas, inset rounded panels, generous whitespace,
 hairline borders. **The accent is the ink itself** — there is no brand blue to reach for.
 Colour appears only to report a status, and never alone. The product speaks in its own voice:
-page titles and teaching headlines are Cabinet Grotesk 700 (`font-voice font-weight-voice`);
+page titles and teaching headlines are Cabinet Grotesk 700 (the voice utility in the table below);
 working UI is General Sans; ids, eyebrows and every numeral are Spline Sans Mono; long-form
 prose only is Source Serif 4. The focus ring is the one warm accent (ochre).
 
