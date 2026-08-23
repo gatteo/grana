@@ -581,6 +581,16 @@
   font-feature-settings: "tnum" 1, "lnum" 1;
 }
 
+/* The mono ALL-CAPS TREATMENT, without a size or a colour — the raw ingredient of a label.
+ * `eyebrow` is the system's label (it also sets the size and the quiet ink, per surface); `caps` is
+ * for the one-off that needs its own, the way `tabular` is `num` without the face switch. A label
+ * that can use `eyebrow` should. */
+@utility caps {
+  font-family: var(--face-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
 /* Tabular figures WITHOUT the face switch — a sans subtitle that happens to carry a number. */
 @utility tabular {
   font-variant-numeric: tabular-nums;

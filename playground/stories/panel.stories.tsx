@@ -139,6 +139,42 @@ export default function PanelStories() {
       </Story>
 
       <Story
+        title="render — l’elemento giusto, la stessa ricetta"
+        note="Panel and Plot take Base UI’s `render`: the recipe stays, the tag becomes the one the document needs — an <article>, a link, a <figure> — so a product never re-inlines the classes to change an element"
+      >
+        <div className="grid grid-cols-3 items-start gap-4">
+          <Plot render={<article />} className="p-5">
+            <span className="eyebrow">Plot render=&lt;article /&gt;</span>
+            <h3 className="h3 mt-2">Una scheda che è un articolo</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Il markup dice quello che la pagina intende; la ricetta non cambia di un pixel.
+            </p>
+          </Plot>
+          <Plot
+            render={<a href="#panel" />}
+            className="block p-5 transition-colors duration-180 ease-brand hover:bg-accent"
+          >
+            <span className="eyebrow">Plot render=&lt;a href /&gt;</span>
+            <h3 className="h3 mt-2">Una scheda che è un link</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Tutta la card è il bersaglio: nessun link annidato, nessun ritaglio della ricetta.
+            </p>
+          </Plot>
+          <Panel render={<figure />} className="m-0">
+            <div className="h-[92px] bg-[image:var(--dots)] bg-[length:var(--dots-size)]" />
+            <figcaption className="border-t border-border p-4 text-sm text-muted-foreground">
+              Panel render=&lt;figure /&gt; — lo screenshot e la sua didascalia sono un elemento solo.
+            </figcaption>
+          </Panel>
+        </div>
+        <p className="mt-3 max-w-text text-sm text-muted-foreground">
+          <span className="num">data-slot</span> resta su ogni radice e il{" "}
+          <span className="num">className</span> del chiamante si fonde per ultimo, esattamente
+          come prima.
+        </p>
+      </Story>
+
+      <Story
         title="Contenuto lungo, senza padding proprio"
         note="neither surface pads itself: a full-bleed screenshot must be able to touch the frame"
       >

@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/registry/grana/ui/card";
+import { Eyebrow } from "@/registry/grana/ui/eyebrow";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/registry/grana/ui/table";
 import { Label, Row, Story } from "@/playground/lib/story";
 
@@ -104,6 +105,41 @@ export default function CardStories() {
             </TableBody>
           </Table>
         </Card>
+      </Story>
+
+      <Story
+        title="layout — la direzione della card"
+        note="`stack` (default) è l’unico che tocca un figlio: un eyebrow figlio diretto è l’etichetta della card e prende 10px d’aria sotto. `layout=row` non impone nulla: l’eyebrow resta del chiamante, allineato con il resto della riga"
+      >
+        <div className="grid max-w-2xl gap-3">
+          <Card layout="row">
+            <Eyebrow>In esecuzione</Eyebrow>
+            <span className="text-13 text-muted-foreground">
+              Riconciliazione fatture · passo 4 di 14
+            </span>
+            <Button size="xs" variant="ghost" className="ml-auto">
+              Apri
+            </Button>
+          </Card>
+          <Card layout="row" tone="sunken" className="gap-2">
+            <Eyebrow tint="demand">Demand</Eyebrow>
+            <Eyebrow className="text-muted-foreground">·</Eyebrow>
+            <Eyebrow>12 campagne</Eyebrow>
+            <span className="num ml-auto text-13">€ 412.300</span>
+          </Card>
+          <Card className="gap-2.5">
+            <div className="flex items-center gap-2">
+              <Eyebrow>Nota</Eyebrow>
+              <span className="text-13 text-faint">
+                una riga annidata dentro una card impilata: l’eyebrow resta inline-flex
+              </span>
+            </div>
+            <p className="text-sm">
+              La card impilata continua a dare i 10px d’aria solo all’eyebrow che è figlio diretto —
+              tutto il resto lo dispone chi scrive la pagina.
+            </p>
+          </Card>
+        </div>
       </Story>
 
       <Story title="Long content" note="Italian-length title and context; the title truncates only if the caller asks">

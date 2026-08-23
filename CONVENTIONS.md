@@ -22,6 +22,12 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   `data-slot="…"` on every root element, `useRender` + `mergeProps` for polymorphic elements.
   The stock shadcn files already in `registry/grana/ui/` show the idiom — re-skin them, keep their
   structure and export names, so shadcn documentation and agents' prior knowledge still apply.
+- **A component may style a CHILD only behind a variant the caller can switch off.** A rule like
+  `[&>.eyebrow]:block` is `.card > .eyebrow` — it outranks the child's own `className` on
+  specificity and silently breaks the "className is merged last" contract the whole system rests
+  on. `Card`'s `layout="stack|row"` is the pattern: the descendant rule lives inside the layout it
+  was written for, and a caller who lays the child out themselves picks the other one. If you
+  cannot put it behind a variant, put it on the child component instead.
 - Imports: `@/lib/utils` and `@/registry/grana/ui/<name>` only. **Never relative imports between
   components** (the CLI rewrites the aliases on install; relative paths break).
 - **No `dark:` classes.** Both products are light-only by design. Strip every `dark:` from stock code.
@@ -33,8 +39,15 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   you need has no utility, say so in your report — do not invent one inline.
 - **Radii: `rounded-xs` 4 · `rounded-sm` 6 · `rounded-md` 10 · `rounded-lg` 14 · `rounded-full`.**
   Nothing else (`xl`+ alias to 14 so stock code cannot invent radii). Buttons and chips are pills.
+  The scale has exactly two exceptions and both are ROLES, not steps: `rounded-img` (8) is the
+  corner of a photograph, `rounded-shell` is the app frame. A drawn illustration — `ProductShot`,
+  the `Snippet*` fragments — is a *picture of a UI at ~70% scale*, so its corners are scaled too
+  (2 / 5 / 7 / 9 / 12px, arbitrary and correct); do not read those as scale steps and do not
+  promote them. Everything else on a real surface is one of the five.
 - **Borders are 1px hairlines** in `border-border` (`border-border-strong` for modals/frames). Never
   2px, never coloured borders except the destructive/invalid state.
+- **Motion:** durations are plain numbers — `duration-180`, `duration-400` compile as written, so
+  the system carries no duration tokens to memorise. Easing is `ease-brand` / `ease-brand-out`.
 - **Shadows:** `shadow-card` / `shadow-panel` only, and only where the skin spec says. The RF product
   surface nulls them through the tokens — you do not need to special-case it.
 - **Focus:** the stylesheet paints ONE global `:focus-visible` outline (2px, `--ring`, offset 2).
@@ -46,7 +59,8 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   (12px/.14em) from the surface, by itself. The product's voice moments (page titles, onboarding
   headlines): the `voice` utility — the brand decides which face that is.
   Sizes from the spec, via Tailwind's scale (`text-sm` 14, `text-xs` 12) plus `text-13` and
-  `text-2xs` (10.5). Arbitrary px (`h-[30px]`, `px-[9px]`) is fine when the spec gives a number.
+  `text-2xs` (10.5) — 10.5 is the floor of the *system's* scale; the sub-10px type inside a drawn
+  illustration is part of the picture and stays arbitrary. Arbitrary px (`h-[30px]`, `px-[9px]`) is fine when the spec gives a number.
   Two traps measured in the marketing port: a fluid size needs the type hint —
   `text-[length:clamp(...)]`, because `text-[clamp(...)]` compiles to **nothing**; and `text-13` /
   `text-2xs` carry a line-height of their own, so a place that must inherit the surface's leading

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 
 import { Button } from "@/registry/grana/ui/button";
 import { SectionHead } from "@/registry/grana/ui/eyebrow";
+import { Input } from "@/registry/grana/ui/input";
 import { Section, Wrap } from "@/registry/grana/ui/section";
 import { Story } from "@/playground/lib/story";
 
@@ -105,6 +106,37 @@ export default function SectionStories() {
               </p>
             </div>
           </Wrap>
+        </div>
+      </Story>
+
+      <Story
+        title="render — la banda prende il tag del documento"
+        note="`Section render={<main />}` / `{<aside />}`, `Wrap render={<form />}`: stessa ricetta, elemento diverso — data-slot e data-variant restano, il className si fonde per ultimo"
+      >
+        <div className="-mx-8 bg-background">
+          <Section render={<main />} className="py-10">
+            <Wrap>
+              <span className="eyebrow">Section render=&lt;main /&gt;</span>
+              <p className="mt-2 max-w-text text-sm text-muted-foreground">
+                La banda principale della pagina è un <span className="num">&lt;main&gt;</span>: il
+                ritmo verticale e la misura non cambiano, cambia solo quello che il documento
+                dichiara di essere.
+              </p>
+            </Wrap>
+          </Section>
+          <Section variant="sunken" render={<aside />} className="py-10">
+            <Wrap render={<form />} className="grid gap-3">
+              <span className="eyebrow">
+                Section variant=&quot;sunken&quot; render=&lt;aside /&gt; · Wrap render=&lt;form /&gt;
+              </span>
+              <div className="flex max-w-lead gap-2">
+                <Input aria-label="Email" placeholder="nome@azienda.it" />
+                <Button type="button" variant="primary">
+                  Iscriviti
+                </Button>
+              </div>
+            </Wrap>
+          </Section>
         </div>
       </Story>
 

@@ -8,11 +8,21 @@ import { cn } from "@/lib/utils"
 /* The surface box (skin-spec §13). Luminars `.card` and RF `.panel` agree on the shell:
  * white, 1px hairline, 10px radius. `padded` is the Luminars default (18px 20px); a Card with
  * `padded={false}` is a frame whose children own the edges (a Table, a Feed) — it clips them to
- * its radius. `elevated` resolves to the shadow token, which the RF product surface nulls. */
+ * its radius. `elevated` resolves to the shadow token, which the RF product surface nulls.
+ *
+ * `layout` is the card's own direction. `stack` is the default and the only one that touches a
+ * child: an eyebrow as a direct child is the card's section label and takes the 10px of air under
+ * it. `row` lays the card out as a row and imposes nothing — an eyebrow there is the caller's to
+ * place. (The old `[&>.eyebrow]:block` is gone: a direct child of a flex box is blockified anyway,
+ * so it only ever overrode a caller's own display.) */
 const cardVariants = cva(
-  "group/card relative flex flex-col rounded-md border border-border bg-card text-card-foreground [&>.eyebrow]:mb-2.5 [&>.eyebrow]:block",
+  "group/card relative flex rounded-md border border-border bg-card text-card-foreground",
   {
     variants: {
+      layout: {
+        stack: "flex-col [&>.eyebrow]:mb-2.5",
+        row: "flex-row items-center gap-3",
+      },
       tone: {
         surface: "",
         sunken: "bg-surface-2",
@@ -27,6 +37,7 @@ const cardVariants = cva(
       },
     },
     defaultVariants: {
+      layout: "stack",
       tone: "surface",
       padded: true,
       elevated: false,
@@ -36,6 +47,7 @@ const cardVariants = cva(
 
 function Card({
   className,
+  layout = "stack",
   tone = "surface",
   padded = true,
   elevated = false,
@@ -46,13 +58,14 @@ function Card({
     defaultTagName: "div",
     props: mergeProps<"div">(
       {
-        className: cn(cardVariants({ tone, padded, elevated }), className),
+        className: cn(cardVariants({ layout, tone, padded, elevated }), className),
       },
       props
     ),
     render,
     state: {
       slot: "card",
+      layout,
       tone,
       padded: padded ? "on" : "off",
       elevated: elevated ? "on" : "off",

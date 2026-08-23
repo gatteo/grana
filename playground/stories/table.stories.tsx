@@ -171,6 +171,55 @@ export default function TableStories() {
           <Label>th/td `num` prop or a bare `data-num` attribute → right-aligned mono</Label>
         </Row>
       </Story>
+
+      <Story
+        title="num · align · tabular — tre decisioni, non una"
+        note="`num` resta la colonna numerica in una parola; `align` sposta il solo allineamento (un protocollo è un numero che sta a sinistra) e `tabular` prende le sole cifre tabulari restando nel sans"
+      >
+        <Card padded={false} className="max-w-2xl">
+          <CardHeader title="Protocolli" context="4 di 128" />
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead num align="left">
+                  Protocollo
+                </TableHead>
+                <TableHead>Cliente</TableHead>
+                <TableHead>Commessa</TableHead>
+                <TableHead align="center">Anno</TableHead>
+                <TableHead num>Importo</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {[
+                ["2026-000041", "Comune di Rovigo", "C 041/2026", "2026", "214.000,00"],
+                ["2026-000412", "Caseificio Val d’Enza", "C 412/2026", "2026", "98.500,00"],
+                ["2025-001208", "Stampaggio Brianza S.r.l.", "C 208/2025", "2025", "41.200,00"],
+                ["2025-000006", "Logistica Adriatica", "C 006/2025", "2025", "640.000,00"],
+              ].map(([code, client, job, year, amount]) => (
+                <TableRow key={code}>
+                  <TableCell num align="left">
+                    {code}
+                  </TableCell>
+                  <TableCell className="font-medium">{client}</TableCell>
+                  <TableCell tabular className="text-muted-foreground">
+                    {job}
+                  </TableCell>
+                  <TableCell align="center" className="text-muted-foreground">
+                    {year}
+                  </TableCell>
+                  <TableCell num>€ {amount}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Card>
+        <Row>
+          <Label>
+            num align=&quot;left&quot; · — · tabular · align=&quot;center&quot; · num
+          </Label>
+        </Row>
+      </Story>
     </div>
   );
 }

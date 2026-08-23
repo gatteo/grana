@@ -9,7 +9,8 @@
       "title": "Section",
       "description": "The page skeleton on paper: the section rhythm and the 1280 field measure.",
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority",
+        "@base-ui/react"
       ],
       "registryDependencies": [
         "@grana/utils"
@@ -49,6 +50,9 @@
           "path": "registry/grana/ui/panel.tsx",
           "type": "registry:ui"
         }
+      ],
+      "dependencies": [
+        "@base-ui/react"
       ]
     },
     {

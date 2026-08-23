@@ -1,4 +1,5 @@
-import * as React from "react"
+import { mergeProps } from "@base-ui/react/merge-props"
+import { useRender } from "@base-ui/react/use-render"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
@@ -9,7 +10,10 @@ import { cn } from "@/lib/utils"
  * band, so a page reads as a document and not as a stack of boxes. `sunken` drops the band onto
  * the deeper ecru between two hairlines; it is how the page changes register without changing
  * colour. `Wrap` is the field measure: 1280 centred, with the fluid gutter. A band is always
- * `Section > Wrap` — the band paints edge to edge, the content stays inside the measure. */
+ * `Section > Wrap` — the band paints edge to edge, the content stays inside the measure.
+ *
+ * Both take `render`: the band that is the page's `<main>`, the aside that runs beside it, the
+ * wrap that is really a `<form>` — same recipe, the tag the document needs. */
 const sectionVariants = cva("py-section", {
   variants: {
     variant: {
@@ -23,26 +27,37 @@ const sectionVariants = cva("py-section", {
 function Section({
   className,
   variant = "plain",
+  render,
   ...props
-}: React.ComponentProps<"section"> & VariantProps<typeof sectionVariants>) {
-  return (
-    <section
-      data-slot="section"
-      data-variant={variant}
-      className={cn(sectionVariants({ variant }), className)}
-      {...props}
-    />
-  )
+}: useRender.ComponentProps<"section"> & VariantProps<typeof sectionVariants>) {
+  return useRender({
+    defaultTagName: "section",
+    props: mergeProps<"section">(
+      {
+        className: cn(sectionVariants({ variant }), className),
+      },
+      props
+    ),
+    render,
+    state: {
+      slot: "section",
+      variant: variant ?? "plain",
+    },
+  })
 }
 
-function Wrap({ className, ...props }: React.ComponentProps<"div">) {
-  return (
-    <div
-      data-slot="wrap"
-      className={cn("mx-auto w-full max-w-measure px-gutter", className)}
-      {...props}
-    />
-  )
+function Wrap({ className, render, ...props }: useRender.ComponentProps<"div">) {
+  return useRender({
+    defaultTagName: "div",
+    props: mergeProps<"div">(
+      {
+        className: cn("mx-auto w-full max-w-measure px-gutter", className),
+      },
+      props
+    ),
+    render,
+    state: { slot: "wrap" },
+  })
 }
 
 export { Section, Wrap, sectionVariants }
