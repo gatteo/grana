@@ -73,6 +73,24 @@ export default function OrbStories() {
       </Story>
 
       <Story
+        title="The clip, at 152 on a card"
+        note="the WebKit regression case: a still orb must not leak a square past the circle"
+      >
+        <Row className="gap-8">
+          {(["ready", "warning"] as const).map((tone) => (
+            <div key={tone} className="grid justify-items-center gap-3 rounded-lg bg-card p-7">
+              <Orb tone={tone} level={0.62} size={152} still label={`Settled — ${tone}`} />
+              <Label>still · {tone}</Label>
+            </div>
+          ))}
+          <div className="grid justify-items-center gap-3 rounded-lg bg-card p-7">
+            <Orb tone="ready" level={0.62} size={152} label="Running — ready" />
+            <Label>running</Label>
+          </div>
+        </Row>
+      </Story>
+
+      <Story
         title="The recording sheet"
         note="the composition that makes it safe under DSN-6: the state named in words twice"
       >

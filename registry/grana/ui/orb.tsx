@@ -114,6 +114,8 @@ function Orb({
         data-slot="orb-ball"
         aria-hidden="true"
         className={cn(
+          /* `overflow-hidden` still earns its place on Chromium and Gecko; it is simply not
+           * enough on WebKit, which is what the clip below is for. */
           "absolute inset-0 overflow-hidden rounded-full",
           "bg-[radial-gradient(circle_at_34%_26%,color-mix(in_srgb,var(--orb)_16%,var(--card))_0%,color-mix(in_srgb,var(--orb)_44%,var(--card))_56%,color-mix(in_srgb,var(--orb)_78%,var(--card))_100%)]",
           /* The modelling of a drawn sphere, not the elevation of a surface: two inset lights
@@ -124,26 +126,42 @@ function Orb({
           moves
         )}
       >
-        {/* A deep mass low and right, so the sphere has weight where the shadow is. */}
-        <OrbCloud
-          className="inset-[34%_-8%_-14%_26%] bg-[color-mix(in_srgb,var(--orb)_92%,transparent)]"
-          drift={still ? undefined : cn("animate-orb-drift-b", moves)}
-        />
-        {/* A mid mass drifting across the middle. */}
-        <OrbCloud
-          className="inset-[-10%_40%_40%_-6%] bg-[color-mix(in_srgb,var(--orb)_66%,transparent)]"
-          drift={still ? undefined : cn("animate-orb-drift-a", moves)}
-        />
-        {/* The highlight, high and left, where the light comes from. It holds its own opacity:
-         * the light does not get brighter because more is happening. */}
-        <OrbCloud
-          className="inset-[8%_44%_52%_12%] bg-[color-mix(in_srgb,var(--card)_92%,transparent)] opacity-85"
-          drift={
-            still
-              ? undefined
-              : cn("animate-orb-drift-a [animation-duration:21s] [animation-direction:reverse]", moves)
-          }
-        />
+        {/* The clouds live inside their own clip, and the clip is a `clip-path`, not the ball's
+         * `overflow-hidden`. MEASURED in a real WKWebView (the engine Tauri ships, not
+         * Playwright's, which renders this correctly and hides the bug): a blurred descendant
+         * of a rounded `overflow-hidden` box is clipped to the box's RECT, so the cloud paints
+         * into the corners and a settled orb reads as a circle inside a faint square. An
+         * animation on the ball happens to hide it — which is why the bug only ever showed on
+         * `still` and under reduced motion. Forcing a compositing layer (`will-change`,
+         * `translateZ(0)`) does NOT fix it; only a real clip does. It goes here rather than on
+         * the ball because a `clip-path` on the ball would also cut the ball's own contact
+         * glow — the third, non-inset box-shadow — off at the circle. */}
+        <span
+          data-slot="orb-clouds"
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 [clip-path:circle(50%)]"
+        >
+          {/* A deep mass low and right, so the sphere has weight where the shadow is. */}
+          <OrbCloud
+            className="inset-[34%_-8%_-14%_26%] bg-[color-mix(in_srgb,var(--orb)_92%,transparent)]"
+            drift={still ? undefined : cn("animate-orb-drift-b", moves)}
+          />
+          {/* A mid mass drifting across the middle. */}
+          <OrbCloud
+            className="inset-[-10%_40%_40%_-6%] bg-[color-mix(in_srgb,var(--orb)_66%,transparent)]"
+            drift={still ? undefined : cn("animate-orb-drift-a", moves)}
+          />
+          {/* The highlight, high and left, where the light comes from. It holds its own opacity:
+           * the light does not get brighter because more is happening. */}
+          <OrbCloud
+            className="inset-[8%_44%_52%_12%] bg-[color-mix(in_srgb,var(--card)_92%,transparent)] opacity-85"
+            drift={
+              still
+                ? undefined
+                : cn("animate-orb-drift-a [animation-duration:21s] [animation-direction:reverse]", moves)
+            }
+          />
+        </span>
       </span>
     </span>
   )
