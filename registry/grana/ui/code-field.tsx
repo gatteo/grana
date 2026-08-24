@@ -83,14 +83,34 @@ function CodeField({
   size = "lg",
   className,
 }: CodeFieldProps) {
+  const group = React.useRef<HTMLDivElement | null>(null)
   const boxes = React.useRef<Array<HTMLInputElement | null>>([])
   const wasComplete = React.useRef(value.length >= length)
+  const wasFilled = React.useRef(value.length > 0)
 
   React.useEffect(() => {
     const complete = value.length >= length
     if (complete && !wasComplete.current) onComplete?.(value.slice(0, length))
     wasComplete.current = complete
   }, [value, length, onComplete])
+
+  React.useEffect(() => {
+    /* THE CALLER CLEARING THE FIELD MEANS "START AGAIN". A refused code is
+     * the case that matters: the boxes empty themselves, and leaving the
+     * caret parked on the last box someone typed into makes retyping a
+     * hunt for the first one. Only when focus is already inside the group —
+     * clearing a field nobody is looking at must never steal focus. */
+    const filled = value.length > 0
+    if (
+      !filled &&
+      wasFilled.current &&
+      typeof document !== "undefined" &&
+      group.current?.contains(document.activeElement)
+    ) {
+      boxes.current[0]?.focus()
+    }
+    wasFilled.current = filled
+  }, [value])
 
   const focusBox = (index: number) => {
     const box = boxes.current[Math.max(0, Math.min(length - 1, index))]
@@ -161,6 +181,7 @@ function CodeField({
 
   return (
     <div
+      ref={group}
       data-slot="code-field"
       role="group"
       aria-label={label}

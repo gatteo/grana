@@ -39,6 +39,32 @@ function Live({
   );
 }
 
+/** What a consumer actually does with a wrong code: render the service's
+ *  words, empty the boxes, and let the person type a fresh one. */
+function Refusable() {
+  const [value, setValue] = useState("");
+  const [refused, setRefused] = useState(false);
+  return (
+    <div className="grid gap-2">
+      <CodeField
+        value={value}
+        onValueChange={(next) => {
+          setValue(next);
+          if (next !== "") setRefused(false);
+        }}
+        onComplete={() => {
+          setRefused(true);
+          setValue("");
+        }}
+        invalid={refused}
+        label="Codice di accesso"
+        boxLabel={(index, total) => `Cifra ${index + 1} di ${total}`}
+      />
+      {refused ? <Label>il codice è scaduto o non è valido</Label> : null}
+    </div>
+  );
+}
+
 export default function CodeFieldStories() {
   return (
     <div className="max-w-3xl">
@@ -93,6 +119,13 @@ export default function CodeFieldStories() {
         note="paste 482139 to fill every box; paste a URL to see onPasteOther take it"
       >
         <Live />
+      </Story>
+
+      <Story
+        title="Refused, the real flow"
+        note="type six digits: the caller marks it invalid and clears, and the caret goes back to the first box"
+      >
+        <Refusable />
       </Story>
     </div>
   );
