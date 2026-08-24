@@ -1,0 +1,14 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "step-dots",
+  "title": "StepDots",
+  "description": "The stepper for a multi-step modal footer: 5px dots, the current one a 17px ink bar. The position is named by the caller.",
+  "files": [
+    {
+      "path": "registry/grana/ui/step-dots.tsx",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\n/* The stepper for a multi-step modal footer. Five-pixel dots, and the one you are on stretches\n * into a short bar in the ink — so the position reads at a glance without a \"3 / 5\" to parse,\n * and the footer's one primary action stays alone on the right (DSN-3).\n *\n * The label is the CALLER's: the component knows the numbers, not the language the product\n * speaks. `label=\"Passaggio 2 di 4\"` in Italian, \"Step 2 of 4\" in English; the English fallback\n * exists so a stepper is never unnamed, not so callers can skip it.\n *\n *   <StepDots count={4} current={1} label=\"Step 2 of 4\" />\n */\n\nfunction StepDots({\n  className,\n  count,\n  current,\n  label,\n  ...props\n}: Omit<React.ComponentProps<\"span\">, \"children\"> & {\n  /** How many steps there are. */\n  count: number\n  /** Which one you are on, 0-based. */\n  current: number\n  /** The accessible name, naming the position in the product's own language. */\n  label?: string\n}) {\n  const total = Math.max(0, Math.floor(count))\n  const at = Math.min(total - 1, Math.max(0, Math.floor(current)))\n\n  return (\n    <span\n      data-slot=\"step-dots\"\n      role=\"group\"\n      aria-label={label ?? `Step ${at + 1} of ${total}`}\n      className={cn(\"flex items-center gap-[5px]\", className)}\n      {...props}\n    >\n      {Array.from({ length: total }, (_, index) => (\n        <span\n          key={index}\n          data-slot=\"step-dot\"\n          data-state={index === at ? \"current\" : \"other\"}\n          aria-hidden=\"true\"\n          className={cn(\n            \"block h-[5px] rounded-full transition-[width,background-color] duration-180 ease-brand-out\",\n            index === at ? \"w-[17px] bg-foreground\" : \"w-[5px] bg-stone-300\"\n          )}\n        />\n      ))}\n    </span>\n  )\n}\n\nexport { StepDots }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

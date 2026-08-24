@@ -175,6 +175,18 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "step-dots",
+      "type": "registry:ui",
+      "title": "StepDots",
+      "description": "The stepper for a multi-step modal footer: 5px dots, the current one a 17px ink bar. The position is named by the caller.",
+      "files": [
+        {
+          "path": "registry/grana/ui/step-dots.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

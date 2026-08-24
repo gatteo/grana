@@ -157,6 +157,33 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "orb",
+      "type": "registry:ui",
+      "title": "Orb",
+      "description": "The assistant's state indicator: one breathing sphere with three drifting cloud masses. Colour says which state, motion says whether anything is running; --orb-level is the single runtime input.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/orb.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "mic-meter",
+      "type": "registry:ui",
+      "title": "MicMeter",
+      "description": "A ten-bar live microphone meter with fixed per-bar weights, so the same level always draws the same picture. Muted goes flat and quiet.",
+      "files": [
+        {
+          "path": "registry/grana/ui/mic-meter.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -470,6 +470,43 @@
     }
   }
 
+  /* The assistant orb (Orb). One figure, three motions: the sphere breathes, and its three
+   * cloud masses drift at different speeds. The amplitude reads `--orb-level` off the orb
+   * itself, so one runtime number moves the whole figure. A keyframe cannot be declared from
+   * a utility class, which is the only reason these live here; the durations that differ from
+   * these defaults are set at the call site with [animation-duration:…], and `still` /
+   * reduced motion turn them off there too. */
+  --animate-orb-breathe: orb-breathe 4.4s ease-in-out infinite;
+  @keyframes orb-breathe {
+    0%,
+    100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(calc(1 + var(--orb-level, 0.5) * 0.045));
+    }
+  }
+  --animate-orb-drift-a: orb-drift-a 13s ease-in-out infinite;
+  @keyframes orb-drift-a {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(18%, 14%) scale(1.18);
+    }
+  }
+  --animate-orb-drift-b: orb-drift-b 17s ease-in-out infinite;
+  @keyframes orb-drift-b {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-16%, -12%) scale(1.14);
+    }
+  }
+
   /* Marketing entrances. Every one of them is gated on the `js` class ([.js_&]:animate-rise) —
    * without scripting there is no hidden state and the page is readable as served. Durations
    * that differ from these defaults are set at the call site with [animation-duration:…]. */
