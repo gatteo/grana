@@ -15,9 +15,15 @@ import { cn } from "@/lib/utils"
  * a solid direction triangle and a sans base line — an app panel is a fixed width, so its
  * figures do not breathe with the viewport.
  *
- * `columns="auto"` fits as many 220px cells as the CONTAINER holds, which is what an app
- * panel needs: the same grid is four across on Home and two across with the assistant open,
- * and no viewport breakpoint can know that. */
+ * `columns="fit"` sizes to the CONTAINER rather than the viewport, which is what an app panel
+ * needs: the same grid is four across on Home and two across with the assistant open, and no
+ * viewport breakpoint can know that. It HALVES — four, two, one — because a grid of four
+ * halves cleanly and a grid of three does not: `auto-fit` on a four-item row lands on three
+ * columns at panel widths and leaves one cell stranded beside two empty tracks, which in the
+ * `cells` variant are not empty at all but the frame's own ground showing through. Measured on
+ * the Luminars shell 2026-08-24 with the sidebar away and the assistant open.
+ *
+ * It queries the nearest ancestor `@container`; with none, it stays four across. */
 const statGridVariants = cva("grid", {
   variants: {
     variant: {
@@ -28,7 +34,7 @@ const statGridVariants = cva("grid", {
       2: "grid-cols-1 sm:grid-cols-2",
       3: "grid-cols-1 sm:grid-cols-3",
       4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4",
-      auto: "grid-cols-[repeat(auto-fit,minmax(220px,1fr))]",
+      fit: "grid-cols-4 @max-[900px]:grid-cols-2 @max-[440px]:grid-cols-1",
     },
   },
   defaultVariants: {

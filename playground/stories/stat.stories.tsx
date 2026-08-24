@@ -35,12 +35,12 @@ export default function StatStories() {
 
       <Story
         title="The product register (Luminars Home)"
-        note="a plain sans label read as a sentence, a fixed 29px figure, a solid direction triangle and a sans base line — and columns=auto, which fits the CONTAINER, so the same grid is four across and two across with no breakpoint involved"
+        note="a plain sans label read as a sentence, a fixed 29px figure, a solid direction triangle and a sans base line — and columns=fit, which sizes to the CONTAINER, so the same grid is four across and two across with no viewport breakpoint involved. It HALVES: three columns would strand the fourth cell beside two tracks of bare frame"
       >
         <div className="grid gap-4">
-          {[940, 600].map((w) => (
-            <div key={w} style={{ width: w }} className="max-w-full">
-              <StatGrid columns="auto">
+          {[940, 828, 600].map((w) => (
+            <div key={w} style={{ width: w }} className="@container max-w-full">
+              <StatGrid columns="fit">
                 <Stat
                   register="sentence"
                   label="Time given back"
