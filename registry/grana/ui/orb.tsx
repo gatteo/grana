@@ -45,7 +45,7 @@ const orbVariants = cva("relative isolate inline-block flex-none", {
 })
 
 /* One cloud mass. `drift` is the whole motion contract: pass nothing and it holds still. */
-function OrbCloud({ className, drift }: { className: string; drift?: string }) {
+function OrbCloud({ className, drift }: { className: string; drift?: string | undefined }) {
   return (
     <span
       data-slot="orb-cloud"
@@ -73,11 +73,11 @@ function Orb({
     /** Which state the assistant is in. Colour is the only thing it changes. */
     tone: OrbTone
     /** 0..1 — how much is happening. Breath amplitude, cloud opacity, shadow depth. */
-    level?: number
+    level?: number | undefined
     /** Diameter in px. 140 in the recording sheet, 44 in the pill. */
-    size?: number
+    size?: number | undefined
     /** A settled state holds still: the cloud stops moving, the sphere stops breathing. */
-    still?: boolean
+    still?: boolean | undefined
     /** REQUIRED accessible name — the state in words, e.g. "Recording — listening". */
     label: string
   }) {

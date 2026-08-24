@@ -25,7 +25,7 @@ function StepDots({
   /** Which one you are on, 0-based. */
   current: number
   /** The accessible name, naming the position in the product's own language. */
-  label?: string
+  label?: string | undefined
 }) {
   const total = Math.max(0, Math.floor(count))
   const at = Math.min(total - 1, Math.max(0, Math.floor(current)))
