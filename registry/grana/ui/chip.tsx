@@ -4,10 +4,13 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 import { StatusDot, type StatusTone } from "@/registry/grana/ui/status-dot"
 
-/* A Chip reports a STATE the thing is in (a Badge names a property). Two appearances:
+/* A Chip reports a STATE the thing is in (a Badge names a property). Three appearances:
  *   outline — the Luminars pill: hairline, dot + word, the text stays muted; only the dot
  *             carries the tone (DSN-6).
  *   tinted  — the RF recipe: 6px radius, 12% tinted fill, dark-tinted text, 11px icon.
+ *   status  — the Luminars table chip: the same tinted fill at PILL radius with a dot that
+ *             takes the text's own ink. It sets a table row's height, so it is the tightest
+ *             of the three (11.5px on 2px of vertical padding).
  * Tone → token: ok→good · attention→critical · serious→serious · warning→warning ·
  * info→info · quiet→stone-400.
  *
@@ -20,6 +23,8 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
         "rounded-full border border-border-strong bg-surface-2 px-2.5 py-[3px] text-xs leading-[1.45] text-muted-foreground",
       tinted:
         "rounded-sm py-[3px] pr-2 pl-[7px] text-[11px] leading-[1.6] [&>svg]:size-[11px] [&>svg]:shrink-0",
+      status:
+        "gap-1.5 rounded-full border border-transparent py-0.5 pr-[9px] pl-[7px] text-[11.5px] leading-[1.45] font-medium",
     },
     tone: {
       quiet: "",
@@ -52,6 +57,13 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
       class: "bg-(--chip-fill) text-(--chip-ink)",
     },
     { appearance: "tinted", emphasis: true, class: "font-medium" },
+    /* status shares tinted's tone map — one set of percentages, so the two can never drift. */
+    { appearance: "status", tone: "quiet", class: "bg-muted text-muted-foreground" },
+    {
+      appearance: "status",
+      tone: ["ok", "attention", "serious", "warning", "info"],
+      class: "bg-(--chip-fill) text-(--chip-ink)",
+    },
   ],
   defaultVariants: {
     appearance: "outline",
@@ -110,7 +122,13 @@ function Chip({
   const indicator = !dot ? null : appearance === "tinted" ? (
     (icon ?? (tone === "quiet" ? null : <ToneIcon tone={tone} />))
   ) : (
-    <StatusDot tone={tone} size={6} />
+    /* On `status` the dot takes the chip's own ink rather than the raw hue: the fill is
+     * already the tone, and a second, brighter statement of it reads as two colours. */
+    <StatusDot
+      tone={tone}
+      size={6}
+      className={appearance === "status" ? "bg-current" : undefined}
+    />
   )
   return (
     <span

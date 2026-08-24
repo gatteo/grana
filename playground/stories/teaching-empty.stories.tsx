@@ -1,6 +1,35 @@
 import { Button } from "@/registry/grana/ui/button";
+import { Chip } from "@/registry/grana/ui/chip";
 import { TeachingEmpty } from "@/registry/grana/ui/teaching-empty";
 import { Story } from "@/playground/lib/story";
+
+/* The illustration a product would pass in: a miniature of the real card, drawn from the same
+ * tokens, positioned so the card runs off the frame's right edge and fades at the top. */
+function MiniRun() {
+  return (
+    <div className="absolute top-6 right-[-52px] left-[30px] flex flex-col gap-2.5 rounded-[10px] border border-border bg-card px-[15px] py-[13px] shadow-card">
+      <span className="pointer-events-none absolute inset-0 rounded-[10px] bg-linear-to-b from-card from-[2%] to-transparent to-[46%]" />
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[12.5px] font-medium whitespace-nowrap">Weekly client recap</span>
+        <Chip appearance="status" tone="ok">
+          Completed
+        </Chip>
+      </div>
+      <div className="flex flex-col gap-[7px]">
+        {["Read the week's runs", "Draft the recap", "Send it to the client"].map((step) => (
+          <div key={step} className="flex items-center gap-2 text-[11.5px] whitespace-nowrap text-muted-foreground">
+            <span className="grid size-[13px] flex-none place-items-center rounded-full bg-[color-mix(in_srgb,var(--status-good)_16%,transparent)]">
+              <svg viewBox="0 0 12 12" className="size-2 fill-none stroke-status-good-ink stroke-2">
+                <path d="M2.5 6.5l2.5 2.5 4.5-5" />
+              </svg>
+            </span>
+            {step}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function TeachingEmptyStories() {
   return (
@@ -27,6 +56,30 @@ export default function TeachingEmptyStories() {
           title="Nessun connettore collegato"
           body="Collega Asana, Linear o Notion e i processi potranno leggere e scrivere dove lavori già. Un clic, nessun server."
           action={<Button variant="primary">Collega uno strumento</Button>}
+        />
+      </Story>
+
+      <Story
+        title="With a cropped illustration"
+        note="the copy centres against the picture; the picture bleeds past the card's right and bottom edges so it reads as cropped. What sits on the dotted ground is the caller's node — a miniature drawn from the same tokens as the real thing, never a screenshot"
+      >
+        <TeachingEmpty
+          title="Nothing has run yet"
+          body="Your first process becomes your first run."
+          action={<Button size="sm">Go to Processes</Button>}
+          media={<MiniRun />}
+        />
+      </Story>
+
+      <Story
+        title="Dimmed — a ghost, not a specimen"
+        note="day zero, and a read that FAILED: a bright illustration beside 'this could not be checked' reads as a healthy example of something the app cannot actually see"
+      >
+        <TeachingEmpty
+          title="The run ledger could not be read"
+          body="Nothing here is a claim until it can be read again. Retrying every few seconds."
+          media={<MiniRun />}
+          dim
         />
       </Story>
 

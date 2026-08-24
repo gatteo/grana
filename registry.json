@@ -821,7 +821,7 @@
       "name": "eyebrow",
       "type": "registry:ui",
       "title": "Eyebrow + SectionHead",
-      "description": "The mono ALL-CAPS section label on one size scale (xs · sm · md · lg), with the numbered-index and unit-tint forms; SectionHead is the marketing eyebrow + display h2 + lead.",
+      "description": "The ALL-CAPS section label in two registers: mono (the eyebrow utility, on one size scale xs·sm·md·lg, with the numbered-index and unit-tint forms) and nav (the lighter sans sidebar group label). SectionHead is the marketing eyebrow + display h2 + lead.",
       "dependencies": [
         "class-variance-authority",
         "@base-ui/react"
@@ -838,7 +838,7 @@
       "name": "stat",
       "type": "registry:ui",
       "title": "StatGrid + Stat",
-      "description": "The KPI row: hairline-gap cells (RF) or gap-12 cards (Luminars); eyebrow label, tabular value, a delta that carries direction and a word, a faint mono base line. Null is a dash, never a zero.",
+      "description": "The KPI row: hairline-gap cells or gap-12 cards, columns fixed or container-fitted. A Stat speaks in the dashboard register (mono caps, fluid metric) or the product one (a plain sans label, a fixed 29px figure). Null is a dash, never a zero.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -867,10 +867,24 @@
       ]
     },
     {
+      "name": "context-band",
+      "type": "registry:ui",
+      "title": "ContextBand",
+      "description": "A live state and its one recovery in one shape for every state: a status mark, the state in words, what it means now, and the single lever that changes it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/context-band.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "teaching-empty",
       "type": "registry:ui",
       "title": "TeachingEmpty",
-      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, and exactly one primary action.",
+      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, exactly one primary action — and an optional cropped media column with a dotted ground and a dim (ghost) variant.",
       "dependencies": [],
       "registryDependencies": [
         "@grana/button"
@@ -979,7 +993,7 @@
       "name": "chip",
       "type": "registry:ui",
       "title": "Chip",
-      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill) or tinted (the RF 12% fill with an 11px glyph).",
+      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill), tinted (the RF 12% fill with an 11px glyph) or status (the same fill at pill radius, dot in the text's ink).",
       "dependencies": [
         "class-variance-authority"
       ],

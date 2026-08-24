@@ -33,6 +33,46 @@ export default function StatStories() {
         </StatGrid>
       </Story>
 
+      <Story
+        title="The product register (Luminars Home)"
+        note="a plain sans label read as a sentence, a fixed 29px figure, a solid direction triangle and a sans base line — and columns=auto, which fits the CONTAINER, so the same grid is four across and two across with no breakpoint involved"
+      >
+        <div className="grid gap-4">
+          {[940, 600].map((w) => (
+            <div key={w} style={{ width: w }} className="max-w-full">
+              <StatGrid columns="auto">
+                <Stat
+                  register="sentence"
+                  label="Time given back"
+                  value="7h 40m"
+                  base="across 12 completed runs"
+                />
+                <Stat
+                  register="sentence"
+                  label="Processes"
+                  value="6"
+                  base="5 active · 1 draft"
+                />
+                <Stat
+                  register="sentence"
+                  label="Runs this week"
+                  value="9"
+                  delta="1 failed"
+                  deltaDirection="down"
+                  base="last: Friday 16:04"
+                />
+                <Stat
+                  register="sentence"
+                  label="Context collected today"
+                  value={null}
+                  teach="Counts up while collection is on"
+                />
+              </StatGrid>
+            </div>
+          ))}
+        </div>
+      </Story>
+
       <Story title="StatGrid · cards (Luminars Home)" note="separate cards twelve apart; a null value is a dash and a teaching line — a dash never pretends to be a zero">
         <StatGrid variant="cards">
           <Stat size="md" label="Processi" value="7" base="2 eseguiti oggi" />

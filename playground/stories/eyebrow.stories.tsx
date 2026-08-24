@@ -15,6 +15,29 @@ export default function EyebrowStories() {
         </div>
       </Story>
 
+      <Story
+        title="The nav register"
+        note="a sidebar group label at the mono recipe reads as heavy as the rows it labels. register='nav' drops to the text face at 10px/400 — measured on the Luminars shell 2026-08-24"
+      >
+        <div className="grid w-[252px] gap-5 rounded-md bg-canvas p-3.5">
+          {(["mono", "nav"] as const).map((register) => (
+            <div key={register} className="flex flex-col gap-0.5">
+              <Eyebrow register={register} className="block px-2 pb-1.5">
+                Work
+              </Eyebrow>
+              {["Home", "Processes", "Runs"].map((row) => (
+                <span
+                  key={row}
+                  className="rounded-sm px-2 py-[5px] text-13 text-muted-foreground"
+                >
+                  {row}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </Story>
+
       <Story title="Numbered index" note="the RF survey-document eyebrow: the index in the warm accent before the label">
         <Row>
           <Eyebrow size="lg" index="01">

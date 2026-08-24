@@ -7,81 +7,156 @@
       "type": "registry:ui",
       "title": "StatusDot",
       "description": "A status dot: 7px (6 inside a Chip), six tones, optional live pulse, optional accessible label. Always beside a word.",
-      "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "registry/grana/ui/status-dot.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/status-dot.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "chip",
       "type": "registry:ui",
       "title": "Chip",
-      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill) or tinted (the RF 12% fill with an 11px glyph).",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["@grana/status-dot"],
-      "files": [{ "path": "registry/grana/ui/chip.tsx", "type": "registry:ui" }]
+      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill), tinted (the RF 12% fill with an 11px glyph) or status (the same fill at pill radius, dot in the text's ink).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/status-dot"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/chip.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "A property of the thing — its grade, its author — in mono caps. outline · dashed (inferred, not asserted) · ink · tag · action.",
-      "dependencies": ["class-variance-authority", "@base-ui/react"],
-      "files": [{ "path": "registry/grana/ui/badge.tsx", "type": "registry:ui" }]
+      "description": "A property of the thing \u2014 its grade, its author \u2014 in mono caps. outline \u00b7 dashed (inferred, not asserted) \u00b7 ink \u00b7 tag \u00b7 action.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "notice",
       "type": "registry:ui",
       "title": "Notice",
-      "description": "A condition the person did not cause — offline, degraded, nothing yet — stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
-      "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "registry/grana/ui/notice.tsx", "type": "registry:ui" }]
+      "description": "A condition the person did not cause \u2014 offline, degraded, nothing yet \u2014 stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/notice.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
       "description": "An inline message about something that just happened (role=alert): hairline on the card ground, a leading icon or StatusDot, default or destructive.",
-      "dependencies": ["class-variance-authority"],
-      "files": [{ "path": "registry/grana/ui/alert.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "A human (round, initials) or a machine (square dashed tile) — the actor contract. outline (Luminars) or filled (RF); xs sm md lg; image, badge, group.",
-      "dependencies": ["class-variance-authority", "@base-ui/react"],
-      "files": [{ "path": "registry/grana/ui/avatar.tsx", "type": "registry:ui" }]
+      "description": "A human (round, initials) or a machine (square dashed tile) \u2014 the actor contract. outline (Luminars) or filled (RF); xs sm md lg; image, badge, group.",
+      "dependencies": [
+        "class-variance-authority",
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
       "description": "A breathing stone-200 placeholder, shaped by className.",
-      "files": [{ "path": "registry/grana/ui/skeleton.tsx", "type": "registry:ui" }]
+      "files": [
+        {
+          "path": "registry/grana/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
       "description": "Indeterminate work in progress; inherits the text colour, 16px by default.",
-      "dependencies": ["lucide-react"],
-      "files": [{ "path": "registry/grana/ui/spinner.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "progress",
       "type": "registry:ui",
       "title": "Progress",
       "description": "Determinate progress: a 2px stone track, an ink bar, a num readout. Never a brand or status hue.",
-      "dependencies": ["@base-ui/react"],
-      "files": [{ "path": "registry/grana/ui/progress.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ]
     },
     {
       "name": "sonner",
       "type": "registry:ui",
       "title": "Toaster",
       "description": "Toasts on sonner: a popover-ground hairline card with shadow-panel, chip-tone dots for the types, and notify() which stamps a mono time.",
-      "dependencies": ["sonner"],
-      "registryDependencies": ["@grana/status-dot", "@grana/spinner"],
-      "files": [{ "path": "registry/grana/ui/sonner.tsx", "type": "registry:ui" }]
+      "dependencies": [
+        "sonner"
+      ],
+      "registryDependencies": [
+        "@grana/status-dot",
+        "@grana/spinner"
+      ],
+      "files": [
+        {
+          "path": "registry/grana/ui/sonner.tsx",
+          "type": "registry:ui"
+        }
+      ]
     }
   ]
 }

@@ -5,11 +5,22 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-/* The mono ALL-CAPS section label (skin-spec §0.5 / §19) as a component. `md` is the
- * `eyebrow` utility verbatim; the other sizes are the kits' smaller and larger caps recipes
- * normalised onto one scale. Always mono, 500, uppercase, `text-faint`. */
-const eyebrowVariants = cva("eyebrow inline-flex items-baseline", {
+/* The ALL-CAPS section label (skin-spec §0.5 / §19) as a component, in two registers.
+ *
+ * `mono` is the default and the one the name comes from: the `eyebrow` utility — mono, 500,
+ * uppercase, `text-faint`. `md` is that utility verbatim; the other sizes are the kits'
+ * smaller and larger caps recipes normalised onto one scale.
+ *
+ * `nav` is the sidebar group label. Measured on the Luminars shell 2026-08-24: at the mono
+ * recipe a group label reads as heavy as the nav rows it is supposed to label, so this
+ * register drops to the text face at 10px/400 with looser tracking. It replaces the mono
+ * recipe rather than layering over it, so `size` applies to `mono` only. */
+const eyebrowVariants = cva("inline-flex items-baseline", {
   variants: {
+    register: {
+      mono: "eyebrow",
+      nav: "font-sans text-[10px] leading-[1.3] font-normal tracking-[0.06em] text-faint uppercase",
+    },
     size: {
       xs: "text-[9.5px] tracking-[0.08em]",
       sm: "text-[10px] tracking-[0.08em]",
@@ -25,6 +36,7 @@ const eyebrowVariants = cva("eyebrow inline-flex items-baseline", {
     },
   },
   defaultVariants: {
+    register: "mono",
     size: "md",
     tint: "none",
   },
@@ -38,6 +50,7 @@ type EyebrowProps = useRender.ComponentProps<"span"> &
 
 function Eyebrow({
   className,
+  register = "mono",
   size = "md",
   tint = "none",
   index,
@@ -49,7 +62,10 @@ function Eyebrow({
     defaultTagName: "span",
     props: mergeProps<"span">(
       {
-        className: cn(eyebrowVariants({ size, tint }), className),
+        className: cn(
+          eyebrowVariants({ register, size: register === "nav" ? "md" : size, tint }),
+          className
+        ),
         children: (
           <>
             {index ? (
@@ -69,6 +85,7 @@ function Eyebrow({
     render,
     state: {
       slot: "eyebrow",
+      register,
       size,
     },
   })
