@@ -228,7 +228,7 @@
   --focus: var(--ochre);
   --face-voice: var(--face-display); /* the display face IS allowed inside the product (DSN-9) */
   --voice-weight: 700; /* page titles, teaching headlines */
-  --sidebar-width: 236px;
+  --sidebar-width: 252px;
   --sidebar-pad: 14px;
   --shell-gap: 8px; /* the canvas showing around the inset panel */
   --shell-radius: 14px; /* the inset panel */
