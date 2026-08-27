@@ -470,12 +470,18 @@
     }
   }
 
-  /* The assistant orb (Orb). One figure, three motions: the sphere breathes, and its three
-   * cloud masses drift at different speeds. The amplitude reads `--orb-level` off the orb
-   * itself, so one runtime number moves the whole figure. A keyframe cannot be declared from
-   * a utility class, which is the only reason these live here; the durations that differ from
-   * these defaults are set at the call site with [animation-duration:…], and `still` /
-   * reduced motion turn them off there too. */
+  /* The assistant orb (Orb). One figure, three motions: the sphere breathes, its five mesh
+   * wedges orbit at five different speeds, and the specular sheen drifts slower than any of
+   * them. The amplitude reads `--orb-level` off the orb itself, so one runtime number moves the
+   * whole figure. A keyframe cannot be declared from a utility class, which is the only reason
+   * these live here; the durations that differ from these defaults are set at the call site
+   * with [animation-duration:…], and `still` / reduced motion turn them off there too.
+   *
+   * The orbit is a `rotate` on a layer, not an animated <angle> custom property feeding the
+   * gradient: the property route needs a registered @property (WebKit 16.4, above this
+   * bundle's floor) and repaints a blurred conic gradient every single frame, where rotating an
+   * already-rasterised layer composites. The masses orbit because their conic origins are
+   * OFF-CENTRE — spinning a centred gradient would draw the same image forever. */
   --animate-orb-breathe: orb-breathe 4.4s ease-in-out infinite;
   @keyframes orb-breathe {
     0%,
@@ -486,24 +492,21 @@
       transform: scale(calc(1 + var(--orb-level, 0.5) * 0.045));
     }
   }
-  --animate-orb-drift-a: orb-drift-a 13s ease-in-out infinite;
-  @keyframes orb-drift-a {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
-    }
-    50% {
-      transform: translate(18%, 14%) scale(1.18);
+  --animate-orb-swirl: orb-swirl 26s linear infinite;
+  @keyframes orb-swirl {
+    to {
+      rotate: 360deg;
     }
   }
-  --animate-orb-drift-b: orb-drift-b 17s ease-in-out infinite;
-  @keyframes orb-drift-b {
-    0%,
-    100% {
-      transform: translate(0, 0) scale(1);
+  --animate-orb-sheen: orb-sheen 21s ease-in-out infinite alternate;
+  @keyframes orb-sheen {
+    from {
+      translate: -6% -4%;
+      scale: 1.05;
     }
-    50% {
-      transform: translate(-16%, -12%) scale(1.14);
+    to {
+      translate: 7% 6%;
+      scale: 1.12;
     }
   }
 

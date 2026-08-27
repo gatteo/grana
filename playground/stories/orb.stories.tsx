@@ -29,7 +29,7 @@ export default function OrbStories() {
 
       <Story
         title="Level"
-        note="one runtime input (--orb-level): breath amplitude, cloud opacity, shadow depth"
+        note="one runtime input (--orb-level): breath amplitude, mesh focus, bloom, shadow depth"
       >
         <Row className="gap-8">
           {[0, 0.25, 0.5, 0.75, 1].map((level) => (
@@ -41,7 +41,7 @@ export default function OrbStories() {
         </Row>
       </Story>
 
-      <Story title="Size" note="140 in the recording sheet, 96 in a panel, 44 beside a word">
+      <Story title="Size" note="152 in the recording sheet, 128 on the start step, 96 in a panel, 44 beside a word">
         <Row className="gap-8">
           {[44, 72, 96, 140].map((size) => (
             <span key={size} className="grid justify-items-center gap-3">
@@ -54,7 +54,7 @@ export default function OrbStories() {
 
       <Story
         title="still"
-        note="a settled state holds still — nothing moves, and the sphere still reads"
+        note="a settled state holds still — nothing orbits, and the mesh still reads as a composed surface"
       >
         <Row className="gap-8">
           <span className="grid justify-items-center gap-3">
@@ -74,7 +74,7 @@ export default function OrbStories() {
 
       <Story
         title="The clip, at 152 on a card"
-        note="the WebKit regression case: a still orb must not leak a square past the circle"
+        note="the WebKit regression case: a still orb must not leak a blurred square past the circle"
       >
         <Row className="gap-8">
           {(["ready", "warning"] as const).map((tone) => (
@@ -116,7 +116,7 @@ export default function OrbStories() {
         </div>
       </Story>
 
-      <Story title="On a deeper ground" note="the ball mixes toward --card, so it needs a card under it">
+      <Story title="On a deeper ground" note="the mesh mixes toward --card, so it needs a card under it">
         <Row className="gap-8">
           <div className="rounded-lg bg-canvas-deep p-8">
             <Orb tone="warning" level={0.6} size={96} label="Attention needed" />

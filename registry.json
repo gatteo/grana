@@ -1146,7 +1146,7 @@
       "name": "orb",
       "type": "registry:ui",
       "title": "Orb",
-      "description": "The assistant's state indicator: one breathing sphere with three drifting cloud masses. Colour says which state, motion says whether anything is running; --orb-level is the single runtime input.",
+      "description": "The assistant's state indicator: one breathing sphere whose surface is a mesh of five conic wedges orbiting behind a blur. Colour says which state, motion says whether anything is running; --orb-level is the single runtime input.",
       "dependencies": [
         "class-variance-authority"
       ],
