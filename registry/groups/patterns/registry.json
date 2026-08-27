@@ -7,7 +7,7 @@
       "name": "page",
       "type": "registry:ui",
       "title": "Page + PageHead",
-      "description": "The content-panel page (narrow 760 \u00b7 medium 860 \u00b7 wide 1080 \u00b7 full; three padding steps) and its header: a font-voice title, a tabular subtitle, one primary action.",
+      "description": "The content-panel page (narrow 760 · medium 860 · wide 1080 · full; three padding steps) and its header: a font-voice title, a tabular subtitle, one primary action.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -23,7 +23,7 @@
       "name": "eyebrow",
       "type": "registry:ui",
       "title": "Eyebrow + SectionHead",
-      "description": "The ALL-CAPS section label in two registers: mono (the eyebrow utility, on one size scale xs\u00b7sm\u00b7md\u00b7lg, with the numbered-index and unit-tint forms) and nav (the lighter sans sidebar group label). SectionHead is the marketing eyebrow + display h2 + lead.",
+      "description": "The ALL-CAPS section label in two registers: mono (the eyebrow utility, on one size scale xs·sm·md·lg, with the numbered-index and unit-tint forms) and nav (the lighter sans sidebar group label). SectionHead is the marketing eyebrow + display h2 + lead.",
       "dependencies": [
         "class-variance-authority",
         "@base-ui/react"
@@ -48,6 +48,20 @@
       "files": [
         {
           "path": "../../grana/ui/stat.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Drawn charts, no library: hairline-gridline columns (stacked or grouped) with a mono value axis, a 9px-square legend, and a KPI sparkline. Ink by default; chart slots only when a legend must tell series apart. Every chart also renders its numbers as a visually-hidden table.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "../../grana/ui/chart.tsx",
           "type": "registry:ui"
         }
       ]
@@ -86,7 +100,7 @@
       "name": "teaching-empty",
       "type": "registry:ui",
       "title": "TeachingEmpty",
-      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, exactly one primary action \u2014 and an optional cropped media column with a dotted ground and a dim (ghost) variant.",
+      "description": "The first-visit empty state that teaches: eyebrow, a font-voice title, one paragraph, exactly one primary action — and an optional cropped media column with a dotted ground and a dim (ghost) variant.",
       "dependencies": [],
       "registryDependencies": [
         "@grana/button"

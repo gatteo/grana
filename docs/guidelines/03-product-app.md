@@ -69,7 +69,7 @@ mono `⌘K` kbd. Right: ghost button, ink primary pill-radius-8 button, avatar c
 | Status chip | 6 px radius, tinted fill at ~12% + dark-tinted text + 11 px icon. Neutral chip = `stone-100`. Colour + icon + word, always. |
 | Activity feed | rows of actor + text + mono timestamp. **Humans**: round avatar, initials. **Machines**: square dashed-border tile (`AI`, `SYS`) + a dashed mono `Azione AI` / `Automatico` chip after the sentence. The round/square + solid/dashed distinction is the human/machine contract. |
 | Upsell panel | plain panel: mono eyebrow "Modulo da attivare", title, evidence-based copy ("nelle ultime 30 trattative perse, 11..."), ink primary + ghost secondary. Sales inside the product is quiet and factual. |
-| Chart | HTML/CSS bars (crisp hairlines, selectable labels), chart palette slots 1-2, hairline gridlines with mono axis values, legend with 9 px squares. Ships with an `aria-label` describing the series. |
+| Chart | HTML/CSS bars (crisp hairlines, selectable labels), hairline gridlines with mono axis values, legend with 9 px squares. **Built 2026-08-27 as `chart.tsx`** (`Chart` · `ChartColumns` · `ChartLegend` · `Sparkline`): no charting library, because ten bars do not earn 200KB and a library paints its own colours (DSN-7). Ink by default; the chart slots only when a legend has to tell series apart, and the second series of a two-series stack is `muted` stone — a fortnight of red bars reads as an alarm going off. Bars cap their width so a week across a wide card is a picture of the week, not of the card. Every chart carries an `aria-label` AND renders its numbers as a visually-hidden table. |
 
 ## Typography in the app
 

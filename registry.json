@@ -851,6 +851,20 @@
       ]
     },
     {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Drawn charts, no library: hairline-gridline columns (stacked or grouped) with a mono value axis, a 9px-square legend, and a KPI sparkline. Ink by default; chart slots only when a legend must tell series apart. Every chart also renders its numbers as a visually-hidden table.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/grana/ui/chart.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "empty",
       "type": "registry:ui",
       "title": "Empty",

@@ -55,7 +55,7 @@ function CtaBand({
       <Wrap>
         <Canvas
           img={image}
-          pos={imagePos}
+          {...(imagePos === undefined ? null : { pos: imagePos })}
           marks="light"
           wash={wash ?? CTA_WASH}
           grainOpacity={grainOpacity ?? 0.14}

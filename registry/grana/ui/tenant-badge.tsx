@@ -60,7 +60,7 @@ function TenantBadge({
       className={cn("flex min-w-0 items-center gap-2.5 px-2 pt-1.5 pb-4", className)}
       {...props}
     >
-      <TenantTile name={name} logoUrl={logoUrl} />
+      <TenantTile name={name} {...(logoUrl === undefined ? null : { logoUrl })} />
       <span data-slot="tenant-badge-text" className="flex min-w-0 flex-col">
         <span
           data-slot="tenant-badge-name"
