@@ -670,6 +670,11 @@ zeroes (§0.7), so the prop is safe on both surfaces.
 <PageHead title subtitle? actions? size="page"|"object">
 ```
 
+The column is **centred in its panel at every width** (`align="center"` is the default since
+the Luminars owner's ruling of 2026-09-01: a window wider than the column had been leaving the
+content on the left and a blank field on the right). `align="start"` is the exception a screen
+asks for, never the default.
+
 `width="full"` + `stack` (flex column gap 20) cover RF. Title face is a surface decision: the
 Luminars scope sets `--font-heading: var(--font-display)` 700; RF sets `--font-heading:
 var(--font-sans)` 500. Mapping: Luminars → same names; RF `Page` → `width="full" stack`; RF

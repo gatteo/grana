@@ -17,8 +17,11 @@ const pageVariants = cva("w-full min-w-0", {
       wide: "max-w-[1080px]",
       full: "max-w-none",
     },
-    /* The product page hugs the left edge of its panel (skin-spec §14); `center` is the
-     * marketing/document case. */
+    /* The readable column sits in the MIDDLE of its panel, with equal air either side, and
+     * keeps doing so as the window grows (Luminars owner ruling 2026-09-01, superseding the
+     * skin-spec §14 line that had product pages hug the panel's left edge: a wide window left
+     * the content on the left and a blank field on the right). `start` is the exception a
+     * screen must ask for, never the default. */
     align: {
       start: "",
       center: "mx-auto",
@@ -36,7 +39,7 @@ const pageVariants = cva("w-full min-w-0", {
   },
   defaultVariants: {
     width: "medium",
-    align: "start",
+    align: "center",
     pad: "default",
     stack: false,
   },
@@ -45,7 +48,7 @@ const pageVariants = cva("w-full min-w-0", {
 function Page({
   className,
   width = "medium",
-  align = "start",
+  align = "center",
   pad = "default",
   stack = false,
   ...props
