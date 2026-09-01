@@ -150,9 +150,10 @@ function Segmented<T extends string>({
           {option.count !== undefined ? (
             <span
               data-slot="segmented-count"
-              /* The count in the label's own sans, tabular (the owner, 2026-09-01: the mono
-                 figure beside the word read as another size and sat off the baseline). */
-              className="ml-1.5 tabular-nums text-faint in-data-pressed:text-muted-foreground"
+              /* The count in the mono figure face (the owner, 2026-09-01: "I liked the mono
+                 font better"), at the label's EXACT size and line height so the two sit on one
+                 baseline — the face's own metrics had read as another size. */
+              className="num ml-1.5 text-[length:inherit] leading-[inherit] text-faint in-data-pressed:text-muted-foreground"
             >
               {option.count}
             </span>
