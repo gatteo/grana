@@ -150,7 +150,9 @@ function Segmented<T extends string>({
           {option.count !== undefined ? (
             <span
               data-slot="segmented-count"
-              className="num ml-1.5 text-faint in-data-pressed:text-muted-foreground"
+              /* The count in the label's own sans, tabular (the owner, 2026-09-01: the mono
+                 figure beside the word read as another size and sat off the baseline). */
+              className="ml-1.5 tabular-nums text-faint in-data-pressed:text-muted-foreground"
             >
               {option.count}
             </span>
