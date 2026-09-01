@@ -146,18 +146,22 @@ function Segmented<T extends string>({
           disabled={option.disabled}
           className={cn(segmentedItemVariants({ variant, size }))}
         >
-          {option.label}
-          {option.count !== undefined ? (
-            <span
-              data-slot="segmented-count"
-              /* The count in the mono figure face (the owner, 2026-09-01: "I liked the mono
-                 font better"), at the label's EXACT size and line height so the two sit on one
-                 baseline — the face's own metrics had read as another size. */
-              className="num ml-1.5 text-[length:inherit] leading-[inherit] text-faint in-data-pressed:text-muted-foreground"
-            >
-              {option.count}
-            </span>
-          ) : null}
+          {/* The label and its count share ONE inline group aligned by baseline: as two
+             flex children they were each centred on their own box, and the mono figure
+             face and the sans do not share a centre, so the number floated (the owner,
+             2026-09-01: "text does not seem aligned"). The count keeps the mono face at
+             the label's exact size and line height. */}
+          <span className="inline-flex items-baseline gap-1.5">
+            {option.label}
+            {option.count !== undefined ? (
+              <span
+                data-slot="segmented-count"
+                className="num text-[length:inherit] leading-[inherit] text-faint in-data-pressed:text-muted-foreground"
+              >
+                {option.count}
+              </span>
+            ) : null}
+          </span>
         </TogglePrimitive>
       ))}
     </ToggleGroupPrimitive>
