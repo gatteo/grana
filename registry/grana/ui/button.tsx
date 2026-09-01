@@ -21,9 +21,13 @@ import { cn } from "@/lib/utils"
  * leading. The paddings are the CSS ones minus the hairline every variant carries, so a marketing
  * button measures 50px like its BEM ancestor and every variant still shares one height.
  *
+ * The press (AGE-175, 2026-09-01): every enabled button settles to 98% under the pointer for
+ * the duration of the press, 75 ms down and 120 ms back — felt, never seen as motion. A
+ * disabled or aria-disabled one stays put; reduced motion gets no transition at all.
+ *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-colors duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {

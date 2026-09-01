@@ -6,13 +6,17 @@ import { ChevronRightIcon, CheckIcon } from "lucide-react"
 
 /* The Luminars Menu recipe (skin-spec §5) on Base UI's Menu: portalled, `fixed`-safe,
  * collision-flipped, keyboard-complete. Panel: 184px min, 4px padding, hairline, 10px radius,
- * the panel shadow, a 120ms rise of 3px. Items: 13px, 7px 10px, 6px radius, quiet text that
- * lifts to ink on the accent ground. */
+ * the panel shadow. Items: 13px, 7px 10px, 6px radius, quiet text that lifts to ink on the
+ * accent ground.
+ *
+ * Motion (AGE-175, 2026-09-01): the shadcn recipe — fade + zoom-95 + a 4px slide from the
+ * trigger's side, 150 ms ease-out in, 100 ms ease-in out; items settle their ground over
+ * 100 ms. The earlier 100 ms fade with a 3px rise read as a pop. */
 const menuPanelClassName =
-  "z-50 flex max-h-(--available-height) min-w-[184px] origin-(--transform-origin) flex-col overflow-x-hidden overflow-y-auto rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-panel duration-100 data-open:animate-in data-open:fade-in-0 data-[side=bottom]:slide-in-from-top-[3px] data-[side=top]:slide-in-from-bottom-[3px] data-[side=left]:slide-in-from-right-[3px] data-[side=right]:slide-in-from-left-[3px] data-[side=inline-end]:slide-in-from-left-[3px] data-[side=inline-start]:slide-in-from-right-[3px] data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0"
+  "z-50 flex max-h-(--available-height) min-w-[184px] origin-(--transform-origin) flex-col overflow-x-hidden overflow-y-auto rounded-md border border-border bg-popover p-1 text-popover-foreground shadow-panel duration-150 ease-out data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-1 data-[side=top]:slide-in-from-bottom-1 data-[side=left]:slide-in-from-right-1 data-[side=right]:slide-in-from-left-1 data-[side=inline-end]:slide-in-from-left-1 data-[side=inline-start]:slide-in-from-right-1 data-closed:animate-out data-closed:overflow-hidden data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:duration-100 data-closed:ease-in motion-reduce:animate-none"
 
 const menuItemClassName =
-  "group/dropdown-menu-item relative flex cursor-default items-center gap-2 rounded-sm px-2.5 py-[7px] text-13 text-muted-foreground whitespace-nowrap select-none data-highlighted:bg-accent data-highlighted:text-foreground data-disabled:pointer-events-none data-disabled:text-faint [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
+  "group/dropdown-menu-item relative flex cursor-default items-center gap-2 rounded-sm px-2.5 py-[7px] text-13 text-muted-foreground whitespace-nowrap transition-colors duration-100 select-none data-highlighted:bg-accent data-highlighted:text-foreground data-disabled:pointer-events-none data-disabled:text-faint [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
   return <MenuPrimitive.Root data-slot="dropdown-menu" {...props} />

@@ -1,16 +1,20 @@
-"use client"
-
 import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-/* The calm list (skin-spec §15). Defaults are the Luminars recipe: 13.5px, hairline rows, a
- * mono-caps head with extra top air, no header fill, no hover. RF opts into its `.data` look
- * with `headerFill hover minWidth={720}`. Numeric columns carry `data-num` (or the `num` prop
- * on TableHead/TableCell): right-aligned, mono, tabular, nowrap — and `align` / `tabular` take
- * that shorthand apart when a column needs only one half of it. */
+/* The data table (skin-spec §15, reset 2026-09-01 — the owner's ruling on AGE-179).
+ *
+ * `register="plain"` is the DEFAULT: shadcn's data table as it ships, with one house
+ * signature kept — a 14px sans body, a tinted head band, and the column heads in the kit's
+ * mono caps (the owner: "column titles can be in uppercase in monocaps"), figures tabular in
+ * the sans. `register="calm"` is the earlier Luminars recipe (13.5px, hairline rows, a
+ * mono-caps head with extra top air, no head band) for a surface that asks for it. RF opts
+ * into its `.data` look with `headerFill hover minWidth={720}`. Numeric columns carry
+ * `data-num` (or the `num` prop on TableHead/TableCell): right-aligned, tabular, nowrap —
+ * and `align` / `tabular` take that shorthand apart when a column needs only one half. */
 function Table({
   className,
+  register = "plain",
   headerFill = false,
   hover = false,
   bleed = false,
@@ -20,6 +24,8 @@ function Table({
   style,
   ...props
 }: Omit<React.ComponentProps<"table">, "align"> & {
+  /** `plain` (default) is shadcn's data table with mono-caps heads; `calm` the earlier recipe. */
+  register?: "calm" | "plain"
   /** RF: a sunken head band under the mono caps. */
   headerFill?: boolean
   /** RF: rows tint under the pointer. Luminars lists stay calm. */
@@ -47,8 +53,10 @@ function Table({
         data-header-fill={headerFill ? "" : undefined}
         data-hover={hover ? "" : undefined}
         data-align={align}
+        data-register={register}
         className={cn(
           "group/table w-full border-collapse caption-bottom text-[13.5px]",
+          register === "plain" && "text-sm",
           className
         )}
         style={
@@ -72,6 +80,7 @@ function TableHeader({ className, ...props }: React.ComponentProps<"thead">) {
       data-slot="table-header"
       className={cn(
         "group-data-header-fill/table:bg-muted",
+        "group-data-[register=plain]/table:border-b group-data-[register=plain]/table:border-border group-data-[register=plain]/table:bg-muted",
         className
       )}
       {...props}
@@ -147,6 +156,7 @@ function TableHead({
       className={cn(
         "px-3 pt-3.5 pb-[9px] text-left align-bottom font-mono text-2xs leading-[1.5] font-medium tracking-[0.09em] whitespace-nowrap text-faint uppercase",
         "group-data-header-fill/table:py-2.5",
+        "group-data-[register=plain]/table:h-10 group-data-[register=plain]/table:py-0 group-data-[register=plain]/table:align-middle group-data-[register=plain]/table:text-muted-foreground",
         "data-num:text-right",
         alignment === "left" && "text-left",
         alignment === "center" && "text-center",
@@ -190,9 +200,15 @@ function TableCell({
       data-tabular={tabular ? "" : undefined}
       className={cn(
         "h-(--table-row-h) px-3 py-[9px] align-middle group-data-[align=top]/table:align-top",
-        "data-num:num data-num:text-right data-num:whitespace-nowrap",
+        /* Figures: in the plain register every number stays in the row's own sans, tabular
+           (the owner, 2026-09-01: a mono figure beside a sans unit read as another font and
+           size); the mono `num` face is the calm register's alone, and an explicit `num` span
+           inside a plain table is folded into the sans the same way. */
+        "data-num:tabular data-num:text-right data-num:whitespace-nowrap",
+        "group-data-[register=calm]/table:data-num:num",
         "data-tabular:tabular",
-        num && !numAttribute && "num whitespace-nowrap",
+        "group-data-[register=plain]/table:[&_.num]:font-sans",
+        num && !numAttribute && "tabular whitespace-nowrap group-data-[register=calm]/table:num",
         alignment === "left" && "text-left",
         alignment === "center" && "text-center",
         alignment === "right" && "text-right",

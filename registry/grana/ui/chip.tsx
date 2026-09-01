@@ -11,6 +11,10 @@ import { StatusDot, type StatusTone } from "@/registry/grana/ui/status-dot"
  *   status  — the Luminars table chip: the same tinted fill at PILL radius with a dot that
  *             takes the text's own ink. It sets a table row's height, so it is the tightest
  *             of the three (11.5px on 2px of vertical padding).
+ *   plain   — shadcn's outline badge as a pill (the owner's ruling 2026-09-01, AGE-179):
+ *             hairline, no fill, muted text, and a leading 14px ICON that carries the tone —
+ *             the caller passes it coloured through `icon`; the word is always beside it
+ *             (DSN-6). The data tables' state and origin cells use this one.
  * Tone → token: ok→good · attention→critical · serious→serious · warning→warning ·
  * info→info · quiet→stone-400.
  *
@@ -25,6 +29,8 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
         "rounded-sm py-[3px] pr-2 pl-[7px] text-[11px] leading-[1.6] [&>svg]:size-[11px] [&>svg]:shrink-0",
       status:
         "gap-1.5 rounded-full border border-transparent py-0.5 pr-[9px] pl-[7px] text-[11.5px] leading-[1.45] font-medium",
+      plain:
+        "gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]",
     },
     tone: {
       quiet: "",
@@ -115,11 +121,14 @@ function Chip({
     /** Show the indicator (the 6px dot; the 11px glyph when tinted). Off for a chip that
      * names an origin or a kind rather than a state. */
     dot?: boolean
-    /** A custom 11px glyph for the tinted appearance (replaces the tone glyph). */
+    /** A custom 11px glyph for the tinted appearance (replaces the tone glyph); on `plain`
+     * the leading 14px icon, coloured by the caller. */
     icon?: React.ReactNode
     emphasis?: boolean
   }) {
-  const indicator = !dot ? null : appearance === "tinted" ? (
+  const indicator = appearance === "plain" ? (
+    (icon ?? null)
+  ) : !dot ? null : appearance === "tinted" ? (
     (icon ?? (tone === "quiet" ? null : <ToneIcon tone={tone} />))
   ) : (
     /* On `status` the dot takes the chip's own ink rather than the raw hue: the fill is
