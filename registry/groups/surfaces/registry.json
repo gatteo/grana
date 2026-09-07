@@ -15,7 +15,7 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "The calm list: 13.5px, hairline rows, mono-caps head; headerFill / hover / minWidth for the RF .data look, bleed / rowHeight / align from Luminars; data-num or the num prop for numeric columns.",
+      "description": "The data table: register plain (shadcn's, 14px, tinted head band; sans heads under the RF brand) or calm (13.5px, mono-caps head); hover / minWidth / bleed / rowHeight / align; data-num or the num prop for numeric columns.",
       "dependencies": [],
       "registryDependencies": [],
       "files": [{ "path": "registry/grana/ui/table.tsx", "type": "registry:ui" }]

@@ -16,6 +16,11 @@ import { cn } from "@/lib/utils"
  * critical under the pointer), `variant="danger"` is rung 2 (critical at rest). `pressed`
  * renders `aria-pressed` — only when given, an ordinary verb must not claim to be a toggle.
  *
+ * The shape is the `rounded-control` role, not a fixed pill: a pill on paper and in the
+ * Luminars product, the 6px field corner in the RF product (grana.css §2–3), so a verb sits in
+ * a toolbar at the same silhouette as the field beside it. The quiet verb's text reads the
+ * `--control-quiet-ink` token for the same reason: muted by default, ink where the brand says.
+ *
  * Two registers, one API: on `data-surface="marketing"` the two everyday sizes drop their fixed
  * height for the RF `.btn` recipe — padding-driven, at the paper size, 14/13px on the body's 1.6
  * leading. The paddings are the CSS ones minus the hairline every variant carries, so a marketing
@@ -27,7 +32,7 @@ import { cn } from "@/lib/utils"
  *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-control border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -36,7 +41,7 @@ const buttonVariants = cva(
           "border-transparent bg-primary text-primary-foreground not-disabled:hover:bg-stone-800",
         /* the hairline verb — every other action */
         quiet:
-          "border-border-strong bg-transparent text-muted-foreground not-disabled:hover:border-stone-400 not-disabled:hover:text-foreground",
+          "border-border-strong bg-transparent text-(--control-quiet-ink) not-disabled:hover:border-stone-400 not-disabled:hover:bg-accent not-disabled:hover:text-foreground",
         /* rung 2 of the destructive ladder: critical at rest, fills under the pointer */
         danger:
           "border-destructive bg-transparent text-destructive not-disabled:hover:bg-destructive not-disabled:hover:text-destructive-foreground",

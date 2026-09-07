@@ -21,9 +21,10 @@
       "name": "chip",
       "type": "registry:ui",
       "title": "Chip",
-      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill), tinted (the RF 12% fill with an 11px glyph) or status (the same fill at pill radius, dot in the text's ink).",
+      "description": "A status the thing is in: dot + word, six tones. Outline (the Luminars pill), tinted (the RF 12% fill with an 11px glyph), status (the same fill at pill radius, dot in the text's ink) or plain (shadcn's outline badge with a lucide tone icon).",
       "dependencies": [
-        "class-variance-authority"
+        "class-variance-authority",
+        "lucide-react"
       ],
       "registryDependencies": [
         "@grana/status-dot"

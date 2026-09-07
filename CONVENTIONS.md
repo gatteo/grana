@@ -38,7 +38,9 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   `bg-unit-demand`, `text-ochre`, `bg-inverse text-inverse-foreground`, `bg-stone-50`… If a value
   you need has no utility, say so in your report — do not invent one inline.
 - **Radii: `rounded-xs` 4 · `rounded-sm` 6 · `rounded-md` 10 · `rounded-lg` 14 · `rounded-full`.**
-  Nothing else (`xl`+ alias to 14 so stock code cannot invent radii). Buttons and chips are pills.
+  Nothing else (`xl`+ alias to 14 so stock code cannot invent radii). Chips are pills; a control (a
+  button, a filter trigger, a pager verb) is `rounded-control` — the pill on paper and in the
+  Luminars product, the 6px field corner in the RF product (the token decides, never the class).
   The scale has exactly two exceptions and both are ROLES, not steps: `rounded-img` (8) is the
   corner of a photograph, `rounded-shell` is the app frame. A drawn illustration — `ProductShot`,
   the `Snippet*` fragments — is a *picture of a UI at ~70% scale*, so its corners are scaled too

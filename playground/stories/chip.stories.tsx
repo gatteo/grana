@@ -42,6 +42,24 @@ export default function ChipStories() {
         </Row>
       </Story>
 
+      <Story title="Plain" note="shadcn's outline badge as a pill: hairline, no fill, muted text, a 14px lucide glyph per tone; `dot={false}` for a kind rather than a state, `icon` to bring your own">
+        <Row>
+          {tones.map((t) => (
+            <Chip key={t.tone} appearance="plain" tone={t.tone}>
+              {t.word}
+            </Chip>
+          ))}
+        </Row>
+        <Row>
+          <Chip appearance="plain" dot={false}>
+            Chiamata a freddo
+          </Chip>
+          <Chip appearance="plain" tone="info" icon={<BotIcon className="text-exec-agent" />}>
+            Letto dall&apos;agente
+          </Chip>
+        </Row>
+      </Story>
+
       <Story title="Emphasis" note="the first rung of the attention ladder: warmer ground, firmer border, medium weight">
         <Row>
           {tones.map((t) => (

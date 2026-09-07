@@ -1,6 +1,15 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
+import {
+  CircleAlertIcon,
+  CircleCheckIcon,
+  CircleDotIcon,
+  CircleIcon,
+  CircleXIcon,
+  TriangleAlertIcon,
+} from "lucide-react"
+
 import { cn } from "@/lib/utils"
 import { StatusDot, type StatusTone } from "@/registry/grana/ui/status-dot"
 
@@ -12,9 +21,11 @@ import { StatusDot, type StatusTone } from "@/registry/grana/ui/status-dot"
  *             takes the text's own ink. It sets a table row's height, so it is the tightest
  *             of the three (11.5px on 2px of vertical padding).
  *   plain   — shadcn's outline badge as a pill (the owner's ruling 2026-09-01, AGE-179):
- *             hairline, no fill, muted text, and a leading 14px ICON that carries the tone —
- *             the caller passes it coloured through `icon`; the word is always beside it
- *             (DSN-6). The data tables' state and origin cells use this one.
+ *             hairline, no fill, muted text, and a leading 14px ICON that carries the tone.
+ *             Each tone has its own glyph (a hollow circle for quiet, a dotted one for info,
+ *             a check, an alert, a triangle, a cross) coloured by the tone; the caller may
+ *             replace it through `icon` or drop it with `dot={false}`; the word is always
+ *             beside it (DSN-6). The data tables' state and origin cells use this one.
  * Tone → token: ok→good · attention→critical · serious→serious · warning→warning ·
  * info→info · quiet→stone-400.
  *
@@ -30,7 +41,7 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
       status:
         "gap-1.5 rounded-full border border-transparent py-0.5 pr-[9px] pl-[7px] text-[11.5px] leading-[1.45] font-medium",
       plain:
-        "gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]",
+        "gap-1.5 rounded-full border border-border bg-transparent px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]",
     },
     tone: {
       quiet: "",
@@ -106,6 +117,26 @@ function ToneIcon({ tone }: { tone: StatusTone }) {
   )
 }
 
+/* The plain appearance's tone glyphs: lucide, 14px, in the tone's own hue (the glyph is an
+ * icon, not text, so the raw status colours apply; the word beside it carries the reading). */
+function PlainToneIcon({ tone }: { tone: StatusTone }) {
+  const props = { "data-slot": "chip-icon", "aria-hidden": true } as const
+  switch (tone) {
+    case "ok":
+      return <CircleCheckIcon {...props} className="text-status-good" />
+    case "attention":
+      return <CircleXIcon {...props} className="text-status-critical" />
+    case "serious":
+      return <TriangleAlertIcon {...props} className="text-status-serious" />
+    case "warning":
+      return <CircleAlertIcon {...props} className="text-status-warning" />
+    case "info":
+      return <CircleDotIcon {...props} className="text-status-info" />
+    default:
+      return <CircleIcon {...props} className="text-stone-400" />
+  }
+}
+
 function Chip({
   className,
   appearance = "outline",
@@ -118,17 +149,17 @@ function Chip({
 }: React.ComponentProps<"span"> &
   VariantProps<typeof chipVariants> & {
     tone?: StatusTone
-    /** Show the indicator (the 6px dot; the 11px glyph when tinted). Off for a chip that
-     * names an origin or a kind rather than a state. */
+    /** Show the indicator (the 6px dot; the 11px glyph when tinted; the 14px tone icon when
+     * plain). Off for a chip that names an origin or a kind rather than a state. */
     dot?: boolean
-    /** A custom 11px glyph for the tinted appearance (replaces the tone glyph); on `plain`
-     * the leading 14px icon, coloured by the caller. */
+    /** A custom glyph in place of the tone's own: 11px on `tinted`, the leading 14px icon on
+     * `plain` (colour it yourself; the default is coloured by the tone). */
     icon?: React.ReactNode
     emphasis?: boolean
   }) {
-  const indicator = appearance === "plain" ? (
-    (icon ?? null)
-  ) : !dot ? null : appearance === "tinted" ? (
+  const indicator = !dot ? null : appearance === "plain" ? (
+    (icon ?? <PlainToneIcon tone={tone} />)
+  ) : appearance === "tinted" ? (
     (icon ?? (tone === "quiet" ? null : <ToneIcon tone={tone} />))
   ) : (
     /* On `status` the dot takes the chip's own ink rather than the raw hue: the fill is

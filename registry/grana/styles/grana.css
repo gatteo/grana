@@ -140,6 +140,14 @@
   --surface-2: var(--stone-100); /* sunken panels inside a card */
   --canvas-deep: var(--canvas-deep-brand); /* brand-dependent: ecru-deep (Luminars) | stone-200 (RF) */
 
+  /* The CONTROL shape and the quiet verb's ink — the two values that separate a tool from a
+   * page. A button, a filter trigger, a pager verb read `rounded-control`; on paper and in the
+   * Luminars product that is the pill, in the RF product (§3) it is the 6px field corner, so a
+   * verb and the field beside it share one silhouette. The quiet verb's text is muted by
+   * default and ink on the RF product, where a toolbar of muted pills read as disabled. */
+  --radius-control: 9999px;
+  --control-quiet-ink: var(--muted-foreground);
+
   /* The type/space scale the utilities read. The product surface is fixed; the marketing
    * surface re-points every one of these to its fluid scale (§2b) — one utility, two registers. */
   --fs-display: 2rem;
@@ -188,6 +196,8 @@
   --ring: var(--stone-900);
   --surface-2: var(--ecru-deep);
   --canvas-deep: var(--ecru-deep);
+  --radius-control: 9999px;
+  --control-quiet-ink: var(--muted-foreground);
 
   /* Type: fluid, set in the field. The product's fixed scale would read as a dialog box
    * blown up; marketing sizes are clamped against the viewport (RF `tokens.css`). */
@@ -289,11 +299,15 @@
   --exec-screen-soft: var(--stone-100);
 }
 
-/* The RF product surface carries no shadows at all — hairlines only. */
+/* The RF product surface carries no shadows at all — hairlines only — and its controls are
+ * fields, not pills: 6px, the corner the inputs already have, so a toolbar of verbs, filters
+ * and a search box reads as one row of tools. The quiet verb's text is ink there. */
 [data-brand="rf"][data-surface="app"],
 [data-brand="rf"] [data-surface="app"] {
   --shadow-card: none;
   --shadow-panel: none;
+  --radius-control: var(--radius-sm);
+  --control-quiet-ink: var(--foreground);
 }
 
 /* ═══ 4. The Tailwind theme — utilities read the slots, never the palette ══ */
@@ -418,6 +432,8 @@
   --radius-shell: var(--shell-radius);
   /* Imagery sits between sm and md: a photograph's corner is its own role, not a scale step. */
   --radius-img: 8px;
+  /* The control role: a pill or the field corner, decided by surface and brand (§2, §3). */
+  --radius-control: var(--radius-control);
 
   --shadow-card: var(--shadow-card);
   --shadow-panel: var(--shadow-panel);
@@ -767,6 +783,27 @@
       opacity: 1;
       translate: 0 0;
       transition: none;
+    }
+  }
+}
+
+/* ═══ 9. The product surface on a phone ═══════════════════════════════════
+ * The app shell already locks the viewport; what is left is the gutter. A `Page` is authored
+ * for the desktop panel — 32px of inset — which on a 360px screen eats a fifth of the measure
+ * and pushes tables and stat cells into their own scrollbars. Below `sm` it steps down to the
+ * 16px a mobile topbar uses, so the content column and the chrome share one edge. The rule
+ * sits in the utilities layer and out-specifies the component's own padding utilities.
+ * ──────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  @media (width < 40rem) {
+    [data-surface="app"] [data-slot="page"]:not([data-pad="none"]) {
+      padding-inline: calc(var(--spacing) * 4);
+    }
+    [data-surface="app"] [data-slot="page"][data-pad="default"],
+    [data-surface="app"] [data-slot="page"][data-pad="tight"],
+    [data-surface="app"] [data-slot="page"][data-pad="roomy"] {
+      padding-top: calc(var(--spacing) * 5);
+      padding-bottom: calc(var(--spacing) * 8);
     }
   }
 }
