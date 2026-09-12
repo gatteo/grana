@@ -7,9 +7,10 @@ import { cn } from "@/lib/utils"
  * `register="plain"` is the DEFAULT: shadcn's data table as it ships, with one house
  * signature kept — a 14px sans body, a tinted head band, and the column heads in the kit's
  * mono caps (the owner: "column titles can be in uppercase in monocaps"), figures tabular in
- * the sans. Under `data-brand="rf"` the plain register is denser: a 13px body, a 36px head
- * and 6px of vertical cell padding, so a row of text is 31px and a row with a chip 34px (the
- * RF lists run to thousands of rows and are scanned, not read). `register="calm"` is the
+ * the sans. The plain register is dense on EVERY brand (owner ruling 2026-09-08, after
+ * walking the Luminars lists beside Revenue Farm's — it was rf-only for a week): a 13px
+ * body, a 36px head and 6px of vertical cell padding, so a row of text is 31px and a row
+ * with a chip 36px (the lists are scanned, not read). `register="calm"` is the
  * earlier Luminars recipe (13.5px, hairline rows, a mono-caps head with extra top air, no
  * head band) for a surface that asks for it. `hover` tints rows under the pointer,
  * `minWidth` scrolls the container sideways. Numeric columns carry `data-num` (or the `num`
@@ -59,7 +60,7 @@ function Table({
         data-register={register}
         className={cn(
           "group/table w-full border-collapse caption-bottom text-[13.5px]",
-          register === "plain" && "text-sm in-data-[brand=rf]:text-13",
+          register === "plain" && "text-13",
           className
         )}
         style={
@@ -159,8 +160,7 @@ function TableHead({
       className={cn(
         "px-3 pt-3.5 pb-[9px] text-left align-bottom font-mono text-2xs leading-[1.5] font-medium tracking-[0.09em] whitespace-nowrap text-faint uppercase",
         "group-data-header-fill/table:py-2.5",
-        "group-data-[register=plain]/table:h-10 group-data-[register=plain]/table:py-0 group-data-[register=plain]/table:align-middle group-data-[register=plain]/table:text-muted-foreground",
-        "in-data-[brand=rf]:group-data-[register=plain]/table:h-9",
+        "group-data-[register=plain]/table:h-9 group-data-[register=plain]/table:py-0 group-data-[register=plain]/table:align-middle group-data-[register=plain]/table:text-muted-foreground",
         "data-num:text-right",
         alignment === "left" && "text-left",
         alignment === "center" && "text-center",
@@ -204,7 +204,7 @@ function TableCell({
       data-tabular={tabular ? "" : undefined}
       className={cn(
         "h-(--table-row-h) px-3 py-[9px] align-middle group-data-[align=top]/table:align-top",
-        "in-data-[brand=rf]:group-data-[register=plain]/table:py-1.5",
+        "group-data-[register=plain]/table:py-1.5",
         /* Figures: in the plain register every number stays in the row's own sans, tabular
            (the owner, 2026-09-01: a mono figure beside a sans unit read as another font and
            size); the mono `num` face is the calm register's alone, and an explicit `num` span

@@ -7,10 +7,17 @@ import { cn } from "@/lib/utils"
 
 /* Breadcrumb — the trail above a detail page: 13px secondary text, the current page in ink
  * and 500, faint chevrons. Links hand themselves to a router through `render`. */
-function Breadcrumb({ className, ...props }: React.ComponentProps<"nav">) {
+function Breadcrumb({
+  className,
+  label = "breadcrumb",
+  ...props
+}: React.ComponentProps<"nav"> & {
+  /** The nav's accessible name. Pass the product's own string. */
+  label?: string
+}) {
   return (
     <nav
-      aria-label="breadcrumb"
+      aria-label={label}
       data-slot="breadcrumb"
       className={cn(className)}
       {...props}
@@ -97,8 +104,12 @@ function BreadcrumbSeparator({
 
 function BreadcrumbEllipsis({
   className,
+  label = "More",
   ...props
-}: React.ComponentProps<"span">) {
+}: React.ComponentProps<"span"> & {
+  /** The screen-reader name of the elided crumbs. Pass the product's own string. */
+  label?: string
+}) {
   return (
     <span
       data-slot="breadcrumb-ellipsis"
@@ -111,7 +122,7 @@ function BreadcrumbEllipsis({
       {...props}
     >
       <MoreHorizontalIcon />
-      <span className="sr-only">More</span>
+      <span className="sr-only">{label}</span>
     </span>
   )
 }

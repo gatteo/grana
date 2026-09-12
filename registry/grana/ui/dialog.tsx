@@ -43,9 +43,12 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  closeLabel = "Close",
   ...props
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean
+  /** The close button's accessible name. A shared component cannot decide a product's language. */
+  closeLabel?: string
 }) {
   return (
     <DialogPortal>
@@ -71,7 +74,7 @@ function DialogContent({
             }
           >
             <XIcon />
-            <span className="sr-only">Close</span>
+            <span className="sr-only">{closeLabel}</span>
           </DialogPrimitive.Close>
         )}
       </DialogPrimitive.Popup>
@@ -93,10 +96,13 @@ function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
 function DialogFooter({
   className,
   showCloseButton = false,
+  closeLabel = "Close",
   children,
   ...props
 }: React.ComponentProps<"div"> & {
   showCloseButton?: boolean
+  /** The dismiss verb. A shared component cannot decide a product's language. */
+  closeLabel?: string
 }) {
   return (
     <div
@@ -113,7 +119,7 @@ function DialogFooter({
       {children}
       {showCloseButton && (
         <DialogPrimitive.Close render={<Button variant="quiet" />}>
-          Close
+          {closeLabel}
         </DialogPrimitive.Close>
       )}
     </div>

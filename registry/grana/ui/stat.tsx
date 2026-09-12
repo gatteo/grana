@@ -82,6 +82,7 @@ function Stat({
   teach,
   size,
   register = "eyebrow",
+  absentLabel = "no value yet",
   ...props
 }: React.ComponentProps<"div"> &
   VariantProps<typeof statValueVariants> & {
@@ -100,6 +101,9 @@ function Stat({
     /** The voice: `eyebrow` is the dashboard's mono caps, `sentence` the product's plain
      * sans label. See the file header. */
     register?: "eyebrow" | "sentence"
+    /** What a screen reader hears in place of the em dash. A shared component cannot
+     * decide a product's language. */
+    absentLabel?: string
   }) {
   const absent = value === null || value === undefined
   const sentence = register === "sentence"
@@ -144,7 +148,7 @@ function Stat({
               statValueVariants({ size: resolved }),
               sentence ? "font-normal text-stone-400" : "text-faint"
             )}
-            aria-label="no value yet"
+            aria-label={absentLabel}
           >
             —
           </span>
