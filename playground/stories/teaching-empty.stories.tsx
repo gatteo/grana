@@ -11,7 +11,7 @@ function MiniRun() {
       <span className="pointer-events-none absolute inset-0 rounded-[10px] bg-linear-to-b from-card from-[2%] to-transparent to-[46%]" />
       <div className="flex items-center justify-between gap-3">
         <span className="text-[12.5px] font-medium whitespace-nowrap">Weekly client recap</span>
-        <Chip appearance="status" tone="ok">
+        <Chip tone="ok">
           Completed
         </Chip>
       </div>

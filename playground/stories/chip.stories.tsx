@@ -114,7 +114,7 @@ export default function ChipStories() {
 
       <Story title="In a row" note="name · chip · badge · mono count, under both appearances">
         <div className="grid max-w-[720px] gap-6">
-          {(["outline", "tinted", "status"] as const).map((appearance) => (
+          {(["tinted", "outline"] as const).map((appearance) => (
             <div key={appearance} className="divide-y divide-border rounded-md border border-border bg-card">
               {[
                 { name: "Acme S.p.A.", tone: "ok" as const, state: "Attivo", badge: "Enterprise", n: "1.240" },

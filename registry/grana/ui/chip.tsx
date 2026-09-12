@@ -13,13 +13,18 @@ import {
 import { cn } from "@/lib/utils"
 import { StatusDot, type StatusTone } from "@/registry/grana/ui/status-dot"
 
-/* A Chip reports a STATE the thing is in (a Badge names a property). Three appearances:
- *   outline — the Luminars pill: hairline, dot + word, the text stays muted; only the dot
- *             carries the tone (DSN-6).
- *   tinted  — the RF recipe: 6px radius, 12% tinted fill, dark-tinted text, 11px icon.
- *   status  — the Luminars table chip: the same tinted fill at PILL radius with a dot that
- *             takes the text's own ink. It sets a table row's height, so it is the tightest
- *             of the three (11.5px on 2px of vertical padding).
+/* A Chip reports a STATE the thing is in (a Badge names a property). Four appearances, and
+ * `tinted` is the DEFAULT since 2026-09-12 (owner ruling: "no border, just the chip colour
+ * with the icon"). The hairline pill it replaced put a border and a stone fill around every
+ * state in the Luminars app while the console had been tinted for months, so one product
+ * spoke two chips. A chip is now a patch of the tone it reports, and nothing else.
+ *
+ *   tinted  — THE DEFAULT: no border, 6px radius, 12% tinted fill, dark-tinted text, and the
+ *             tone's own 11px glyph.
+ *   outline — the hairline pill: border, stone fill, muted text, only the dot carries the
+ *             tone (DSN-6). It is no longer the default and there is exactly one reason left
+ *             to ask for it: a chip on a DARK band, where a 12% tint of a status hue has
+ *             nothing to sit on (the Luminars process band).
  *   plain   — shadcn's outline badge as a pill (the owner's ruling 2026-09-01, AGE-179):
  *             hairline, no fill, muted text, and a leading 14px ICON that carries the tone.
  *             Each tone has its own glyph (a hollow circle for quiet, a dotted one for info,
@@ -38,8 +43,6 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
         "rounded-full border border-border-strong bg-surface-2 px-2.5 py-[3px] text-xs leading-[1.45] text-muted-foreground",
       tinted:
         "rounded-sm py-[3px] pr-2 pl-[7px] text-[11px] leading-[1.6] [&>svg]:size-[11px] [&>svg]:shrink-0",
-      status:
-        "gap-1.5 rounded-full border border-transparent py-0.5 pr-[9px] pl-[7px] text-[11.5px] leading-[1.45] font-medium",
       plain:
         "gap-1.5 rounded-full border border-border bg-transparent px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]",
     },
@@ -74,16 +77,9 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
       class: "bg-(--chip-fill) text-(--chip-ink)",
     },
     { appearance: "tinted", emphasis: true, class: "font-medium" },
-    /* status shares tinted's tone map — one set of percentages, so the two can never drift. */
-    { appearance: "status", tone: "quiet", class: "bg-muted text-muted-foreground" },
-    {
-      appearance: "status",
-      tone: ["ok", "attention", "serious", "warning", "info"],
-      class: "bg-(--chip-fill) text-(--chip-ink)",
-    },
   ],
   defaultVariants: {
-    appearance: "outline",
+    appearance: "tinted",
     tone: "quiet",
     emphasis: false,
   },
@@ -139,7 +135,7 @@ function PlainToneIcon({ tone }: { tone: StatusTone }) {
 
 function Chip({
   className,
-  appearance = "outline",
+  appearance = "tinted",
   tone = "quiet",
   emphasis = false,
   dot = true,
@@ -162,13 +158,7 @@ function Chip({
   ) : appearance === "tinted" ? (
     (icon ?? (tone === "quiet" ? null : <ToneIcon tone={tone} />))
   ) : (
-    /* On `status` the dot takes the chip's own ink rather than the raw hue: the fill is
-     * already the tone, and a second, brighter statement of it reads as two colours. */
-    <StatusDot
-      tone={tone}
-      size={6}
-      className={appearance === "status" ? "bg-current" : undefined}
-    />
+    <StatusDot tone={tone} size={6} />
   )
   return (
     <span
