@@ -40,7 +40,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "A property of the thing \u2014 its grade, its author \u2014 in mono caps. outline \u00b7 dashed (inferred, not asserted) \u00b7 ink \u00b7 tag \u00b7 action.",
+      "description": "A property of the thing — its grade, its author — in mono caps. outline · dashed (inferred, not asserted) · ink · tag · action.",
       "dependencies": [
         "class-variance-authority",
         "@base-ui/react"
@@ -56,7 +56,7 @@
       "name": "notice",
       "type": "registry:ui",
       "title": "Notice",
-      "description": "A condition the person did not cause \u2014 offline, degraded, nothing yet \u2014 stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
+      "description": "A condition the person did not cause — offline, degraded, nothing yet — stated calmly, with at most one action. card (Luminars) or plain (RF empty).",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -86,7 +86,7 @@
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "A human (round, initials) or a machine (square dashed tile) \u2014 the actor contract. outline (Luminars) or filled (RF); xs sm md lg; image, badge, group.",
+      "description": "A human (round, initials) or a machine (square dashed tile) — the actor contract. outline (Luminars) or filled (RF); xs sm md lg; image, badge, group.",
       "dependencies": [
         "class-variance-authority",
         "@base-ui/react"
@@ -155,21 +155,6 @@
       "files": [
         {
           "path": "registry/grana/ui/sonner.tsx",
-          "type": "registry:ui"
-        }
-      ]
-    },
-    {
-      "name": "orb",
-      "type": "registry:ui",
-      "title": "Orb",
-      "description": "The assistant's state indicator: one breathing sphere whose surface is a mesh of five conic wedges orbiting behind a blur. Colour says which state, motion says whether anything is running; --orb-level is the single runtime input.",
-      "dependencies": [
-        "class-variance-authority"
-      ],
-      "files": [
-        {
-          "path": "registry/grana/ui/orb.tsx",
           "type": "registry:ui"
         }
       ]
