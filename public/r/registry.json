@@ -55,10 +55,13 @@
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
-      "description": "The verb: one ink primary per screen, quiet hairlines for the rest, the two-rung destructive ladder, pressed, icon sizes; marketing on-dark and glass. Always a pill, one height per size.",
+      "description": "The verb: one ink primary per screen, quiet hairlines for the rest, the two-rung destructive ladder, pressed, loading, icon sizes; marketing on-dark and glass. Always a pill, one height per size.",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "@grana/spinner"
       ],
       "files": [
         {

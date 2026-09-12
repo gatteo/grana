@@ -3,6 +3,7 @@ import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
+import { Spinner } from "@/registry/grana/ui/spinner"
 
 /* The Grana button — skin-spec §1 + §22, one cva for both products.
  *
@@ -29,6 +30,17 @@ import { cn } from "@/lib/utils"
  * The press (AGE-175, 2026-09-01): every enabled button settles to 98% under the pointer for
  * the duration of the press, 75 ms down and 120 ms back — felt, never seen as motion. A
  * disabled or aria-disabled one stays put; reduced motion gets no transition at all.
+ *
+ * `loading` is the in-flight state (AGE-259): the label stays, holding the button's own
+ * width at zero opacity, and a spinner sits centred over it, so a row of verbs never jumps
+ * and the button keeps its accessible name. It is disabled and `aria-busy` for the
+ * duration. No caller writes "Sending…" on a button again.
+ *
+ * It does NOT dim: a working verb is not an unavailable one, and the pale
+ * button the `disabled` rung paints would say the wrong thing about a button
+ * that is doing exactly what was asked. `cn` is tailwind-merge, so the two
+ * overrides below REPLACE the disabled ladder's opacity and cursor rather
+ * than racing them in the stylesheet.
  *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
@@ -107,6 +119,8 @@ type ButtonProps = Omit<ButtonPrimitive.Props, "type"> &
     destructive?: boolean
     /** A toggle that is on. Renders `aria-pressed` only when given. */
     pressed?: boolean
+    /** Working: a spinner takes the label's place, the width holds, the verb is unclickable. */
+    loading?: boolean
     type?: "button" | "submit" | "reset"
   }
 
@@ -116,15 +130,24 @@ function Button({
   size = "md",
   destructive = false,
   pressed,
+  loading = false,
+  disabled,
   type = "button",
   render,
   nativeButton,
+  children,
   ...props
 }: ButtonProps) {
   /* `render={<a href>}` replaces links-as-buttons; Base UI wants to know it is not a <button>. */
   const isNative =
     nativeButton ??
     !(React.isValidElement(render) && render.type !== "button")
+  /* The spinner takes the size the cva gives an icon here: 14px in the tight controls,
+   * 16px everywhere else. */
+  const spinnerSize =
+    size === "xs" || size === "sm" || size === "icon-xs" || size === "icon-sm"
+      ? "size-3.5"
+      : "size-4"
   return (
     <ButtonPrimitive
       data-slot="button"
@@ -132,17 +155,35 @@ function Button({
       data-size={size}
       data-destructive={destructive || undefined}
       data-pressed={pressed || undefined}
+      data-loading={loading || undefined}
       aria-pressed={pressed}
+      aria-busy={loading || undefined}
+      disabled={disabled || loading}
       type={isNative ? type : undefined}
       render={render}
       nativeButton={isNative}
       className={cn(
         buttonVariants({ variant, size, destructive }),
         pressed !== undefined && pressedClass,
+        loading &&
+          "relative disabled:cursor-wait disabled:opacity-100 aria-disabled:cursor-wait aria-disabled:opacity-100",
         className
       )}
       {...props}
-    />
+    >
+      {loading ? (
+        <>
+          <Spinner aria-hidden className={cn("absolute", spinnerSize)} />
+          {/* `gap-[inherit]` keeps the resting spacing between an icon and its label, so the
+            * hidden label measures exactly what the visible one did. */}
+          <span className="inline-flex items-center gap-[inherit] opacity-0">
+            {children}
+          </span>
+        </>
+      ) : (
+        children
+      )}
+    </ButtonPrimitive>
   )
 }
 

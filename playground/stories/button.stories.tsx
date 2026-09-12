@@ -10,6 +10,12 @@ const sizes = ["xs", "sm", "md", "lg"] as const;
 
 export default function ButtonStories() {
   const [pressed, setPressed] = useState(true);
+  const [working, setWorking] = useState(false);
+  /* A real in-flight verb: two seconds of work, then back to rest. */
+  const work = () => {
+    setWorking(true);
+    window.setTimeout(() => setWorking(false), 2000);
+  };
   return (
     <div className="grid">
       <Story title="Variants × sizes" note="every variant carries a 1px border (transparent on primary / ghost / link) so the heights match: xs 24 · sm 32 · md 34 · lg 40">
@@ -82,6 +88,46 @@ export default function ButtonStories() {
             </Button>
           ))}
         </Row>
+      </Story>
+
+      <Story title="Working (`loading`)" note="the spinner sits over the label, the label stays rendered at opacity 0 — the width and the accessible name never move; disabled + aria-busy, and it keeps its ink (a working verb is not an unavailable one). No label ever ends in three dots">
+        <Row>
+          {productVariants.map((variant) => (
+            <Button key={variant} variant={variant} loading>
+              {variant === "primary" ? "Avvia processo" : variant === "danger" ? "Elimina" : variant === "link" ? "Mostra tutto" : "Annulla"}
+            </Button>
+          ))}
+          <Button variant="ghost" size="icon" loading aria-label="Avvia">
+            <PlayIcon />
+          </Button>
+          <Label>14px in xs/sm, 16px above</Label>
+        </Row>
+        <Row>
+          {sizes.map((size) => (
+            <Button key={size} size={size} loading>
+              <DownloadIcon />
+              Esporta
+            </Button>
+          ))}
+        </Row>
+        <Row>
+          <Button variant="primary" onClick={work} loading={working}>
+            <PlusIcon />
+            Nuovo processo
+          </Button>
+          <Button onClick={work} loading={working}>
+            Salva le modifiche
+          </Button>
+          <Label>click: the row must not move</Label>
+        </Row>
+        <div className="flex flex-wrap items-center gap-3 rounded-md bg-inverse p-6">
+          <Button variant="on-dark" loading>
+            Inizia ora
+          </Button>
+          <Button variant="glass-dark" loading>
+            Guarda il video
+          </Button>
+        </div>
       </Story>
 
       <Story title="With icon" note="16px at md/lg, 14px at xs/sm, stroke 1.5; leading or trailing">
