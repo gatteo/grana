@@ -51,7 +51,7 @@ export default function TooltipStories() {
                 render={<span tabIndex={0} className="inline-flex items-center gap-1 text-13 text-muted-foreground" />}
               >
                 Evidenza
-                <InfoIcon className="size-3 stroke-[1.5] text-faint" />
+                <InfoIcon className="size-3 text-faint" />
               </TooltipTrigger>
               <TooltipContent>La riga della registrazione da cui è stato dedotto questo passo.</TooltipContent>
             </Tooltip>

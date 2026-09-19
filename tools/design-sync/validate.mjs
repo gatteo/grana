@@ -205,7 +205,7 @@ async function validateProfile(profile, OUT) {
             // Faces actually loaded (a declared face only loads once some text uses it).
             const fontsLoaded = [...new Set([...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/^"|"$/g, '')))];
             const bodyFont = getComputedStyle(document.body).fontFamily;
-            const stylesheetLive = /General Sans/.test(bodyFont);
+            const stylesheetLive = /Geist/.test(bodyFont);
             // UA defaults: a pristine element of the same tag in a stylesheet-less iframe.
             const fr = document.createElement('iframe');
             fr.style.cssText = 'position:fixed;left:-9999px;width:300px;height:100px';
@@ -287,7 +287,7 @@ async function validateProfile(profile, OUT) {
         if (r.bad) fail(`[RENDER] ${rel}: ${r.renderError ?? r.pageErrs?.[0] ?? r.consoleErrs?.[0] ?? (r.blank ? 'blank screenshot' : r.sections === 0 ? 'no story sections rendered' : 'stylesheet not applied')}`);
         else if (r.thin) warn(`[RENDER_THIN] ${rel}: ${r.thinWhy}`);
         else if (r.variantsIdentical) warn(`[RENDER_THIN] ${rel}: every story section renders identically`);
-        if (!r.bad && r.fontsLoaded && !r.fontsLoaded.includes('General Sans')) warn(`[FONT_MISSING] ${rel}: General Sans did not load (loaded: ${r.fontsLoaded.join(', ') || 'none'}) — check fonts/fonts.css`);
+        if (!r.bad && r.fontsLoaded && !r.fontsLoaded.includes('Geist')) warn(`[FONT_MISSING] ${rel}: Geist did not load (loaded: ${r.fontsLoaded.join(', ') || 'none'}) — check fonts/fonts.css`);
         if (r.resourceErrs?.length) warn(`[RESOURCE_404] ${rel}: ${r.resourceErrs[0]} (a story asset, not a component error)`);
       }
       writeFileSync(join(OUT, '.render-check.json'), JSON.stringify({ profile, at: new Date().toISOString(), results }, null, 2) + '\n');

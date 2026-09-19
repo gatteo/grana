@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils"
 /* Navigation between views. The product recipe is `line` (the default here): quiet 13px
  * labels on a hairline, the active one in ink with a 2px ink underline sitting on the rule.
  * `default` keeps shadcn's filled track — the Segmented-like pill strip — for callers that
- * want a contained switch. */
+ * want a contained switch; its active pill sits on `shadow-raised`, like the Segmented thumb. */
 function Tabs({
   className,
   orientation = "horizontal",
@@ -69,7 +69,7 @@ function TabsTrigger({ className, ...props }: TabsPrimitive.Tab.Props) {
         "group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:after:inset-x-0 group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:after:-bottom-px group-data-horizontal/tabs:group-data-[variant=line]/tabs-list:after:h-0.5",
         "group-data-vertical/tabs:group-data-[variant=line]/tabs-list:after:inset-y-0 group-data-vertical/tabs:group-data-[variant=line]/tabs-list:after:-right-px group-data-vertical/tabs:group-data-[variant=line]/tabs-list:after:w-0.5",
         // default: the raised pill (the Luminars Segmented active segment).
-        "group-data-[variant=default]/tabs-list:flex-1 group-data-[variant=default]/tabs-list:rounded-full group-data-[variant=default]/tabs-list:px-[13px] group-data-[variant=default]/tabs-list:py-[5px] group-data-[variant=default]/tabs-list:text-[12.5px] group-data-[variant=default]/tabs-list:data-active:bg-card group-data-[variant=default]/tabs-list:data-active:shadow-card",
+        "group-data-[variant=default]/tabs-list:flex-1 group-data-[variant=default]/tabs-list:rounded-full group-data-[variant=default]/tabs-list:px-[13px] group-data-[variant=default]/tabs-list:py-[5px] group-data-[variant=default]/tabs-list:text-[12.5px] group-data-[variant=default]/tabs-list:data-active:bg-card group-data-[variant=default]/tabs-list:data-active:shadow-raised",
         className
       )}
       {...props}

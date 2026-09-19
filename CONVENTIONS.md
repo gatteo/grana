@@ -50,8 +50,11 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   2px, never coloured borders except the destructive/invalid state.
 - **Motion:** durations are plain numbers — `duration-180`, `duration-400` compile as written, so
   the system carries no duration tokens to memorise. Easing is `ease-brand` / `ease-brand-out`.
-- **Shadows:** `shadow-card` / `shadow-panel` only, and only where the skin spec says. The RF product
-  surface nulls them through the tokens — you do not need to special-case it.
+- **Shadows:** the ladder is `shadow-control` (a bordered or filled verb or field), `shadow-raised`
+  (the plain card, the Segmented thumb, the active tab pill), `shadow-card` (elevated, hover
+  lifts) and `shadow-panel` (layered UI, the inset shell), used only where the skin spec says
+  (§0.7). The RF product surface nulls all four through the tokens, so you do not need to
+  special-case it. A caller's `shadow-none` wins over any of them (`cn` knows the names).
 - **Focus:** the stylesheet paints ONE global `:focus-visible` outline (2px, `--ring`, offset 2).
   Remove the stock `outline-none` and `focus-visible:ring-*` classes; let the global outline show.
   Fields included (the gold outline is the field's focus state in Luminars).
@@ -67,7 +70,9 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   `text-[length:clamp(...)]`, because `text-[clamp(...)]` compiles to **nothing**; and `text-13` /
   `text-2xs` carry a line-height of their own, so a place that must inherit the surface's leading
   wants the plain arbitrary size (`text-[13px]`) instead.
-- **Icons:** `lucide-react`, stroke 1.5–1.75, sized by the component (`[&_svg]:size-3.5`). The
+- **Icons:** `lucide-react` at its default stroke (2): a component sizes its icons
+  (`[&_svg]:size-3.5`) and never thins them (owner ruling 2026-09-19). Drawn glyphs (the Chip's
+  12-grid tone marks, the sparkline, the product-shot pictures) keep their own strokes. The
   products' hand-drawn nav icons stay in the products.
 - Both brands, both surfaces: a component must look right under `data-brand="luminars"` and
   `"rf"`, and under `data-surface="app"` and `"marketing"`. It reads tokens, so it usually just does;

@@ -3,7 +3,7 @@ read as a surveillance dashboard: soft ecru canvas, inset rounded panels, genero
 hairline borders. **The accent is the ink itself** — there is no brand blue to reach for.
 Colour appears only to report a status, and never alone. The product speaks in its own voice:
 page titles and teaching headlines are Cabinet Grotesk 700 (the voice utility in the table below);
-working UI is General Sans; ids, eyebrows and every numeral are Spline Sans Mono; long-form
+working UI is Geist; ids, eyebrows and numerals are Spline Sans Mono (a count on a tab or filter stays in Geist); long-form
 prose only is Source Serif 4. The focus ring is the one warm accent (ochre).
 
 Every product surface is the same shell: the sidebar sits directly on the canvas; the content

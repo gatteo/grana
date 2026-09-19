@@ -6,18 +6,18 @@ import { Button } from "@/registry/grana/ui/button"
 import { Input } from "@/registry/grana/ui/input"
 import { Textarea } from "@/registry/grana/ui/textarea"
 
-/* The field shell (input.tsx) drawn on the GROUP so addons (an icon, a unit, a kbd, a quiet
+/* The field shell (input.tsx), hairline and lift, drawn on the GROUP so addons (an icon, a unit, a kbd, a quiet
  * button) sit inside the hairline; the control inside is bare. Because the control has no
  * edge of its own, the group paints the global focus outline on itself when the control is
  * focus-visible — the one place a field relays the outline rather than showing it directly. */
 const inputGroupVariants = cva(
-  "group/input-group relative flex h-[34px] w-full min-w-0 items-center rounded-sm border border-input bg-card transition-colors duration-[120ms] not-has-disabled:hover:border-border-strong has-disabled:bg-muted has-disabled:opacity-60 has-[[data-slot=input-group-control]:focus-visible]:outline-2 has-[[data-slot=input-group-control]:focus-visible]:outline-offset-2 has-[[data-slot=input-group-control]:focus-visible]:outline-ring has-[[data-slot][aria-invalid=true]]:border-destructive has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+  "group/input-group relative flex h-[34px] w-full min-w-0 items-center rounded-sm border border-input bg-card shadow-control transition-colors duration-[120ms] not-has-disabled:hover:border-border-strong has-disabled:bg-muted has-disabled:opacity-60 has-[[data-slot=input-group-control]:focus-visible]:outline-2 has-[[data-slot=input-group-control]:focus-visible]:outline-offset-2 has-[[data-slot=input-group-control]:focus-visible]:outline-ring has-[[data-slot][aria-invalid=true]]:border-destructive has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
   {
     variants: {
       variant: {
         default: "",
         /* RF `.search`: the topbar search, sunken a half step onto `stone-50`. */
-        search: "bg-stone-50",
+        search: "bg-stone-50 shadow-none",
       },
     },
     defaultVariants: {
@@ -145,7 +145,7 @@ function InputGroupInput({
     <Input
       data-slot="input-group-control"
       className={cn(
-        "h-auto flex-1 self-stretch rounded-none border-0 bg-transparent focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
+        "h-auto flex-1 self-stretch rounded-none border-0 bg-transparent shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
         className
       )}
       {...props}
@@ -161,7 +161,7 @@ function InputGroupTextarea({
     <Textarea
       data-slot="input-group-control"
       className={cn(
-        "flex-1 resize-none rounded-none border-0 bg-transparent py-[7px] focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
+        "flex-1 resize-none rounded-none border-0 bg-transparent py-[7px] shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
         className
       )}
       {...props}

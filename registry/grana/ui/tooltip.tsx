@@ -91,15 +91,20 @@ function TooltipContent({
         <TooltipPrimitive.Popup
           data-slot="tooltip-content"
           className={cn(
-            "z-70 w-max max-w-[260px] origin-(--transform-origin) rounded-md border border-border bg-popover px-3 py-1.5 text-left text-xs leading-[1.45] font-normal text-balance whitespace-normal text-popover-foreground shadow-panel duration-150 ease-out data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:duration-100 data-closed:ease-in motion-reduce:animate-none",
+            "z-70 w-max max-w-[260px] origin-(--transform-origin) rounded-md border border-border bg-popover px-3 py-1.5 text-left text-xs leading-[1.45] font-normal text-pretty whitespace-normal text-popover-foreground shadow-panel duration-150 ease-out data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-closed:duration-100 data-closed:ease-in motion-reduce:animate-none",
             className
           )}
           {...props}
         >
           {children}
+          {/* The arrow's outline must run into the popup's BORDER. Base UI's
+              drawing (and its -8px / -13px offsets) is made for an outline, which
+              sits outside the box; this popup draws a border, inside it, so every
+              side sits 1px nearer, or the outline stops a pixel short of the
+              border (the owner, 2026-09-19). */}
           <TooltipPrimitive.Arrow
             data-slot="tooltip-arrow"
-            className="z-10 data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180"
+            className="z-10 data-[side=bottom]:top-[-7px] data-[side=left]:right-[-12px] data-[side=left]:rotate-90 data-[side=right]:left-[-12px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-7px] data-[side=top]:rotate-180"
           >
             <svg width="20" height="10" viewBox="0 0 20 10" fill="none" aria-hidden>
               <path

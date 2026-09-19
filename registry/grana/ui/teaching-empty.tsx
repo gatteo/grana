@@ -16,6 +16,8 @@ import { Button } from "@/registry/grana/ui/button"
  * a miniature of the real thing drawn from the same tokens — never an imported screenshot,
  * which goes stale the moment the product moves.
  *
+ * The frame is a card and sits on the plain card's lift (`shadow-control`).
+ *
  * `dim` fades that picture to half: a ghost of what belongs here. Two states want it — day
  * zero, where the thing has not happened yet, and a read that FAILED, where a bright
  * illustration would read as a healthy specimen of something the app cannot actually see. */
@@ -86,7 +88,7 @@ function TeachingEmpty({
       <div
         data-slot="teaching-empty"
         className={cn(
-          "flex flex-col items-start gap-2 rounded-md border border-border bg-card px-8 py-9",
+          "flex flex-col items-start gap-2 rounded-md border border-border bg-card px-8 py-9 shadow-control",
           className
         )}
         {...props}
@@ -102,7 +104,7 @@ function TeachingEmpty({
       data-media="on"
       data-dim={dim ? "on" : undefined}
       className={cn(
-        "relative grid grid-cols-[minmax(0,1fr)_296px] items-stretch overflow-hidden rounded-md border border-border bg-card",
+        "relative grid grid-cols-[minmax(0,1fr)_296px] items-stretch overflow-hidden rounded-md border border-border bg-card shadow-control",
         className
       )}
       {...props}

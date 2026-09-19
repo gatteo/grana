@@ -62,8 +62,8 @@ The visual language works for that explicitly:
 - **Warm, alive canvas.** Soft washes of color on the background, not flat gray; gentle depth
   on the inset panels.
 - **A display voice.** The display face (Cabinet Grotesk) for the moments the product speaks
-  to the person — the greeting, the day's summary, empty-state headlines; humanist sans
-  (General Sans) for the working UI; the serif (Source Serif 4) reserved for long-form
+  to the person — the greeting, the day's summary, empty-state headlines; the sans
+  (Geist) for the working UI; the serif (Source Serif 4) reserved for long-form
   narrative renderings (day-log prose, evidence quotes).
 - **Illustrated moments.** Empty states, onboarding, and milestone moments use painted/
   illustrated assets, not icon-and-caption placeholders. The v2 asset library is the seed.
@@ -77,9 +77,10 @@ surface builds from (DSN-7); the design file is the visual source of truth, this
 contract.
 
 - **Type.** **Cabinet Grotesk** — display face, the product's voice moments (500/700/800).
-  **General Sans** — the working UI sans (400/500/600). **Spline Sans Mono** — ids, version
+  **Geist** (variable): the working UI sans (400/500/600). **Spline Sans Mono** — ids, version
   stamps, uppercase eyebrow labels (letter-spacing ≥ .08em), and **all numerals** (tabular,
-  via the `num` role). **Source Serif 4** — long-form narrative renderings only.
+  via the `num` role) except the count beside a tab or filter label, which stays in the sans
+  (`tabular`). **Source Serif 4** — long-form narrative renderings only.
 - **Color.** A warm stone ramp `#ffffff → #fbfaf9 → #f5f3f2 → #e9e7e4 → #d7d5d2 → #b4b1ae →
   #8c8985 → #66635f → #484541 → #2e2b28 → #1a1816 → #0e0d0a` (stone-0…950); canvas **ecru**
   `#f6f3ee` / deep `#eeeae2`; **ink = stone-900** (`#1a1816`). The accent is the ink itself —
@@ -87,8 +88,9 @@ contract.
   Status colors: good `#0ca30c`, warning `#fab219`, serious `#ec835a`, critical `#d03b3b`,
   info `#2a78d6` — always rendered as **dot + word**, never color alone (DSN-6).
 - **Shape & depth.** Pill radius (999px) for buttons and chips; radius scale ~6 / 10 / 14px
-  (small controls / cards / the window shell); soft warm-tinted shadows (`--shadow-card`,
-  `--shadow-panel`) — depth is gentle, never floating chrome.
+  (small controls / cards / the window shell); soft warm-tinted shadows (`--shadow-control`
+  under verbs and fields, `--shadow-raised` under plain cards and the active segment,
+  `--shadow-card`, `--shadow-panel`) — depth is gentle, never floating chrome.
 - **Core components.** The menu bar; the window shell (fixed ~236px sidebar + inset content
   card); nav item with count badge; the sidebar status pill; the account row; the version
   line ("context engine x.y.z"); status chips (dot + label); the dark pill primary button and

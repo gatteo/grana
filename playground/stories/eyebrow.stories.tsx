@@ -17,7 +17,7 @@ export default function EyebrowStories() {
 
       <Story
         title="The nav register"
-        note="a sidebar group label at the mono recipe reads as heavy as the rows it labels. register='nav' drops to the text face at 10px/400 — measured on the Luminars shell 2026-08-24"
+        note="a sidebar group label at the mono recipe reads as heavy as the rows it labels. register='nav' is shadcn's SidebarGroupLabel: the text face at 12px/500, sentence case, no tracking (the Luminars owner, 2026-09-19; it was caps at 10px/400 from 2026-08-24)"
       >
         <div className="grid w-[252px] gap-5 rounded-md bg-canvas p-3.5">
           {(["mono", "nav"] as const).map((register) => (

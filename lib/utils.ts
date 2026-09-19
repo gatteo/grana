@@ -16,6 +16,10 @@ const twMerge = extendTailwindMerge({
       "font-size": [{ text: ["2xs", "13", "metric", "display", "h2", "h3", "lead"] }],
       "max-w": [{ "max-w": ["measure", "head", "lead", "text"] }],
       rounded: [{ rounded: ["img", "control"] }],
+      /* The depth ladder's names read as a shadow COLOUR to the merger, so a caller's
+       * `shadow-none` would survive beside a component's `shadow-control` and stylesheet order
+       * would pick the winner. Taught, the caller's class wins, as the contract says. */
+      shadow: [{ shadow: ["control", "raised", "card", "panel"] }],
       /* The field geometry is spacing, not an arbitrary value — without these a component's own
        * `py-section` and a caller's `py-[clamp(…)]` both survive the merge and stylesheet order
        * decides, which is never what the caller meant. */

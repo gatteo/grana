@@ -160,6 +160,16 @@ Recommendation: keep the shadow as a token that a surface scope may zero. Compon
 `var(--shadow-card)` / `var(--shadow-panel)` only; the RF scope sets both to `none`, the
 Luminars scope keeps them. Never hardcode a shadow in a component.
 
+**Amended 2026-09-19 (owner, after shadcn's new-york look):** the ladder gains two small steps
+below `card`, both warm ink and both nulled by the RF product scope with the other two:
+`--shadow-control` (shadcn `shadow-xs`, `0 1px 2px`) under every bordered or filled verb and
+field (Button primary / quiet / danger, Toggle outline, Input, Textarea, SelectTrigger,
+NativeSelect, InputGroup, Checkbox, the CodeField boxes), and `--shadow-raised` (shadcn
+`shadow-sm`, `0 1px 3px` + `0 1px 2px -1px`) under the plain Card, the TeachingEmpty frame, the
+Segmented thumb and the active pill of `TabsList variant="default"`. `elevated` stays on `--shadow-card`; ghost and link
+verbs, chips, badges and sunken surfaces stay flat; menus, popovers and dialogs keep
+`--shadow-panel`. The Luminars list above (four places) is the measured origin, not the rule.
+
 ### 0.8 Type base
 
 | | Luminars | RF app | RF marketing |
@@ -637,8 +647,9 @@ links".
 ```
 
 Mapping: Luminars `Card` → `Card` (same props); RF `Panel` → `Card padded={false}`;
-`PanelHead` → `CardHeader`. `elevated` resolves to `var(--shadow-card)`, which the RF scope
-zeroes (§0.7), so the prop is safe on both surfaces.
+`PanelHead` → `CardHeader`. `elevated` resolves to `var(--shadow-card)` and a plain card to
+`var(--shadow-raised)` (amended 2026-09-19), both of which the RF scope zeroes (§0.7), so the
+card is safe on both surfaces.
 
 ---
 
@@ -945,6 +956,11 @@ Unified: one `Icon name size=16 strokeWidth=1.5` on the 24-grid with round caps 
 re-drawing RF's 18 names; `size` prop replaces CSS sizing; RF nav uses `size={15}` and
 `className="opacity-75"` if that look is kept. Keep `IconMore` filled. Mapping: Luminars
 `IconX` → `<Icon name="x">`; RF `<Icon name>` → same, add `size`.
+
+**Amended 2026-09-19 (owner):** the kit's lucide icons render at lucide's default stroke (2).
+No Grana component thins them any more (Button, Toggle, FilterChip, Chip `plain`, Breadcrumb,
+BackLink and Spinner all dropped their 1.5 / 1.75 overrides). The drawn glyphs above keep
+their own strokes.
 
 ---
 

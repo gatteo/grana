@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils"
  * so it is a `role="group"` of `aria-pressed` buttons and never a tablist.
  *
  * `pill` (default) is the Luminars recipe: a quiet sunken track with the active option RAISED
- * onto the surface (`shadow-card`; the RF app surface nulls the shadow through the token).
+ * onto the surface (`shadow-raised`, the shadcn active-tab lift; the RF app surface nulls the
+ * shadow through the token).
  * `boxed` is the RF recipe: a bordered group with hairline separators and a SUNKEN active.
  *
  * The raised pill SLIDES (AGE-175, 2026-09-01): one pill element measured onto the pressed
@@ -37,7 +38,7 @@ const segmentedItemVariants = cva(
   {
     variants: {
       variant: {
-        pill: "rounded-full data-pressed:bg-card data-pressed:shadow-card group-data-[pill=on]/segmented:data-pressed:bg-transparent group-data-[pill=on]/segmented:data-pressed:shadow-none",
+        pill: "rounded-full data-pressed:bg-card data-pressed:shadow-raised group-data-[pill=on]/segmented:data-pressed:bg-transparent group-data-[pill=on]/segmented:data-pressed:shadow-none",
         boxed:
           "border-r border-border last:border-r-0 data-pressed:bg-muted",
       },
@@ -62,7 +63,7 @@ const segmentedItemVariants = cva(
 type SegmentedOption<T extends string> = {
   value: T
   label: React.ReactNode
-  /** A count beside the label — rendered with `num`. */
+  /** A count beside the label, in the label's own face with tabular figures (`tabular`). */
   count?: number
   disabled?: boolean
 }
@@ -134,7 +135,7 @@ function Segmented<T extends string>({
         <span
           aria-hidden
           data-slot="segmented-pill"
-          className="pointer-events-none absolute top-[3px] bottom-[3px] left-0 rounded-full bg-card shadow-card transition-[transform,width] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
+          className="pointer-events-none absolute top-[3px] bottom-[3px] left-0 rounded-full bg-card shadow-raised transition-[transform,width] duration-[180ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none"
           style={{ transform: `translateX(${pill.x}px)`, width: pill.w }}
         />
       ) : null}
@@ -147,16 +148,16 @@ function Segmented<T extends string>({
           className={cn(segmentedItemVariants({ variant, size }))}
         >
           {/* The label and its count share ONE inline group aligned by baseline: as two
-             flex children they were each centred on their own box, and the mono figure
-             face and the sans do not share a centre, so the number floated (the owner,
-             2026-09-01: "text does not seem aligned"). The count keeps the mono face at
-             the label's exact size and line height. */}
+             flex children they were each centred on their own box and the number floated
+             (the owner, 2026-09-01: "text does not seem aligned"). The count is set in the
+             label's sans, tabular, at its exact size and line height: a mono figure beside
+             a sans word read as a different voice (the owner, 2026-09-19). */}
           <span className="inline-flex items-baseline gap-1.5">
             {option.label}
             {option.count !== undefined ? (
               <span
                 data-slot="segmented-count"
-                className="num text-[length:inherit] leading-[inherit] text-faint in-data-pressed:text-muted-foreground"
+                className="tabular text-[length:inherit] leading-[inherit] text-faint in-data-pressed:text-muted-foreground"
               >
                 {option.count}
               </span>

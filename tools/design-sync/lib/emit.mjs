@@ -263,7 +263,7 @@ only where a component already uses them). Never write a hex colour, never \`dar
 | Executor | \`bg-exec-agent-soft text-exec-agent\` (+ human / api / screen) |
 | Shape | \`rounded-xs\` 4 · \`rounded-sm\` 6 · \`rounded-md\` 10 · \`rounded-lg\` 14 · \`rounded-full\` (pills). Nothing else exists. |
 | Depth | \`shadow-card\`, \`shadow-panel\` — only where the recipe says; the RF product surface nulls both through the tokens |
-| Type | \`font-sans\` is inherited (General Sans — don't repeat it); ${voice} for the product's voice moments (page titles, teaching headlines — the brand decides the face); \`font-mono\` / \`num\` for ids, eyebrows and ALL numerals; \`font-serif\` for long-form prose only. Sizes: \`text-2xs\` 10.5 · \`text-xs\` 12 · \`text-13\` · \`text-sm\` 14 · \`text-base\` · \`text-lg\` · \`text-xl\` · \`text-2xl\` · \`text-metric\` |
+| Type | \`font-sans\` is inherited (Geist — don't repeat it); ${voice} for the product's voice moments (page titles, teaching headlines — the brand decides the face); \`font-mono\` / \`num\` for ids, eyebrows and numerals (a count on a tab or filter stays in the sans, \`tabular\`); \`font-serif\` for long-form prose only. Sizes: \`text-2xs\` 10.5 · \`text-xs\` 12 · \`text-13\` · \`text-sm\` 14 · \`text-base\` · \`text-lg\` · \`text-xl\` · \`text-2xl\` · \`text-metric\` |
 | Layout | \`flex\` / \`grid\` / \`gap-*\` / \`p-*\` / \`m-*\` / \`w-*\` / \`max-w-*\` / \`items-*\` / \`justify-*\` / \`grid-cols-1…6,12\` (+ \`sm:\` \`md:\` \`lg:\`), \`overflow-*\`, \`truncate\`, \`whitespace-nowrap\`, \`text-balance\` |
 | Focus | one global \`:focus-visible\` outline (2px \`--ring\`, offset 2). Never \`outline-none\`, never your own ring. |
 
@@ -287,7 +287,7 @@ stylesheet is authoritative; this page is a summary.
 - \`_ds_bundle.js\` — the whole-DS bundle at the project root; every component and helper lands on \`window.${globalName}\`. First line is a \`/* @ds-bundle: … */\` metadata header.
 - \`styles.css\` — the single stylesheet entry (\`@import\`s \`fonts/fonts.css\` then \`_ds_bundle.css\`). Link this one file.
 - \`components/<group>/<Name>/<Name>.prompt.md\` (props + recipe + examples), \`<Name>.d.ts\` (types for every export of the item), \`<Name>.html\` (the story page, live), \`<Name>.jsx\` (the window re-export).
-- \`fonts/\` — the ten woff2 faces + \`fonts.css\`.
+- \`fonts/\` — the eight woff2 faces + \`fonts.css\`.
 - \`guidelines/\` — ${guidelineFiles.map((f) => `\`${f}\``).join(', ')}.
 
 Loading in a page of your own (React must be on the page first):

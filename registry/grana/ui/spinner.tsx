@@ -15,7 +15,6 @@ function Spinner({
       data-slot="spinner"
       role="status"
       aria-label={label}
-      strokeWidth={1.75}
       className={cn("size-4 shrink-0 animate-spin", className)}
       {...props}
     />

@@ -1,6 +1,7 @@
 /* Grana faces — self-hosted from /fonts (copy grana's public/fonts into the app's public dir).
- * Sources: Fontshare (Cabinet Grotesk, General Sans), Google Fonts latin subsets
- * (Spline Sans Mono, Source Serif 4). Weights exactly as the design system declares them.
+ * Sources: Fontshare (Cabinet Grotesk), Vercel's `geist` package (Geist, the variable upright),
+ * Google Fonts latin subsets (Spline Sans Mono, Source Serif 4). Weights exactly as the design
+ * system declares them; Geist is one variable file, so every weight is its own, never synthesised.
  * Upright only — italics are banned everywhere. */
 @font-face {
   font-family: "Cabinet Grotesk";
@@ -24,23 +25,9 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "General Sans";
-  src: url("/fonts/GeneralSans-400.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "General Sans";
-  src: url("/fonts/GeneralSans-500.woff2") format("woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "General Sans";
-  src: url("/fonts/GeneralSans-600.woff2") format("woff2");
-  font-weight: 600;
+  font-family: "Geist";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }

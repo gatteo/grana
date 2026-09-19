@@ -80,13 +80,20 @@
 
   /* Faces. Named families load from /fonts (see fonts.css); the stacks degrade cleanly. */
   --face-display: "Cabinet Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --face-sans: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --face-sans: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   --face-mono: "Spline Sans Mono", ui-monospace, "SF Mono", Menlo, monospace;
   --face-serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
 
-  /* Depth — soft, warm-tinted, gentle. The RF product surface nulls both (see §3). */
+  /* Depth — soft, warm-tinted, gentle. The RF product surface nulls all four (see §3). */
   --shadow-card: 0 1px 2px rgba(26, 24, 22, 0.05), 0 4px 16px rgba(26, 24, 22, 0.05);
   --shadow-panel: 0 1px 2px rgba(26, 24, 22, 0.03), 0 6px 18px rgba(26, 24, 22, 0.055);
+  /* The two small steps under a hairline (shadcn's `shadow-xs` / `shadow-sm`, in warm ink):
+   * `control` is the press-me lift a bordered verb or field sits on; `raised` is the plain
+   * card, the active tab and the Segmented thumb, lifted a touch off the ground they sit on.
+   * Tuned by eye on the ecru canvas and the white inset panel (2026-09-19): `control` sits a
+   * step above shadcn's .05 because a stone-300 hairline swallows a lighter one. */
+  --shadow-control: 0 1px 2px rgba(26, 24, 22, 0.08);
+  --shadow-raised: 0 1px 3px rgba(26, 24, 22, 0.1), 0 1px 2px -1px rgba(26, 24, 22, 0.1);
 
   /* Motion */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -223,6 +230,8 @@
   /* Depth is allowed here, and it is deeper and warmer than the product's. */
   --shadow-card: 0 1px 2px rgba(14, 13, 10, 0.04), 0 16px 44px -28px rgba(14, 13, 10, 0.22);
   --shadow-panel: 0 1px 2px rgba(14, 13, 10, 0.06), 0 32px 72px -30px rgba(14, 13, 10, 0.42);
+  /* `--shadow-control` and `--shadow-raised` keep the product's values: a verb on paper sits on
+   * the same small lift as one in the app. */
 
   /* The marketing easing — a longer settle than the product's snap. */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -306,6 +315,8 @@
 [data-brand="rf"] [data-surface="app"] {
   --shadow-card: none;
   --shadow-panel: none;
+  --shadow-control: none;
+  --shadow-raised: none;
   --radius-control: var(--radius-sm);
   --control-quiet-ink: var(--foreground);
 }
@@ -437,6 +448,8 @@
 
   --shadow-card: var(--shadow-card);
   --shadow-panel: var(--shadow-panel);
+  --shadow-control: var(--shadow-control);
+  --shadow-raised: var(--shadow-raised);
 
   --ease-brand: var(--ease);
   --ease-brand-out: var(--ease-out);
@@ -626,7 +639,7 @@
 }
 
 /* The product's voice — face AND weight from the brand tokens (Cabinet Grotesk 700 on
- * Luminars, General Sans 500 on RF). One utility, because Tailwind derives the weight utility
+ * Luminars, Geist 500 on RF). One utility, because Tailwind derives the weight utility
  * from `--font-weight-voice` as `font-voice`, which collides with the family utility. */
 @utility voice {
   font-family: var(--face-voice);

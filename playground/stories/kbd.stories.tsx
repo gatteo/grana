@@ -35,7 +35,7 @@ export default function KbdStories() {
 
       <Story title="Composed: the topbar search" note="the RF ⌘K affordance, inside a field">
         <div className="flex max-w-[380px] items-center gap-2 rounded-sm border border-border bg-muted px-3 py-[7px] text-13 text-faint">
-          <SearchIcon className="size-3.5 stroke-[1.5]" />
+          <SearchIcon className="size-3.5" />
           <span className="flex-1">Cerca lead, preventivi, contatti…</span>
           <KbdGroup>
             <Kbd>⌘</Kbd>

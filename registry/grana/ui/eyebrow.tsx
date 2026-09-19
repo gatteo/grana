@@ -5,21 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
 
-/* The ALL-CAPS section label (skin-spec §0.5 / §19) as a component, in two registers.
+/* The section label (skin-spec §0.5 / §19) as a component, in two registers: the ALL-CAPS
+ * `mono` and the sidebar's sentence-case `nav`.
  *
  * `mono` is the default and the one the name comes from: the `eyebrow` utility — mono, 500,
  * uppercase, `text-faint`. `md` is that utility verbatim; the other sizes are the kits'
  * smaller and larger caps recipes normalised onto one scale.
  *
- * `nav` is the sidebar group label. Measured on the Luminars shell 2026-08-24: at the mono
- * recipe a group label reads as heavy as the nav rows it is supposed to label, so this
- * register drops to the text face at 10px/400 with looser tracking. It replaces the mono
- * recipe rather than layering over it, so `size` applies to `mono` only. */
+ * `nav` is the sidebar group label, in shadcn's SidebarGroupLabel shape (the owner, 2026-09-19):
+ * the text face at 12px/500, sentence case, no tracking, in the quietest text that clears AA.
+ * It replaced the 2026-08-24 caps at 10px/400, which had replaced the mono recipe (it read as
+ * heavy as the nav rows it labels). It replaces the mono recipe rather than layering over it,
+ * so `size` applies to `mono` only. */
 const eyebrowVariants = cva("inline-flex items-baseline", {
   variants: {
     register: {
       mono: "eyebrow",
-      nav: "font-sans text-[10px] leading-[1.3] font-normal tracking-[0.06em] text-faint uppercase",
+      nav: "font-sans text-xs leading-4 font-medium text-faint",
     },
     size: {
       xs: "text-[9.5px] tracking-[0.08em]",

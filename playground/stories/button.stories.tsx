@@ -130,7 +130,7 @@ export default function ButtonStories() {
         </div>
       </Story>
 
-      <Story title="With icon" note="16px at md/lg, 14px at xs/sm, stroke 1.5; leading or trailing">
+      <Story title="With icon" note="16px at md/lg, 14px at xs/sm, lucide's default stroke; leading or trailing">
         <Row>
           <Button variant="primary">
             <PlusIcon />

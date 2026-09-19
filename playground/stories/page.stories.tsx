@@ -40,7 +40,7 @@ export default function PageStories() {
         </div>
       </Story>
 
-      <Story title="PageHead" note="title in font-voice (Cabinet on Luminars, General Sans on RF); subtitle tabular; one primary">
+      <Story title="PageHead" note="title in font-voice (Cabinet on Luminars, Geist on RF); subtitle tabular; one primary">
         <Frame>
           <Page width="medium">
             <PageHead

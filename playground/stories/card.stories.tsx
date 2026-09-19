@@ -23,7 +23,7 @@ const rows = [
 export default function CardStories() {
   return (
     <div>
-      <Story title="Padded (default)" note="white, 1px hairline, 10px radius, 18px 20px — the Luminars Card">
+      <Story title="Padded (default)" note="white, 1px hairline, 10px radius, 18px 20px, shadow-raised (the light lift, nulled on the RF app surface) — the Luminars Card">
         <div className="grid max-w-2xl gap-3">
           <Card>
             <span className="eyebrow">Processo</span>
@@ -32,10 +32,10 @@ export default function CardStories() {
             </p>
           </Card>
           <Card tone="sunken">
-            <p className="text-sm text-muted-foreground">tone=&quot;sunken&quot; — the surface-2 ground, for a panel inside a panel.</p>
+            <p className="text-sm text-muted-foreground">tone=&quot;sunken&quot; — the surface-2 ground, for a panel inside a panel; no lift.</p>
           </Card>
           <Card elevated>
-            <p className="text-sm">elevated — carries shadow-card; the RF product surface nulls it through the token.</p>
+            <p className="text-sm">elevated — carries shadow-card, a step deeper than the plain card; the RF product surface nulls it through the token.</p>
           </Card>
           <Card render={<section />} aria-label="Sezione">
             <p className="text-sm text-muted-foreground">render=&lt;section /&gt; — the Luminars `as` prop.</p>

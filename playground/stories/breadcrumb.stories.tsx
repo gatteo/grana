@@ -14,7 +14,7 @@ import { Label, Row, Story } from "@/playground/lib/story";
 export default function BreadcrumbStories() {
   return (
     <div className="grid">
-      <Story title="Trail" note="13px secondary text, the current page in ink and 500, faint chevrons at stroke 1.5">
+      <Story title="Trail" note="13px secondary text, the current page in ink and 500, faint chevrons at lucide's default stroke">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>

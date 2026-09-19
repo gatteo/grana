@@ -27,6 +27,11 @@ import { Spinner } from "@/registry/grana/ui/spinner"
  * leading. The paddings are the CSS ones minus the hairline every variant carries, so a marketing
  * button measures 50px like its BEM ancestor and every variant still shares one height.
  *
+ * Depth (2026-09-19, the owner's shadcn reference): the three verbs that carry a ground or a
+ * hairline (primary, quiet, danger) sit on `shadow-control`, the small warm lift shadcn gives
+ * its outline button; ghost and link stay flat, and the marketing-only variants keep their own
+ * recipes. The token is nulled on the RF product surface, so RF stays hairline-only.
+ *
  * The press (AGE-175, 2026-09-01): every enabled button settles to 98% under the pointer for
  * the duration of the press, 75 ms down and 120 ms back — felt, never seen as motion. A
  * disabled or aria-disabled one stays put; reduced motion gets no transition at all.
@@ -44,19 +49,19 @@ import { Spinner } from "@/registry/grana/ui/spinner"
  *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-control border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:stroke-[1.5] [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 items-center justify-center rounded-control border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         /* the ink ground — one per screen (DSN-3) */
         primary:
-          "border-transparent bg-primary text-primary-foreground not-disabled:hover:bg-stone-800",
+          "border-transparent bg-primary text-primary-foreground shadow-control not-disabled:hover:bg-stone-800",
         /* the hairline verb — every other action */
         quiet:
-          "border-border-strong bg-transparent text-(--control-quiet-ink) not-disabled:hover:border-stone-400 not-disabled:hover:bg-accent not-disabled:hover:text-foreground",
+          "border-border-strong bg-transparent text-(--control-quiet-ink) shadow-control not-disabled:hover:border-stone-400 not-disabled:hover:bg-accent not-disabled:hover:text-foreground",
         /* rung 2 of the destructive ladder: critical at rest, fills under the pointer */
         danger:
-          "border-destructive bg-transparent text-destructive not-disabled:hover:bg-destructive not-disabled:hover:text-destructive-foreground",
+          "border-destructive bg-transparent text-destructive shadow-control not-disabled:hover:bg-destructive not-disabled:hover:text-destructive-foreground",
         /* no border, a hover fill — icon triggers, row verbs that must stay out of the way */
         ghost:
           "border-transparent bg-transparent text-faint not-disabled:hover:bg-accent not-disabled:hover:text-accent-foreground",

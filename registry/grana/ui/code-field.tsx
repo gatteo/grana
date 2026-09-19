@@ -26,7 +26,7 @@ import { cn } from "@/lib/utils"
  * hairline and the glyphs destructive — the caller supplies the words. */
 
 const codeBoxVariants = cva(
-  "flex-none rounded-md border bg-card text-center font-mono font-medium text-foreground tabular-nums transition-colors duration-[120ms] not-disabled:hover:border-border-strong disabled:cursor-default disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:text-status-critical-ink",
+  "flex-none rounded-md border bg-card text-center font-mono font-medium text-foreground tabular-nums shadow-control transition-colors duration-[120ms] not-disabled:hover:border-border-strong disabled:cursor-default disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:text-status-critical-ink",
   {
     variants: {
       size: {

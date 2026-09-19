@@ -8,7 +8,10 @@ import { cn } from "@/lib/utils"
 /* The surface box (skin-spec §13). Luminars `.card` and RF `.panel` agree on the shell:
  * white, 1px hairline, 10px radius. `padded` is the Luminars default (18px 20px); a Card with
  * `padded={false}` is a frame whose children own the edges (a Table, a Feed) — it clips them to
- * its radius. `elevated` resolves to the shadow token, which the RF product surface nulls.
+ * its radius. Depth (2026-09-19, the owner's shadcn reference): a plain card sits on
+ * `shadow-control`, the controls' own hairline lift (the owner, 2026-09-19: the raised one read
+ * heavy under a table); `elevated` is the deeper `shadow-card`; a
+ * `sunken` card takes none. The RF product surface nulls both tokens, so RF stays flat.
  *
  * `layout` is the card's own direction. `stack` is the default and the only one that touches a
  * child: an eyebrow as a direct child is the card's section label and takes the 10px of air under
@@ -33,9 +36,13 @@ const cardVariants = cva(
       },
       elevated: {
         true: "shadow-card",
-        false: "",
+        false: "shadow-control",
       },
     },
+    compoundVariants: [
+      /* a sunken card sits IN its ground, so it takes no lift */
+      { tone: "sunken", elevated: false, class: "shadow-none" },
+    ],
     defaultVariants: {
       layout: "stack",
       tone: "surface",

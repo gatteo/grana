@@ -44,7 +44,7 @@ const chipVariants = cva("inline-flex items-center gap-1.5 whitespace-nowrap", {
       tinted:
         "rounded-sm py-[3px] pr-2 pl-[7px] text-[11px] leading-[1.6] [&>svg]:size-[11px] [&>svg]:shrink-0",
       plain:
-        "gap-1.5 rounded-full border border-border bg-transparent px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]",
+        "gap-1.5 rounded-full border border-border bg-transparent px-2.5 py-0.5 text-xs leading-[1.45] text-muted-foreground [&>svg]:size-3.5 [&>svg]:shrink-0",
     },
     tone: {
       quiet: "",

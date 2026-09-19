@@ -26,7 +26,7 @@ ds-bundle/<profile>/
                            first line = /* @ds-bundle: {namespace, components, sourceHashes, …} */
   _ds_bundle.css           grana.css compiled by Tailwind v4 + the utility safelist + the brand pin
   styles.css               the entry the app reads: @import fonts/fonts.css, _ds_bundle.css
-  fonts/                   the ten woff2 faces + fonts.css (bundle-relative urls)
+  fonts/                   the eight woff2 faces + fonts.css (bundle-relative urls)
   _vendor/react.js         react 19 + react-dom(/client) as a global (no UMD upstream)
   _preview/<Name>.js       the story page compiled against window.Grana
   components/<group>/<Name>/<Name>.{html,jsx,d.ts,prompt.md}
@@ -117,7 +117,7 @@ File shape: the header, the sidecar recomputed from disk (render hashes and sour
 card (chromium from the root `playwright`):
 
 - **bad** — a page error, a JS console error, a render error in the card, no story sections,
-  a blank screenshot, or the stylesheet not applied (body not in General Sans).
+  a blank screenshot, or the stylesheet not applied (body not in Geist).
 - **thin** — every component root (`[data-slot]` elements with no `data-slot` ancestor inside
   the section) has the same computed background / border / radius / font / padding / colour /
   display as a pristine element of the same tag in a stylesheet-less iframe (the UA default),

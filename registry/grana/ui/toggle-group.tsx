@@ -7,7 +7,8 @@ import { cn } from "@/lib/utils"
 import { toggleVariants } from "@/registry/grana/ui/toggle"
 
 /* ToggleGroup — a row (or column) of Toggles sharing one pressed state. `spacing={0}` joins
- * them into a single pill track with hairline separators (the outline variant) — for a
+ * them into a single pill track with hairline separators (the outline variant, its lift drawn
+ * once under the whole track rather than under each item) — for a
  * one-of-N FILTER prefer `Segmented`, which is built for it. */
 const ToggleGroupContext = React.createContext<
   VariantProps<typeof toggleVariants> & {
@@ -43,7 +44,7 @@ function ToggleGroup({
       orientation={orientation}
       style={{ "--gap": spacing } as React.CSSProperties}
       className={cn(
-        "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
+        "group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch data-[spacing=0]:data-[variant=outline]:shadow-control data-horizontal:data-[spacing=0]:rounded-full data-vertical:data-[spacing=0]:rounded-lg",
         className
       )}
       {...props}
@@ -77,7 +78,7 @@ function ToggleGroupItem({
           variant: context.variant || variant,
           size: context.size || size,
         }),
-        "shrink-0 focus-visible:z-10 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:px-3 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-full group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-full group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
+        "shrink-0 focus-visible:z-10 group-data-[spacing=0]/toggle-group:rounded-none group-data-[spacing=0]/toggle-group:shadow-none group-data-[spacing=0]/toggle-group:px-3 group-data-horizontal/toggle-group:data-[spacing=0]:first:rounded-l-full group-data-horizontal/toggle-group:data-[spacing=0]:last:rounded-r-full group-data-vertical/toggle-group:data-[spacing=0]:first:rounded-t-lg group-data-vertical/toggle-group:data-[spacing=0]:last:rounded-b-lg group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:border-l-0 group-data-horizontal/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-l group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:border-t-0 group-data-vertical/toggle-group:data-[spacing=0]:data-[variant=outline]:first:border-t",
         className
       )}
       {...props}

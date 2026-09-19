@@ -24,7 +24,7 @@ export default function SegmentedStories() {
   const [range, setRange] = useState<Range>("30d");
   return (
     <div className="grid">
-      <Story title="pill (default)" note="the Luminars track: sunken ground, the active segment raised onto the surface with shadow-card (nulled on the RF app surface)">
+      <Story title="pill (default)" note="the Luminars track: sunken ground, the active segment raised onto the surface with shadow-raised (nulled on the RF app surface)">
         <Row>
           <Segmented label="Periodo" options={ranges} value={range} onChange={setRange} />
           <Label>md · track 36</Label>
@@ -42,7 +42,7 @@ export default function SegmentedStories() {
         </Row>
       </Story>
 
-      <Story title="With counts" note="counts are `num`; faint at rest, secondary on the active segment">
+      <Story title="With counts" note="counts are `tabular`, in the label's sans; faint at rest, secondary on the active segment">
         <Row>
           <Segmented label="Esecuzioni" options={runs} value={run} onChange={setRun} />
           <Segmented label="Esecuzioni" variant="boxed" options={runs} value={run} onChange={setRun} />

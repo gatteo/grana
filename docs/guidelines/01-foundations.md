@@ -16,7 +16,8 @@ The base layer shared by every surface. All values live in the PoC's
 5. **Dark is punctuation.** One dark hero, one dark manifesto band, one dark CTA
    moment. The page never becomes a dark theme. The product is always light.
 6. **Flat product, deep marketing.** Marketing panels floating on imagery may carry a
-   deep shadow. Product UI carries none: hairline borders only.
+   deep shadow. Product UI is hairlines first: the RF product carries no shadow at all, the
+   Luminars product only the two small lifts (`shadow-control`, `shadow-raised`).
 
 ## Colour
 
@@ -96,7 +97,7 @@ PoC, self-host in production.
 | Role | Face | Weights | Rules |
 |---|---|---|---|
 | Display + headings | **Cabinet Grotesk** (Fontshare) | 500 / 700 / 800 | Display at 800, headings at 700. Tracking `-0.028em` display, `-0.02em` headings. |
-| UI + body | **General Sans** (Fontshare) | 400 / 500 / 600 | Body 400, emphasis/buttons 500, strong 600. |
+| UI + body | **Geist** (Vercel, variable) | 400 / 500 / 600 | Body 400, emphasis/buttons 500, strong 600. The count beside a tab or filter label is set here too, `tabular`. |
 | Labels + ALL numbers | **Spline Sans Mono** (Google) | 400 / 500 | Eyebrows, table headers, chips, timestamps, every metric. Uppercase labels track `+0.14em`. |
 | Editorial voice | **Source Serif 4** (Google) | 400 / 500 | Leads, pull-quotes, manifesto body. **Upright only, italics are banned everywhere.** Never for data, never for UI. |
 
@@ -148,7 +149,10 @@ Centred heads are the exception and stay on a 56ch measure — symmetry needs a
 shorter line.
 
 Shadows: `shadow-panel` (deep, for marketing panels floating on imagery only) and
-`shadow-card` (soft, for hover lifts). **The product UI never uses shadows.**
+`shadow-card` (soft, for hover lifts). Below them, two small steps in warm ink after shadcn's
+`shadow-xs` / `shadow-sm`: `shadow-control` under a bordered or filled verb or field, and
+`shadow-raised` under a plain card, the Segmented thumb and an active tab pill. **The RF product
+UI never uses shadows**: its scope nulls all four tokens (skin-spec §0.7).
 
 ## Buttons
 
