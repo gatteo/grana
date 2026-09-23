@@ -50,3 +50,12 @@ necessarily the code).
 - Buttons: background-color transitions 0.18 s; `:active` presses 1 px down.
 - Product app: hovers only (background-color 0.14 s). No entrance motion in the
   dashboard.
+- **The press (owner, 2026-09-23): everything clickable gives under the pointer.** One
+  utility family in `grana.css` §6b, four strengths chosen by the size of the thing so every
+  edge travels about 1 px: `press-glyph` 0.94 (icon buttons, checkboxes, switches, code
+  boxes), `press` 0.98 (verbs, chips, tabs, toggles, crumbs), `press-item` 0.99 (cards, tiles,
+  menu and nav rows), `press-wide` 0.995 (fields, selects, full-width rows); `press-none`
+  turns it off. 75 ms in, the element's own duration (120 ms by default) back, ease-out; on
+  paper it also drops 1 px. Never while disabled, never under reduced motion, and a row
+  holding a verb stays put while the verb is pressed. A link styled as text (in a sentence or
+  at a card's foot) never presses: a press on a word reads as a glitch.

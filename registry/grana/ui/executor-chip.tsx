@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils"
  * Under the RF brand the hues collapse to stone through the tokens, so the chip still reads —
  * and the agent still reads dashed. The label is always the caller's word (i18n). */
 const executorChipVariants = cva(
-  "inline-flex w-fit shrink-0 items-center rounded-full border font-medium whitespace-nowrap",
+  "inline-flex w-fit shrink-0 items-center rounded-full border font-medium whitespace-nowrap [a&]:press [button&]:press",
   {
     variants: {
       executor: {

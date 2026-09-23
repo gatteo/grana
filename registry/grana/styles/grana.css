@@ -646,6 +646,115 @@
   font-weight: var(--voice-weight);
 }
 
+/* ═══ 6b. The press ═══════════════════════════════════════════════════════
+ * Everything clickable gives a little under the pointer (the owner, 2026-09-23: "every clickable
+ * item ... should have a very subtle compression effect, like we see in the buttons"). One
+ * definition, four strengths, chosen by the SIZE of the thing, because a scale is a fraction and
+ * the eye reads the edge: 0.98 moves a 100px verb's edges 1px each, a 600px field's by 6px (a
+ * lurch) and a 16px checkbox's by a sixth of a pixel (nothing). Each strength keeps the edge
+ * travel near 1px at the size it is for, tuned by eye in the playground:
+ *
+ *   press-glyph  0.94   icon-sized: an icon button, a checkbox, a switch, a code box, a row action
+ *   press        0.98   compact controls: a verb, a chip, a tab, a toggle, a crumb
+ *   press-item   0.99   a card, a tile, a menu or nav row, anything up to a column wide
+ *   press-wide   0.995  a field, a select, a full-width list row
+ *   press-none          switches it off (a bare input inside an InputGroup; the group presses)
+ *
+ * The press goes in over 75 ms and comes back over the element's own duration (120 ms unless a
+ * `duration-*` says otherwise), on the element's own easing (`ease-*`) or the brand's ease-out.
+ * It is a `transform`, so it multiplies with a hover lift (`-translate-y-1`) or a `scale-*`
+ * instead of replacing it. On paper (`data-surface="marketing"`) the press also drops 1px, the
+ * RF `.btn` recipe. Nothing presses while disabled (`:disabled`, `aria-disabled="true"`, Base
+ * UI's `data-disabled`, cmdk's `data-disabled="true"`), and reduced motion gets no press at all.
+ *
+ * Two rules keep it from misfiring:
+ *   - `:active` is true for every ANCESTOR of the pressed element too, so a clickable row holding
+ *     a button would press along with it. A press element stays put while a nested verb (a
+ *     button, a link, a checkbox, another press element) is the thing being pressed. A bare
+ *     text field is deliberately not on that list: the InputGroup that frames it presses.
+ *   - The utility OWNS the element's transition: it lists the colour, shadow, opacity and
+ *     transform properties a control animates, at a specificity a `transition-colors` beside it
+ *     cannot undercut (the button's old `transition-[…,transform]` never animated Tailwind 4's
+ *     `scale` property, so its 75/120 ms press snapped both ways). An element that must also
+ *     animate something else names it in `--press-extra` (the sidebar's collapse: width,
+ *     height, padding).
+ *
+ * A word in a sentence never presses (a press on a word reads as a glitch); a link that stands
+ * on its own as a control (a breadcrumb crumb, a back link, a nav row, a card) does. */
+@property --press-scale {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0.98;
+}
+@property --press-drop {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --press-extra {
+  syntax: "*";
+  inherits: false;
+}
+
+@utility press {
+  &:not(.\#) {
+    transition-property:
+      color, background-color, border-color, outline-color, text-decoration-color, fill, stroke,
+      opacity, box-shadow, transform, translate, scale, var(--press-extra, transform);
+    transition-timing-function: var(--tw-ease, var(--ease-out));
+    transition-duration: var(--tw-duration, 120ms);
+  }
+  :where([data-surface="marketing"]) & {
+    --press-drop: 1px;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    &:active:not(:disabled, [aria-disabled="true"], [data-disabled]:not([data-disabled="false"])):not(
+        :has(
+            :is(
+                a[href],
+                button,
+                [role="button"],
+                [role="link"],
+                [role="checkbox"],
+                [role="radio"],
+                [role="switch"],
+                [role="tab"],
+                [role="menuitem"],
+                [role="option"],
+                .press,
+                .press-glyph,
+                .press-item,
+                .press-wide
+              ):active
+          )
+      ) {
+      transform: translateY(var(--press-drop)) scale(var(--press-scale));
+      transition-duration: 75ms;
+      transition-delay: 0s; /* a staggered reveal's --d must not hold the press back */
+    }
+  }
+}
+
+@utility press-glyph {
+  @apply press;
+  --press-scale: 0.94;
+}
+
+@utility press-item {
+  @apply press;
+  --press-scale: 0.99;
+}
+
+@utility press-wide {
+  @apply press;
+  --press-scale: 0.995;
+}
+
+@utility press-none {
+  --press-scale: 1;
+  --press-drop: 0px;
+}
+
 /* The marketing grain veil: a pseudo-layer above an image, below content. */
 @utility grain {
   position: relative;

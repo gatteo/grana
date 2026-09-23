@@ -32,9 +32,13 @@ import { Spinner } from "@/registry/grana/ui/spinner"
  * its outline button; ghost and link stay flat, and the marketing-only variants keep their own
  * recipes. The token is nulled on the RF product surface, so RF stays hairline-only.
  *
- * The press (AGE-175, 2026-09-01): every enabled button settles to 98% under the pointer for
- * the duration of the press, 75 ms down and 120 ms back — felt, never seen as motion. A
- * disabled or aria-disabled one stays put; reduced motion gets no transition at all.
+ * The press (AGE-175, 2026-09-01; shared 2026-09-23): the `press` utility (grana.css §6b), the
+ * same one every clickable thing in the kit wears. An enabled button settles to 98% under the
+ * pointer for the duration of the press, 75 ms down and 120 ms back, and drops 1px on paper;
+ * felt, never seen as motion. The icon sizes take `press-glyph` (94%): at 34px a 98% press moved
+ * the edge a third of a pixel and read as no press at all. A disabled or aria-disabled one stays put; reduced motion gets no
+ * press at all. The utility owns the transition (colours, shadow, the transform), so the
+ * button declares none of its own.
  *
  * `loading` is the in-flight state (AGE-259): the label stays, holding the button's own
  * width at zero opacity, and a spinner sits centred over it, so a row of verbs never jumps
@@ -49,7 +53,7 @@ import { Spinner } from "@/registry/grana/ui/spinner"
  *
  * The global `:focus-visible` outline is the focus state; nothing here paints its own ring. */
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-control border font-medium whitespace-nowrap transition-[color,background-color,border-color,box-shadow,transform] duration-[120ms] ease-out select-none not-disabled:active:scale-[0.98] not-disabled:active:duration-75 disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 aria-disabled:active:scale-100 motion-reduce:transition-none motion-reduce:active:scale-100 in-data-[surface=marketing]:active:translate-y-px [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button press inline-flex shrink-0 items-center justify-center rounded-control border font-medium whitespace-nowrap select-none disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
@@ -82,10 +86,10 @@ const buttonVariants = cva(
         sm: "h-8 gap-1.5 px-3.5 text-[12.5px] [&_svg:not([class*='size-'])]:size-3.5 in-data-[surface=marketing]:h-auto in-data-[surface=marketing]:gap-2 in-data-[surface=marketing]:px-[15px] in-data-[surface=marketing]:py-2 in-data-[surface=marketing]:text-[13px] in-data-[surface=marketing]:leading-[1.6] in-data-[surface=marketing]:tracking-[-0.005em]",
         md: "h-[34px] gap-1.5 px-4 text-[12.5px] in-data-[surface=marketing]:h-auto in-data-[surface=marketing]:gap-2 in-data-[surface=marketing]:px-[23px] in-data-[surface=marketing]:py-[13px] in-data-[surface=marketing]:text-sm in-data-[surface=marketing]:leading-[1.6] in-data-[surface=marketing]:tracking-[-0.005em]",
         lg: "h-10 gap-1.5 px-5 text-[13.5px]",
-        icon: "size-[34px]",
-        "icon-xs": "size-6 [&_svg:not([class*='size-'])]:size-3.5",
-        "icon-sm": "size-8 [&_svg:not([class*='size-'])]:size-3.5",
-        "icon-lg": "size-10",
+        icon: "press-glyph size-[34px]",
+        "icon-xs": "press-glyph size-6 [&_svg:not([class*='size-'])]:size-3.5",
+        "icon-sm": "press-glyph size-8 [&_svg:not([class*='size-'])]:size-3.5",
+        "icon-lg": "press-glyph size-10",
       },
       destructive: {
         true: "",

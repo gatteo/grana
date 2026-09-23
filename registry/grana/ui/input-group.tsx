@@ -11,7 +11,7 @@ import { Textarea } from "@/registry/grana/ui/textarea"
  * edge of its own, the group paints the global focus outline on itself when the control is
  * focus-visible — the one place a field relays the outline rather than showing it directly. */
 const inputGroupVariants = cva(
-  "group/input-group relative flex h-[34px] w-full min-w-0 items-center rounded-sm border border-input bg-card shadow-control transition-colors duration-[120ms] not-has-disabled:hover:border-border-strong has-disabled:bg-muted has-disabled:opacity-60 has-[[data-slot=input-group-control]:focus-visible]:outline-2 has-[[data-slot=input-group-control]:focus-visible]:outline-offset-2 has-[[data-slot=input-group-control]:focus-visible]:outline-ring has-[[data-slot][aria-invalid=true]]:border-destructive has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
+  "group/input-group relative flex h-[34px] w-full min-w-0 items-center rounded-sm border border-input bg-card shadow-control duration-[120ms] not-has-disabled:press-wide not-has-disabled:hover:border-border-strong has-disabled:bg-muted has-disabled:opacity-60 has-[[data-slot=input-group-control]:focus-visible]:outline-2 has-[[data-slot=input-group-control]:focus-visible]:outline-offset-2 has-[[data-slot=input-group-control]:focus-visible]:outline-ring has-[[data-slot][aria-invalid=true]]:border-destructive has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>textarea]:h-auto has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5",
   {
     variants: {
       variant: {
@@ -94,8 +94,8 @@ const inputGroupButtonVariants = cva(
       size: {
         xs: "h-[22px] px-2 [&>svg:not([class*='size-'])]:size-3.5",
         sm: "h-[26px] px-2.5 text-13",
-        "icon-xs": "size-[22px] p-0 has-[>svg]:p-0",
-        "icon-sm": "size-[26px] p-0 has-[>svg]:p-0",
+        "icon-xs": "press-glyph size-[22px] p-0 has-[>svg]:p-0",
+        "icon-sm": "press-glyph size-[26px] p-0 has-[>svg]:p-0",
       },
     },
     defaultVariants: {
@@ -145,7 +145,7 @@ function InputGroupInput({
     <Input
       data-slot="input-group-control"
       className={cn(
-        "h-auto flex-1 self-stretch rounded-none border-0 bg-transparent shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
+        "press-none h-auto flex-1 self-stretch rounded-none border-0 bg-transparent shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
         className
       )}
       {...props}
@@ -161,7 +161,7 @@ function InputGroupTextarea({
     <Textarea
       data-slot="input-group-control"
       className={cn(
-        "flex-1 resize-none rounded-none border-0 bg-transparent py-[7px] shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
+        "press-none flex-1 resize-none rounded-none border-0 bg-transparent py-[7px] shadow-none focus-visible:outline-hidden disabled:bg-transparent disabled:opacity-100",
         className
       )}
       {...props}

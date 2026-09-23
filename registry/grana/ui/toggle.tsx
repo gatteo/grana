@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
  * toolbar); `outline` carries the quiet hairline and its lift (`shadow-control`). Pressed = the deeper canvas tint, ink text,
  * a firmer hairline — the same ground a pressed Button takes. Sizes follow Button. */
 const toggleVariants = cva(
-  "group/toggle inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap transition-colors duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 data-pressed:border-stone-400 data-pressed:bg-canvas-deep data-pressed:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/toggle press inline-flex shrink-0 items-center justify-center rounded-full border font-medium whitespace-nowrap duration-[120ms] ease-out select-none disabled:cursor-not-allowed disabled:opacity-50 data-pressed:border-stone-400 data-pressed:bg-canvas-deep data-pressed:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {

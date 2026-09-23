@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * with the hover fill of a nav item). Renders a <button> by default; `render={<a href>}`
  * hands it to a router. */
 const backLinkVariants = cva(
-  "inline-flex items-center gap-1.5 text-left whitespace-nowrap transition-colors duration-[120ms] ease-out select-none [&_svg]:size-3.5 [&_svg]:shrink-0",
+  "press inline-flex items-center gap-1.5 text-left whitespace-nowrap duration-[120ms] ease-out select-none [&_svg]:size-3.5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {

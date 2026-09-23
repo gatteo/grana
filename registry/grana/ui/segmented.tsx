@@ -34,7 +34,7 @@ const segmentedTrackVariants = cva(
 )
 
 const segmentedItemVariants = cva(
-  "relative z-10 inline-flex items-center justify-center whitespace-nowrap text-muted-foreground transition-colors duration-[120ms] ease-out select-none not-disabled:hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50 data-pressed:font-medium data-pressed:text-foreground",
+  "press relative z-10 inline-flex items-center justify-center whitespace-nowrap text-muted-foreground duration-[120ms] ease-out select-none not-disabled:hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50 data-pressed:font-medium data-pressed:text-foreground",
   {
     variants: {
       variant: {

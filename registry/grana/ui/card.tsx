@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils"
  * place. (The old `[&>.eyebrow]:block` is gone: a direct child of a flex box is blockified anyway,
  * so it only ever overrode a caller's own display.) */
 const cardVariants = cva(
-  "group/card relative flex rounded-md border border-border bg-card text-card-foreground",
+  "group/card relative flex rounded-md border border-border bg-card text-card-foreground [a&]:press-item [button&]:press-item",
   {
     variants: {
       layout: {

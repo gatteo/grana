@@ -50,6 +50,13 @@ Everything in `registry/grana/ui/` installs into a consumer's `components/ui/`. 
   2px, never coloured borders except the destructive/invalid state.
 - **Motion:** durations are plain numbers — `duration-180`, `duration-400` compile as written, so
   the system carries no duration tokens to memorise. Easing is `ease-brand` / `ease-brand-out`.
+- **The press:** every interactive element wears one of the press utilities (`grana.css` §6b):
+  `press-glyph` (icon-sized), `press` (compact), `press-item` (a card or a row up to a column
+  wide), `press-wide` (a field, a full-width row). Pick by the element's size, not its kind.
+  Where a component is only sometimes interactive, gate it (`[a&]:press-item`,
+  `[button&]:press`). The utility owns the element's transition, so drop the component's own
+  `transition-colors`; keep `duration-*` / `ease-*`, which it honours. Static things (a Chip, a
+  Badge, a text link in a sentence) never press.
 - **Shadows:** the ladder is `shadow-control` (a bordered or filled verb or field), `shadow-raised`
   (the plain card, the Segmented thumb, the active tab pill), `shadow-card` (elevated, hover
   lifts) and `shadow-panel` (layered UI, the inset shell), used only where the skin spec says

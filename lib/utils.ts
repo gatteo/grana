@@ -10,7 +10,8 @@ import { extendTailwindMerge } from "tailwind-merge"
 /* The spacing scale Grana adds on top of Tailwind's numeric one. */
 const FIELD = ["gutter", "section", "frame", "sidebar", "sidebar-pad", "shell-gap"]
 
-const twMerge = extendTailwindMerge({
+/* `press` is a group of Grana's own (the press strengths), so the merger is told its name. */
+const twMerge = extendTailwindMerge<"press">({
   extend: {
     classGroups: {
       "font-size": [{ text: ["2xs", "13", "metric", "display", "h2", "h3", "lead"] }],
@@ -20,6 +21,9 @@ const twMerge = extendTailwindMerge({
        * `shadow-none` would survive beside a component's `shadow-control` and stylesheet order
        * would pick the winner. Taught, the caller's class wins, as the contract says. */
       shadow: [{ shadow: ["control", "raised", "card", "panel"] }],
+      /* The press strengths (grana.css §6b) are one choice, so a caller's `press-none` or
+       * `press-item` replaces the component's own instead of racing it in the stylesheet. */
+      press: [{ press: ["", "glyph", "item", "wide", "none"] }],
       /* The field geometry is spacing, not an arbitrary value — without these a component's own
        * `py-section` and a caller's `py-[clamp(…)]` both survive the merge and stylesheet order
        * decides, which is never what the caller meant. */

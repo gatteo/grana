@@ -58,7 +58,7 @@ function UnitCard({
   } as React.CSSProperties
   const rootClass = cn(
     "flex flex-col overflow-hidden rounded-img border border-border bg-card no-underline",
-    "transition-[translate,box-shadow] duration-300 ease-brand-out hover:-translate-y-1 hover:shadow-card",
+    "transition-[translate,box-shadow] duration-300 ease-brand-out hover:-translate-y-1 hover:shadow-card [a&]:press-item",
     className
   )
   const inner = (

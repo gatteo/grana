@@ -58,7 +58,7 @@ function BreadcrumbLink({
     props: mergeProps<"a">(
       {
         className: cn(
-          "rounded-xs transition-colors duration-[120ms] ease-out hover:text-foreground",
+          "press rounded-xs duration-[120ms] ease-out hover:text-foreground",
           className
         ),
       },

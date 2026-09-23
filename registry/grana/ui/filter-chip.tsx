@@ -31,7 +31,7 @@ function FilterChip({
       defaultPressed={defaultSelected}
       onPressedChange={onSelectedChange}
       className={cn(
-        "inline-flex h-[30px] shrink-0 items-center justify-center gap-1.5 rounded-full border border-border-strong px-3.5 text-[12.5px] whitespace-nowrap text-muted-foreground transition-colors duration-[120ms] ease-out select-none not-disabled:hover:border-stone-400 not-disabled:hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50 data-pressed:bg-canvas-deep data-pressed:font-medium data-pressed:text-foreground [&_svg]:size-3.5 [&_svg]:shrink-0",
+        "press inline-flex h-[30px] shrink-0 items-center justify-center gap-1.5 rounded-full border border-border-strong px-3.5 text-[12.5px] whitespace-nowrap text-muted-foreground duration-[120ms] ease-out select-none not-disabled:hover:border-stone-400 not-disabled:hover:text-foreground disabled:cursor-not-allowed disabled:opacity-50 data-pressed:bg-canvas-deep data-pressed:font-medium data-pressed:text-foreground [&_svg]:size-3.5 [&_svg]:shrink-0",
         className
       )}
       {...props}

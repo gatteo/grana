@@ -109,7 +109,7 @@ function FieldLabel({
     <Label
       data-slot="field-label"
       className={cn(
-        "group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border has-[>[data-slot=field]]:border-border has-[>[data-slot=field]]:bg-card has-[>[data-slot=field]]:transition-colors has-[>[data-slot=field]]:duration-[120ms] has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:border-border-strong has-[>[data-slot=field]]:has-data-checked:border-border-strong has-[>[data-slot=field]]:has-data-checked:bg-muted *:data-[slot=field]:p-2.5",
+        "group/field-label peer/field-label flex w-fit gap-2 leading-snug group-data-[disabled=true]/field:opacity-50 has-[>[data-slot=field]]:w-full has-[>[data-slot=field]]:flex-col has-[>[data-slot=field]]:rounded-md has-[>[data-slot=field]]:border has-[>[data-slot=field]]:border-border has-[>[data-slot=field]]:bg-card has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:press-item has-[>[data-slot=field]]:transition-colors has-[>[data-slot=field]]:duration-[120ms] has-[>[data-slot=field]]:not-has-[:disabled,[data-disabled]]:hover:border-border-strong has-[>[data-slot=field]]:has-data-checked:border-border-strong has-[>[data-slot=field]]:has-data-checked:bg-muted *:data-[slot=field]:p-2.5",
         className
       )}
       {...props}
