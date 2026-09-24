@@ -47,7 +47,9 @@ import { Spinner } from "@/registry/grana/ui/spinner"
  *
  * It does NOT dim: a working verb is not an unavailable one, and the pale
  * button the `disabled` rung paints would say the wrong thing about a button
- * that is doing exactly what was asked. `cn` is tailwind-merge, so the two
+ * that is doing exactly what was asked. Nor does the cursor ever spin: the
+ * spinner lives in the button, the pointer stays the ordinary arrow (never
+ * `wait`, never `not-allowed`). `cn` is tailwind-merge, so the two
  * overrides below REPLACE the disabled ladder's opacity and cursor rather
  * than racing them in the stylesheet.
  *
@@ -175,7 +177,7 @@ function Button({
         buttonVariants({ variant, size, destructive }),
         pressed !== undefined && pressedClass,
         loading &&
-          "relative disabled:cursor-wait disabled:opacity-100 aria-disabled:cursor-wait aria-disabled:opacity-100",
+          "relative disabled:cursor-default disabled:opacity-100 aria-disabled:cursor-default aria-disabled:opacity-100",
         className
       )}
       {...props}
