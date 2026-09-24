@@ -654,11 +654,15 @@
  * lurch) and a 16px checkbox's by a sixth of a pixel (nothing). Each strength keeps the edge
  * travel near 1px at the size it is for, tuned by eye in the playground:
  *
- *   press-glyph  0.94   icon-sized: an icon button, a checkbox, a switch, a code box, a row action
+ *   press-glyph  0.94   icon-sized: an icon button, a checkbox, a switch, a row action
  *   press        0.98   compact controls: a verb, a chip, a tab, a toggle, a crumb
  *   press-item   0.99   a card, a tile, a menu or nav row, anything up to a column wide
  *   press-wide   0.995  a field, a select, a full-width list row
  *   press-none          switches it off (a bare input inside an InputGroup; the group presses)
+ *
+ * A code box (code-field.tsx) sits between the first two: taller than it is wide and holding
+ * a glyph, it presses at 0.96, never drops, and its focus ring is drawn by a cell that does not
+ * press, so the box goes back inside a still ring instead of carrying the ring down with it.
  *
  * The press goes in over 75 ms and comes back over the element's own duration (120 ms unless a
  * `duration-*` says otherwise), on the element's own easing (`ease-*`) or the brand's ease-out.

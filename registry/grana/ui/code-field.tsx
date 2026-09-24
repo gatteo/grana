@@ -21,12 +21,25 @@ import { cn } from "@/lib/utils"
  *   * COMPLETION FIRES ONCE PER FILL. `onComplete` runs on the transition into a full
  *     value, never again on a re-render, so a submit cannot double-fire.
  *
- * The boxes carry no focus ring of their own: the stylesheet's global `:focus-visible`
- * outline is the focus state, exactly as the field shell has it. Invalid paints the
- * hairline and the glyphs destructive — the caller supplies the words. */
+ * THE PRESS GOES BACK, NEVER DOWN (the owner, 2026-09-24: "a bounce towards the back, not
+ * the bottom", like a button). A box is taller than it is wide, so the icon strength it
+ * used to wear (`press-glyph`, 94%) moved its top and bottom edges 1.56px each, five times a
+ * verb's vertical travel, and it carried the focus ring along: a text box shows the ring on
+ * a click, switched on by the same mousedown that starts the press, so what the eye followed
+ * was a 2px ochre edge sliding down. So:
+ *   * a box presses at 96% on the verbs' own curve (75ms in, 120ms back), the strength that
+ *     keeps its edge travel near the 1px every press aims for (0.9px in from the sides and
+ *     1px from top and bottom on `lg`), and it never takes the paper drop;
+ *   * the RING belongs to the cell around the box, the way the InputGroup's shell draws it,
+ *     so it holds still while the box settles inside it. The cell is a flex box the exact
+ *     size of its box (no line box under it), so nothing beside or below the field moves.
+ * Invalid paints the hairline and the glyphs destructive; the caller supplies the words. */
+
+const codeCellClass =
+  "flex flex-none rounded-md has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ring"
 
 const codeBoxVariants = cva(
-  "press-glyph flex-none rounded-md border bg-card text-center font-mono font-medium text-foreground tabular-nums shadow-control duration-[120ms] not-disabled:hover:border-border-strong disabled:cursor-default disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:text-status-critical-ink",
+  "press flex-none rounded-md border bg-card text-center font-mono font-medium text-foreground tabular-nums shadow-control duration-[120ms] [--press-scale:0.96] [--press-drop:0px]! focus-visible:outline-hidden not-disabled:hover:border-border-strong disabled:cursor-default disabled:bg-muted disabled:opacity-60 aria-invalid:border-destructive aria-invalid:text-status-critical-ink",
   {
     variants: {
       size: {
@@ -189,33 +202,34 @@ function CodeField({
       className={cn("flex gap-2", className)}
     >
       {Array.from({ length }, (_, index) => (
-        <input
-          key={index}
-          ref={(element) => {
-            boxes.current[index] = element
-          }}
-          data-slot="code-field-box"
-          type="text"
-          inputMode="numeric"
-          autoComplete={index === 0 ? "one-time-code" : "off"}
-          autoCorrect="off"
-          spellCheck={false}
-          /* maxLength 1 keeps the box a single glyph; the paste handler runs first. */
-          maxLength={1}
-          disabled={disabled}
-          autoFocus={autoFocus && index === 0}
-          aria-label={boxLabel(index, length)}
-          aria-invalid={invalid || undefined}
-          value={value[index] ?? ""}
-          className={cn(
-            codeBoxVariants({ size, filled: Boolean(value[index]) }),
-            "focus-visible:border-foreground"
-          )}
-          onChange={(event) => setAt(index, event.target.value)}
-          onKeyDown={onKeyDown(index)}
-          onPaste={onPaste}
-          onFocus={(event) => event.target.select()}
-        />
+        <span key={index} data-slot="code-field-cell" className={codeCellClass}>
+          <input
+            ref={(element) => {
+              boxes.current[index] = element
+            }}
+            data-slot="code-field-box"
+            type="text"
+            inputMode="numeric"
+            autoComplete={index === 0 ? "one-time-code" : "off"}
+            autoCorrect="off"
+            spellCheck={false}
+            /* maxLength 1 keeps the box a single glyph; the paste handler runs first. */
+            maxLength={1}
+            disabled={disabled}
+            autoFocus={autoFocus && index === 0}
+            aria-label={boxLabel(index, length)}
+            aria-invalid={invalid || undefined}
+            value={value[index] ?? ""}
+            className={cn(
+              codeBoxVariants({ size, filled: Boolean(value[index]) }),
+              "focus-visible:border-foreground"
+            )}
+            onChange={(event) => setAt(index, event.target.value)}
+            onKeyDown={onKeyDown(index)}
+            onPaste={onPaste}
+            onFocus={(event) => event.target.select()}
+          />
+        </span>
       ))}
     </div>
   )
